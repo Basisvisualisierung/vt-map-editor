@@ -1,0 +1,23 @@
+app-gui-layer-element {
+    font-size: 22px;
+
+    .element-label {
+        position: relative;
+        bottom: 15px;
+    }
+
+    .color-btn {
+        height: 50px;
+        width: 50px;
+        border-radius: 25px;
+        display: inline-block;
+        border: 1px solid grey;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+}
+
+.color-picker {
+    left: 10px !important;
+    top: calc(100% - 350px) !important;
+}

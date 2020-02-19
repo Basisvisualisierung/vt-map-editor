@@ -1,0 +1,274 @@
+{
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "newProjectRoot": "projects",
+    "projects": {
+        "vt-map-editor": {
+            "root": "",
+            "sourceRoot": "src",
+            "projectType": "application",
+            "prefix": "app",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "scss"
+                }
+            },
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/vt-map-editor",
+                        "index": "src/index.html",
+                        "main": "src/main.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "src/tsconfig.app.json",
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets"
+                        ],
+                        "styles": [
+                            "node_modules/mapbox-gl/dist/mapbox-gl.css",
+                            "node_modules/material-design-icons/iconfont/material-icons.css",
+                            "node_modules/bootstrap/dist/css/bootstrap-grid.css",
+                            {
+                                "input": "src/app/material-design/vt-map-editor-material-theme.scss"
+                            },
+                            "src/styles.scss"
+                        ],
+                        "scripts": [],
+                        "es5BrowserSupport": true
+                    },
+                    "configurations": {
+                        "production": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "extractCss": true,
+                            "namedChunks": false,
+                            "aot": true,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "5mb"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "browserTarget": "vt-map-editor:build"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "vt-map-editor:build:production"
+                        }
+                    }
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "vt-map-editor:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "src/test.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "src/tsconfig.spec.json",
+                        "karmaConfig": "src/karma.conf.js",
+                        "styles": [
+                            "src/styles.scss"
+                        ],
+                        "scripts": [],
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets"
+                        ]
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "src/tsconfig.app.json",
+                            "src/tsconfig.spec.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                }
+            }
+        },
+        "vt-map-editor-e2e": {
+            "root": "e2e/",
+            "projectType": "application",
+            "prefix": "",
+            "architect": {
+                "e2e": {
+                    "builder": "@angular-devkit/build-angular:protractor",
+                    "options": {
+                        "protractorConfig": "e2e/protractor.conf.js",
+                        "devServerTarget": "vt-map-editor:serve"
+                    },
+                    "configurations": {
+                        "production": {
+                            "devServerTarget": "vt-map-editor:serve:production"
+                        }
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": "e2e/tsconfig.e2e.json",
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                }
+            }
+        },
+        "vt-map-view": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "scss"
+                }
+            },
+            "root": "projects/vt-map-view",
+            "sourceRoot": "projects/vt-map-view/src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/vt-map-view",
+                        "index": "projects/vt-map-view/src/index.html",
+                        "main": "projects/vt-map-view/src/main.ts",
+                        "polyfills": "projects/vt-map-view/src/polyfills.ts",
+                        "tsConfig": "projects/vt-map-view/tsconfig.app.json",
+                        "aot": false,
+                        "assets": [
+                            "projects/vt-map-view/src/favicon.ico",
+                            "projects/vt-map-view/src/assets"
+                        ],
+                        "styles": [
+                            "node_modules/mapbox-gl/dist/mapbox-gl.css",
+                            "node_modules/material-design-icons/iconfont/material-icons.css",
+                            "node_modules/bootstrap/dist/css/bootstrap-grid.css",
+                            {
+                                "input": "src/app/material-design/vt-map-editor-material-theme.scss"
+                            },
+                            "src/styles.scss"
+                        ],
+                        "scripts": []
+                    },
+                    "configurations": {
+                        "production": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "projects/vt-map-view/src/environments/environment.ts",
+                                    "with": "projects/vt-map-view/src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "extractCss": true,
+                            "namedChunks": false,
+                            "aot": true,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "5mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6kb",
+                                    "maximumError": "10kb"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "browserTarget": "vt-map-view:build"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "vt-map-view:build:production"
+                        }
+                    }
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "vt-map-view:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/vt-map-view/src/test.ts",
+                        "polyfills": "projects/vt-map-view/src/polyfills.ts",
+                        "tsConfig": "projects/vt-map-view/tsconfig.spec.json",
+                        "karmaConfig": "projects/vt-map-view/karma.conf.js",
+                        "assets": [
+                            "projects/vt-map-view/src/favicon.ico",
+                            "projects/vt-map-view/src/assets"
+                        ],
+                        "styles": [
+                            "projects/vt-map-view/src/styles.scss"
+                        ],
+                        "scripts": []
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "projects/vt-map-view/tsconfig.app.json",
+                            "projects/vt-map-view/tsconfig.spec.json",
+                            "projects/vt-map-view/e2e/tsconfig.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                },
+                "e2e": {
+                    "builder": "@angular-devkit/build-angular:protractor",
+                    "options": {
+                        "protractorConfig": "projects/vt-map-view/e2e/protractor.conf.js",
+                        "devServerTarget": "vt-map-view:serve"
+                    },
+                    "configurations": {
+                        "production": {
+                            "devServerTarget": "vt-map-view:serve:production"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "defaultProject": "vt-map-editor"
+}

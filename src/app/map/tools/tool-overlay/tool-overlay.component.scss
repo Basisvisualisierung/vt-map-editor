@@ -1,0 +1,49 @@
+@import '../../../../styles.scss';
+
+.overlayContainer {
+    width: 100%;
+    background-color: #FFFFFF;
+    position: absolute;
+    bottom: 0;
+    touch-action: manipulation;
+    box-shadow: 0 0 10px grey;
+    box-sizing: border-box;
+    z-index: 3;
+    overflow: auto;
+
+    .overlay-header {
+        text-align: center;
+        position: fixed;
+        background-color: #FFFFFF;
+        z-index: 2;
+        width: 100%;
+
+        .overlay-close-btn {
+            font-size: 30px;
+            position: absolute;
+            left: 10px;
+            top: 5px;
+            padding-top: 5px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+
+        .overlayHandle {
+            width: 100px;
+            cursor: row-resize;
+            margin: auto;
+
+            mat-icon {
+                font-size: 40px;
+            }
+        }
+    }
+
+    .overlayContent {
+        max-height: calc(100vh - #{$header-height});
+        padding: 30px 10px;
+        box-sizing: border-box;
+        padding-top: 50px;
+    }
+}

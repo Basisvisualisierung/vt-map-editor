@@ -1,0 +1,40 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6">
+            <h2>Anwendung</h2>
+        </div>
+        <div class="col-6">
+            <button mat-fab color="accent" ngxClipboard [cbContent]="appUrl" (cbOnSuccess)="onCopySuccess()" title="URL kopieren">
+                <mat-icon>content_copy</mat-icon>
+            </button>
+            <button mat-fab color="accent" ngxClipboard [cbContent]="appIframe" (cbOnSuccess)="onCopySuccess()" title="URL als iframe kopieren">
+                <mat-icon>code</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {{appUrl}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <mat-divider></mat-divider>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <h2>Styling (JSON)</h2>
+        </div>
+        <div class="col-6">
+            <button mat-fab color="accent" ngxClipboard [cbContent]="stylingUrl" (cbOnSuccess)="onCopySuccess()" title="URL kopieren">
+                <mat-icon>content_copy</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {{stylingUrl}}
+        </div>
+    </div>
+</div>

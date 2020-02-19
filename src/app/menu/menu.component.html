@@ -1,0 +1,13 @@
+<div class="menu-header bg-primary">{{title}} {{version}}</div>
+<mat-nav-list class="menu-item-list">
+    <div *ngFor="let item of menuItems">
+        <a mat-list-item (click)="onItemSelected(item)">
+            <mat-icon mat-list-icon>{{item.icon}}</mat-icon>
+            {{item.label}}
+        </a>
+        <mat-divider></mat-divider>
+    </div>
+</mat-nav-list>
+<div class="menu-logo">
+    <img src="assets/images/logo.png"/>
+</div>

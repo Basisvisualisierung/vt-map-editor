@@ -1,0 +1,9 @@
+<app-header (toggleMenu)="sidemenu.toggle()"></app-header>
+<mat-sidenav-container>
+    <mat-sidenav #sidemenu mode="over">
+        <app-menu [title]="appTitle" [version]="version" (itemSelected)="onItemSelected($event)"></app-menu>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

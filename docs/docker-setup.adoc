@@ -1,0 +1,4 @@
+= Docker setup
+
+== Create configuration file
+To configure the application you must first create a new configuration file `config.json` in the folder `src/assets/config` with the requiered content. For that copy or rename `config_template.json` to `config.json`.

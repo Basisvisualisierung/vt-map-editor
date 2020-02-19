@@ -1,0 +1,19 @@
+<span #colorbtn class="color-btn" [ngStyle]="{'background-color':color}" (click)="showColorPicker=!showColorPicker"></span>
+<span #colorpicker class="color-input"
+        [(colorPicker)]="color"
+        [style.background]="color"
+        [cpFallbackColor]="'#000000'"
+        [cpAlphaChannel]="'disabled'"
+        [cpOutputFormat]="'rgb'"
+        [cpUseRootViewContainer]="true"
+        [cpPosition]="'right'"
+        [cpPositionOffset]="100"
+        [cpOKButton]="true"
+        [cpCancelButton]="true"
+        [cpCancelButtonText]="'Abbrechen'"
+        [(cpToggle)]="showColorPicker"
+        [cpIgnoredElements]="[colorpicker,colorbtn]"
+        [cpCloseClickOutside]="false"
+        [cpSaveClickOutside]="false"
+        (colorPickerChange)="onColorChanged($event)" style="left: 0 !important"></span>
+<label class="element-label">{{elementName}}</label>

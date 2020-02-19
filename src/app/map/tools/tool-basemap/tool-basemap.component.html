@@ -1,0 +1,40 @@
+<div class="container-fluid" *ngIf="!showLoadBasemap">
+    <div class="row">
+        <mat-card *ngFor="let basemap of basemaps" class="basemap-card col" [ngClass]="{'bg-primary': basemap === activeBasemap}"  (click)="onBasemapSelected(basemap)" >
+            <img mat-card-image class="basemap-img" src="{{basemap.imgUrl}}">
+            <mat-card-content>
+                {{basemap.name}}
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="basemap-card basemap-load col accent" (click)="onShowLoadBasemap()">
+            <mat-icon>cloud_download</mat-icon>
+        </mat-card>
+        <div class="col col-config">
+            <div class="config-title">Helligkeit</div>
+            <button mat-raised-button (click)="onLightnessUp()"><mat-icon>expand_less</mat-icon></button><br>
+            <button mat-raised-button (click)="onLightnessDown()"><mat-icon>expand_more</mat-icon></button>
+        </div>
+        <div class="col col-config">
+            <div class="config-title">Sättigung</div>
+            <button mat-raised-button (click)="onSaturationUp()"><mat-icon>expand_less</mat-icon></button><br>
+            <button mat-raised-button (click)="onSaturationDown()"><mat-icon>expand_more</mat-icon></button>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid load-basemap-form" *ngIf="showLoadBasemap">
+    <h2>Basiskarte laden</h2>
+    <div class="row">
+        <div class="col-12">
+            <mat-form-field>
+                <input #basemapId matInput placeholder="ID oder URL der Basiskarte" value="" />
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button mat-raised-button (click)="onLoadBasemapCancel()">Abbrechen</button>
+            <button mat-raised-button (click)="onLoadBasemapStart(basemapId.value)">Laden</button>
+        </div>
+    </div>
+</div>

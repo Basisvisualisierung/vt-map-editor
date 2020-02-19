@@ -1,0 +1,125 @@
+= Configuration file
+
+== Template
+The configuration file is a regular JSON file. Here is a template for the configuration:
+
+.config.json
+[source,json]
+----
+include::../src/assets/config/config_template.json[]
+----
+
+== Reference
+=== titles
+`map`: string
+
+Header Title of page _map_. It can contain HTML tags.
+
+=== mapService
+`url`: string
+
+URL of the backend service _vt-map-service_.
+
+=== searchService
+`searchApi`: "ors" | "bkg"
+
+Geolocation API to use for address search.
+
+"ors": Openrouteservice +
+"bkg": BKG Geocoder
+
+`searchApiKey`: string
+
+Key / token to access the geolocation API.
+
+=== map
+`maxZoom`: integer
+
+Maximium zoom level of the map (\<= 22).
+
+`startCenter`: [integer, integer]
+
+Initial center coordinates of the map [latitude, longitude].
+
+`startZoom`: integer
+
+Initial zoom level of the map (\<= 22).
+
+`showZoomLevel`: true | false
+
+Display current zoom level on the bottom of the map.
+
+`showScaleBar`: true | false
+
+Display a scale bar on the bottom of the map.
+
+=== mapFunctions
+==== navigation
+`show`: true | false
+
+Show / hide the toggle for the navigation function in the functions user interface.
+
+`enabled`: true | false
+
+Enable or disable the toggle by default.
+
+==== info
+`show`: true | false
+
+Show / hide the toggle for the info function in the functions user interface.
+
+`enabled`: true | false
+
+Enable or disable the toggle by default.
+
+==== search
+`show`: true | false
+
+Show / hide the toggle for the search function in the functions user interface. Settings `searchApi` and `searchApiKey` must be defined.
+
+`enabled`: true | false
+
+Enable or disable the toggle by default.
+
+==== routing
+`show`: true | false
+
+Show / hide the toggle for the rounting function in the functions user interface. The routing function is only embedded in published maps.
+
+`enabled`: true | false
+
+Enable or disable the toggle by default.
+
+===== configuration
+`color`: string
+
+Hex color code (e.g. #FF0000) of the route.
+
+=== basemaps
+List of avaliable basemaps in the application. Each item has the following attributes:
+
+`name`: string
+
+Label of the basemap.
+
+`imgUrl`: string
+
+URL to a thumbnail of the basemap styling. It can be a relative or absolute URL.
+
+`styling`: string
+
+URL to the JSON styling file of the basemap. It can be a relative or absolute URL.
+
+`randomColors`: true | false
+
+If set to _true_ the current map styling will be rendered with random colors when the button for this basemap is clicked. +
+This attribute is optional. The default value is _false_ when the attribute is not specified.
+
+=== guiLayers
+`sortByName`: true | false
+
+true: Sort groups and group layers by their names. +
+false: Sort groups and group layers by their appearance in the JSON styling.
+
+
+

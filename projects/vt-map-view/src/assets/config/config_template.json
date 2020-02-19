@@ -1,0 +1,10 @@
+{
+    "mapService": {
+        "url": "http://localhost:5000/map-service"
+    },
+    "searchService": {
+        "searchApi": "ors",
+        "searchApiKey": "",
+        "routingApiKey": ""
+    }
+}

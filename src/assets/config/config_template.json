@@ -1,0 +1,50 @@
+{
+    "titles": {
+        "map": "Basis<span class=\"accent\">visualisierung</span>"
+    },
+    "mapService": {
+        "url": "http://localhost:5000/map-service"
+    },
+    "searchService": {
+        "searchApi": "ors",
+        "searchApiKey": ""
+    },
+    "map": {
+        "maxZoom": 18,
+        "startCenter": [9.361699,52.104253],
+        "startZoom": 13,
+        "showZoomLevel": false,
+        "showScaleBar": true
+    },
+    "mapFunctions": {
+        "navigation": {
+            "show": true,
+            "enabled": true
+        },
+        "info": {
+            "show": true,
+            "enabled": true
+        },
+        "search": {
+            "show": true,
+            "enabled": true
+        },
+        "routing": {
+            "show": true,
+            "enabled": false,
+            "configuration": {
+                "color": "#FF0000"
+            }
+        }
+    },
+    "basemaps": [
+        {
+            "name": "My Map",
+            "imgUrl": "assets/basemaps/thumbnails/basemap_color.png",
+            "styling": "assets/basemaps/style.json"
+        }
+    ],
+    "guiLayers": {
+        "sortByName": true
+    }
+}

@@ -1,0 +1,49 @@
+<div class="container-fluid function-wrapper">
+   <div class="row" *ngIf="mapFunctions.navigation.show">
+        <div class="col-8">Steuerungselemente</div>
+        <div class="col-4 col-toggle">
+            <mat-slide-toggle color="primary" [checked]="mapFunctions.navigation.enabled" (change)="onFunctionToggle('navigation', $event)"></mat-slide-toggle>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="mapFunctions.info.show">
+        <div class="col-8">Info-Abfrage</div>
+        <div class="col-4 col-toggle">
+            <mat-slide-toggle color="primary" [checked]="mapFunctions.info.enabled" (change)="onFunctionToggle('info', $event)"></mat-slide-toggle>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="mapFunctions.search.show">
+        <div class="col-8">Suche</div>
+        <div class="col-4 col-toggle">
+            <mat-slide-toggle color="primary" [checked]="mapFunctions.search.enabled" (change)="onFunctionToggle('search', $event)"></mat-slide-toggle>
+        </div>
+    </div>
+
+    <div *ngIf="mapFunctions.routing.show">
+        <div class="row">
+            <div class="col-8">Routing</div>
+            <div class="col-4 col-toggle">
+                <mat-slide-toggle #toggleRouting color="primary" [checked]="mapFunctions.routing.enabled" (change)="onFunctionToggle('routing', $event)"></mat-slide-toggle>
+            </div>
+        </div>
+        <div class="row" *ngIf="toggleRouting.checked">
+            <div class="col-12">
+                <label>Farbe:  </label>
+                <input class="color-input"
+                        [(colorPicker)]="mapFunctions['routing'].configuration.color"
+                        [style.background]="mapFunctions['routing'].configuration.color"
+                        [cpFallbackColor]="'#000000'"
+                        [cpAlphaChannel]="'disabled'"
+                        [cpOutputFormat]="'rgb'"
+                        [cpUseRootViewContainer]="true"
+                        [cpPosition]="'top'"
+                        [cpPositionOffset]="'0%'"
+                        [cpOKButton]="true"
+                        [cpCancelButton]="true"
+                        [cpCancelButtonText]="'Abbrechen'"
+                        (colorPickerChange)="onRouteColorChanged($event)"/>
+            </div>
+        </div>
+    </div>
+</div>

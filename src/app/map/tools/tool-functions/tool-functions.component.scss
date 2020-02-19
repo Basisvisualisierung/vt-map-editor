@@ -1,0 +1,17 @@
+.function-wrapper {
+    font-size: 24px;
+
+    .row {
+        padding: 10px 0;
+        max-width: 400px;
+        margin: auto;
+        .col-toggle {
+            text-align: right;
+        }
+
+        .more {
+            font-size: 34px;
+            color: grey;
+        }
+    }
+}

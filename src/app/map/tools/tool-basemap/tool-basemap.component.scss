@@ -1,0 +1,44 @@
+.basemap-card {
+    max-width: 100px;
+    width: 100px;
+    margin: 5px;
+    //height: 100px;
+
+    .basemap-img {
+        width: 100px;
+        max-width: 100px;
+    }
+
+    .mat-card-content {
+        text-align: center;
+    }
+
+    &.basemap-load {
+        mat-icon {
+            width: 70px;
+            height: 70px;
+            font-size: 70px;
+            margin-top: 20px;
+        }
+    }
+}
+
+.col-config {
+    max-width: 100px;
+    margin: 5px;
+
+    .config-title {
+        margin: 5px 0;
+    }
+
+    button {
+        height: 50px;
+        margin: 5px 0;
+    }
+}
+
+.load-basemap-form {
+    mat-form-field {
+        width: 100%;
+    }
+}

@@ -1,0 +1,37 @@
+@import 'app/material-design/vt-map-editor-material-theme.scss';
+
+$header-height: 56px;
+
+body {
+    font-family: Roboto, Helvetica Neue, sans-serif;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background-color: #FFFFFF;
+}
+
+.primary {
+    color: map-get($primary, A400);
+}
+
+.bg-primary {
+    background-color: map-get($primary, A400);
+    color: mat-contrast($primary, A400);
+}
+
+.accent {
+    color: map-get($accent, A400);
+}
+
+.bg-accent {
+    background-color: map-get($accent, A400);
+    color: mat-contrast($accent, A400)
+}
+
+.color-picker * {
+    font-size: 22px !important;
+
+    input {
+        height: 32px !important;
+    }
+}

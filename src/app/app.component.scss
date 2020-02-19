@@ -1,0 +1,13 @@
+@import '../styles.scss';
+
+.mat-drawer-container {
+    position: absolute;
+    top: 56px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+mat-sidenav-content {
+    height: 100%;
+}

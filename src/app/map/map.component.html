@@ -1,0 +1,17 @@
+<app-mapbox-gl></app-mapbox-gl>
+
+<app-tool-overlay *ngIf="showToolOverlay"
+                    [overlayHeight]="toolOverlayHeight"
+                    [overlayMinHeight]="toolOverlayMinHeight"
+                    (overlayResized)="onResizeToolOverlay($event);"
+                    (overlayClosed)="onCloseToolOverlay();">
+</app-tool-overlay>
+
+<div class="toolbar" *ngIf="!showToolOverlay">
+    <div class="toolbar-btn" *ngFor="let tool of tools">
+        <button mat-fab (click)="onToolbarButtonClick(tool)">
+            <mat-icon class="accent">{{tool.icon}}</mat-icon>
+        </button>
+    </div>
+</div>
+

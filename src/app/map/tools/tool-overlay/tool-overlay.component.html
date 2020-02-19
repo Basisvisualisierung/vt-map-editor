@@ -1,0 +1,19 @@
+<div mwlResizable
+    [enableGhostResize]="true"
+    [resizeEdges]="{top: true}"
+    [resizeCursorPrecision]="3"
+    (resizeEnd)="onResizeEnd($event)"
+    class="overlayContainer"
+>
+    <div class="overlay-header">
+        <mat-icon class="overlay-close-btn accent" (click)="onCloseOverlay()">arrow_back</mat-icon>
+        <div mwlResizeHandle
+            [resizeEdges]="{top:true}"
+            class="overlayHandle accent">
+            <mat-icon>drag_handle</mat-icon>
+        </div>
+    </div>
+    <div #toolOverlay class="overlayContent">
+        <router-outlet (deactivate)="checkOverlayState()"></router-outlet>
+    </div>
+</div>

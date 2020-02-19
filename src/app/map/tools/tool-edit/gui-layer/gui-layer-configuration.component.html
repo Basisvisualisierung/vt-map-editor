@@ -1,0 +1,30 @@
+<div *ngFor="let group of groups">
+    <mat-expansion-panel>
+        <mat-expansion-panel-header collapsedHeight="70px" expandedHeight="70px">
+            <mat-panel-title>
+                {{group.name}}
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+            <div class="container-fluid">
+                <div class="row">
+                    <div *ngFor="let guiLayer of group.guiLayers" class="gui-layer-config col-12 col-md-5 col-xl-3">
+                        <div class="row gui-layer-header">
+                            <div class="col-7 gui-layer-name">
+                                {{guiLayer.name}}
+                            </div>
+                            <div class="col-2">
+                                <mat-slide-toggle color="primary"
+                                                [checked]="guiLayer.visible"
+                                                (change)="onVisibilityChanged(guiLayer.name, $event)"></mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div *ngFor="let element of guiLayer.elements">
+                            <app-gui-layer-element [guiLayerName]="guiLayer.name" [elementName]="element.name" [layer]="element.layer"></app-gui-layer-element>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </mat-expansion-panel>
+</div>

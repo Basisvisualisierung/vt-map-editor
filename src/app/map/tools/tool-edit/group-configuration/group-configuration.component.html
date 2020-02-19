@@ -1,0 +1,15 @@
+<div class="group-slider" *ngFor="let group of layerGroups">
+    <div>
+        {{group}}
+    </div>
+    <mat-slider min="0"
+                max="3"
+                step="1"
+                [value]="groupSettings[group] !== undefined && groupSettings[group].detailLevel !== undefined ? groupSettings[group].detailLevel : 3"
+                [thumbLabel]="false"
+                (change)="onGroupLevelChanged(group, $event)"></mat-slider>
+</div>
+<a *ngIf="hasGuiLayers" (click)="showLayerConfiguration()" mat-raised-button color="accent" class="btn-detail">
+    Mehr Details
+</a>
+

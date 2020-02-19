@@ -1,0 +1,7 @@
+= VT Map Editor documentation
+
+== Configuration
+link:configuration.adoc[Configuration reference]
+
+== Setup
+link:docker-setup.adoc[Docker setup]
