@@ -1,13 +1,62 @@
 = Configuration file
 
-== Template
-The configuration file is a regular JSON file. Here is a template for the configuration:
+The configuration file is a regular JSON file. To configure the application you must first create a new configuration file `config.json` in the folder `src/assets/config` with the required content. For that copy or rename `config_template.json` to `config.json`.
 
-.config.json
-[source,json]
-----
-include::../src/assets/config/config_template.json[]
-----
+== Template
+Here is a template for the configuration:
+
+```
+{
+    "titles": {
+        "map": "Basis<span class=\"accent\">visualisierung</span>"
+    },
+    "mapService": {
+        "url": "http://localhost:5000/map-service"
+    },
+    "searchService": {
+        "searchApi": "ors",
+        "searchApiKey": ""
+    },
+    "map": {
+        "maxZoom": 18,
+        "startCenter": [9.361699,52.104253],
+        "startZoom": 13,
+        "showZoomLevel": false,
+        "showScaleBar": true
+    },
+    "mapFunctions": {
+        "navigation": {
+            "show": true,
+            "enabled": true
+        },
+        "info": {
+            "show": true,
+            "enabled": true
+        },
+        "search": {
+            "show": true,
+            "enabled": true
+        },
+        "routing": {
+            "show": true,
+            "enabled": false,
+            "configuration": {
+                "color": "#FF0000"
+            }
+        }
+    },
+    "basemaps": [
+        {
+            "name": "My Map",
+            "imgUrl": "assets/basemaps/thumbnails/basemap_color.png",
+            "styling": "assets/basemaps/style.json"
+        }
+    ],
+    "guiLayers": {
+        "sortByName": true
+    }
+}
+```
 
 == Reference
 === titles
@@ -18,7 +67,7 @@ Header Title of page _map_. It can contain HTML tags.
 === mapService
 `url`: string
 
-URL of the backend service _vt-map-service_.
+URL of the back end service _vt-map-service_.
 
 === searchService
 `searchApi`: "ors" | "bkg"
@@ -35,7 +84,7 @@ Key / token to access the geolocation API.
 === map
 `maxZoom`: integer
 
-Maximium zoom level of the map (\<= 22).
+Maximum zoom level of the map (\<= 22).
 
 `startCenter`: [integer, integer]
 
@@ -84,7 +133,7 @@ Enable or disable the toggle by default.
 ==== routing
 `show`: true | false
 
-Show / hide the toggle for the rounting function in the functions user interface. The routing function is only embedded in published maps.
+Show / hide the toggle for the routing function in the functions user interface. The routing function is only embedded in published maps.
 
 `enabled`: true | false
 
@@ -96,7 +145,7 @@ Enable or disable the toggle by default.
 Hex color code (e.g. #FF0000) of the route.
 
 === basemaps
-List of avaliable basemaps in the application. Each item has the following attributes:
+List of available basemaps in the application. Each item has the following attributes:
 
 `name`: string
 
