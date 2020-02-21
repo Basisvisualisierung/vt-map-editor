@@ -2,6 +2,8 @@
 
 Web editor for custom vector tile styles and map applications, based on Angular and Mapbox GL JS.
 
+![VT Map Editor App](docs/images/vt_map_editor_app.jpg)
+
 Besides VT Map Editor the Angular workspace contains an additional project "vt-map-view". VT Map View serves as simple map viewer for maps created with VT Map Editor.
 
 ## Getting Started
@@ -12,7 +14,7 @@ To set up the development environment for VT Map Editor on your local machine yo
 
 To get VT Map Editor up and running locally you first need to install a current Node.js LTS version and Angular CLI 8.
 
-To be able to share map styles and map applications created with VT Map Editor you also need to set up the back end service [VT Map Service](https://github.com/Basisvisualisierung/vt-map-service).
+To be able to share map styles and map applications created with VT Map Editor you also need to set up the back-end service [VT Map Service](https://github.com/Basisvisualisierung/vt-map-service).
 
 ### Installation
 
