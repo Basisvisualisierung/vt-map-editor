@@ -1,1 +1,51 @@
 = Defining layer groups in style files
+
+== Purpose
+
+The look & feel of the tools for layer editing can be changed by metadata in the style files. This approach intends to present the user a user friendly and uncluttered user interface for layer editing without to many single layers. Especially for large style files this can be useful.
+
+If a style file contains no metadata intended for VT Map Editor then the user interface of the editing tool will show all layers from the style file.
+
+By the settings in the metadata multiple layers from the Mapbox JSON style (style layer) can be merged to a single layer shown in the graphical user interface (GUI layer). Changing the color of a GUI layer sets this color to all depending style layers. For example three style layers "River Class I", "River Class II" and "River Class III" could be shown as one layer "Rivers" in the user interface. Changing the color of the GUI layer "Rivers" will set the colors of the three layers in the style.
+
+Each GUI layer can have multiple elements, for example a GUI layer "Streets" could have three elements "Stroke", "Fill" and "Label". For each item the color can be changed.
+
+Furthermore, multiple GUI layers can be combined to a layer group. Groups affect the sorting of the GUI layers in the user interface. With metadata for groups the user interface can also be extended by sliders which can control the intensity of the group content in the map. For example by reducing a group slider "Traffic" small streets could be hidden in the map.
+
+Example:
+
+image::images/group_gui_layer_schema.jpg[]
+
+== Layer metadata
+
+Each layer in the JSON style can have up to four metadata attributes.
+
+`map-editor:group`: string
+
+Name of the group the layer belongs to. This name is used as label in the user interface. Each GUI layer needs to be assigned to a group.
+
+`map-editor:detail-level`: 1 - 3 (optional)
+
+Level of detail (group slider position) at which the layer is shown in the map. This attribute is optional. Only if at least one layer in the style has this metadata attribute, the group sliders are shown in the user interface. +
+The value can be 1 (lowest detail level) up to 3 (highest detail level).
+
+`map-editor:layer`: string
+
+Name of the GUI layer to which the style layer belongs. This name is used as label in the user interface.
+
+`map-editor:layer-element`: string
+
+Name of the layer element to which the style layer belong. This name is used as label in the user interface.
+
+
+Example:
+```
+"metadata": {
+    "map-editor:group": "Traffic",
+    "map-editor:detail-level": 1,
+    "map-editor:layer": "Streets",
+    "map-editor:layer-element": "Fill"
+}
+```
+
+== Examples
