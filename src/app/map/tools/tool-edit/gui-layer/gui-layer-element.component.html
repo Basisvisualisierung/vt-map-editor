@@ -9,11 +9,10 @@
         [cpPosition]="'right'"
         [cpPositionOffset]="100"
         [cpOKButton]="true"
-        [cpCancelButton]="true"
-        [cpCancelButtonText]="'Abbrechen'"
+        [cpCancelButton]="false"
         [(cpToggle)]="showColorPicker"
         [cpIgnoredElements]="[colorpicker,colorbtn]"
-        [cpCloseClickOutside]="false"
+        [cpCloseClickOutside]="true"
         [cpSaveClickOutside]="false"
         (colorPickerChange)="onColorChanged($event)" style="left: 0 !important"></span>
 <label class="element-label">{{elementName}}</label>

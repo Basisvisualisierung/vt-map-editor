@@ -2,7 +2,7 @@
 
 == Purpose
 
-The look & feel of the tools for layer editing can be changed by metadata in the style files. This approach intends to present the user a user friendly and uncluttered user interface for layer editing without to many single layers. Especially for large style files this can be useful.
+The look & feel of the tools for layer editing can be changed by metadata attributes in the style files. This approach intends to present the user a user friendly and uncluttered user interface for layer editing without to many single layers. Especially for large style files this can be useful.
 
 If a style file contains no metadata intended for VT Map Editor then the user interface of the editing tool will show all layers from the style file.
 
@@ -50,6 +50,8 @@ Example:
 == Examples
 
 Here you get some examples how the user interface changes by various metadata configurations in the JSON style file. The shown source codes contain only excerpts from a Mapbox style. In the examples the style has four layers. A wide dark line "Highway Stroke", overlaid by a thinner white line "Highway Fill", a layer "Street Fill" without a stroke and a fourth layer "Railway Line".
+
+In the following examples all style layers have the same metadata attributes or all have none. It is also possible to define metadata only for a few layers in the style. Only layers with metadata attributes are affected by group sliders and GUI layer settings. In that case layers without metadata can not be changed or hidden in the map.
 
 === No metadata
 
@@ -206,10 +208,6 @@ The style layers have all four metadata attributes. The user interfaces first sh
             "map-editor:layer":"Railways",
             "map-editor:layer-element":"Line"
         },
-        "paint": {
-            "line-width": 1,
-            "line-color":"#000055"
-        },
         ...
     }
 ]
@@ -262,10 +260,6 @@ The style layers have metadata for groups and detail levels, but none of the sty
         "metadata": {
             "map-editor:group":"Traffic",
             "map-editor:detail-level":3
-        },
-        "paint": {
-            "line-width": 1,
-            "line-color":"#000055"
         },
         ...
     }

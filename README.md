@@ -8,7 +8,7 @@ Besides VT Map Editor the Angular workspace contains an additional project "vt-m
 
 ## Getting Started
 
-To set up the development environment for VT Map Editor on your local machine you can follow these instructions. Alternatively you can create a Docker image as you can see below.
+To set up the development environment for VT Map Editor on your local machine you can follow these instructions. You can alternatively create a Docker image as you can see below.
 
 ### Prerequisites
 
