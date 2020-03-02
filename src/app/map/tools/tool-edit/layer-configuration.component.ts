@@ -15,7 +15,6 @@ export class LayerConfigurationComponent implements OnInit {
     layerVisible: boolean;
     color: string;
     opacity: number;
-    extrusionHeight: number;
     showColorPicker: boolean;
 
     constructor(private mapStylingService: MapStylingService) { }
@@ -23,7 +22,6 @@ export class LayerConfigurationComponent implements OnInit {
     ngOnInit() {
         this.layerVisible = true;
         this.opacity = 1;
-        this.extrusionHeight = 0;
         this.showColorPicker = false;
 
         // Read color and opacity from styling
@@ -80,24 +78,5 @@ export class LayerConfigurationComponent implements OnInit {
         this.opacity = event.value;
         const attributeName = 'paint.' + this.layer.type + '-opacity';
         this.mapStylingService.changeLayerAttribute(this.layer.id, attributeName, this.opacity);
-    }
-
-    /**
-     * Change extrusion height
-     * @param event Slider-Event
-     */
-    onExtrusionHeightChanged(event: any) {
-        this.extrusionHeight = event.value;
-        const colorValue = this.layer.paint['fill-color'];
-        if (this.layer.type === 'fill') {
-            // Delete fill color
-            this.mapStylingService.changeLayerAttribute(this.layer.id, 'paint', {});
-            // Change layer type from fill to fill-extrusion
-            this.mapStylingService.changeLayerAttribute(this.layer.id, 'type', 'fill-extrusion');
-            // Apply color
-            this.mapStylingService.changeLayerAttribute(this.layer.id, 'paint.fill-extrusion-color', colorValue);
-        }
-        // Change extrusion height
-        this.mapStylingService.changeLayerAttribute(this.layer.id, 'paint.fill-extrusion-height', this.extrusionHeight);
     }
 }

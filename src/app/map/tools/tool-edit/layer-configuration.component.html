@@ -34,12 +34,6 @@
                     <mat-slider min="0" max="1" step="0.1" [value]="opacity" (change)="onOpacityChanged($event)" [thumbLabel]="true" ></mat-slider>
                 </div>
             </div>
-            <div class="row">
-                <div *ngIf="layer.type === 'fill' || layer.type === 'fill-extrusion'" class="layer-tools col-sm">
-                    <label>Höhe:</label>
-                    <mat-slider min="0" max="50" step="1" [value]="extrusionHeight" (change)="onExtrusionHeightChanged($event)" [thumbLabel]="true" ></mat-slider>
-                </div>
-            </div>
         </div>
     </ng-template>
 </mat-expansion-panel>
