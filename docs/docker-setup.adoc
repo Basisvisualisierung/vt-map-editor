@@ -1,3 +1,54 @@
 = Docker setup
 
+== Development environment with Docker Compose
 
+The instructions in this section assume you have cloned or downloaded the two repositories link:https://github.com/basisvisualisierung/vt-map-editor[VT Map Editor] and link:https://github.com/basisvisualisierung/vt-map-service[VT Map Service] and put them in the following folder structure:
+
+```
+-- /project folder
+   |
+   |-- /vt-map-editor
+   |
+   |-- /vt-map-service
+   |
+   |-- docker-compose.yml
+```
+
+The Compose file `docker-compose.yml` can be used to start a complete development environment for VT Map Editor, including link:https://github.com/basisvisualisierung/vt-map-service[VT Map Service] and link:https://github.com/Basisvisualisierung/vt-map-editor/tree/master/projects/vt-map-view[VT Map View].
+
+.docker-compose.yml
+```
+version: '3'
+services:
+    map-service:
+        build: ./vt-map-service
+        image: vt-map-service:latest
+        ports:
+            - "5000:5000"
+        volumes:
+            - ./vt-map-service/data:/service/data
+    map-editor:
+        build: ./vt-map-editor
+        image: vt-map-editor:latest
+        ports:
+            - "4200:4200"
+            - "9876:9876"
+        depends_on:
+            - map-service
+        volumes:
+            - ./vt-map-editor:/app
+            - /app/node_modules
+    map-view:
+        build: ./vt-map-editor
+        image: vt-map-editor:latest
+        ports:
+            - "4201:4201"
+        depends_on:
+            - map-service
+        volumes:
+            - ./vt-map-editor:/app
+            - /app/node_modules
+        command: ng serve --host 0.0.0.0 --project vt-map-view --port 4201
+```
+
+The services `map-editor` and `map-view` use the same Docker image but start different applications in it.
