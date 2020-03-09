@@ -199,7 +199,7 @@ export class MapStylingService {
         const newBasemap = new Basemap(
             basemapId,
             'assets/basemaps/thumbnails/basemap_standard.png',
-            AppConfigService.settings.mapService.url + '/styling/' + basemapId
+            AppConfigService.settings.mapService.url + '/style/' + basemapId
         );
         this.basemaps.push(newBasemap);
         if (activeBasemap) {
