@@ -179,6 +179,10 @@ export class MapStylingService {
             this.http.get(this.activeBasemap.styling).subscribe((data) => {
                 this.changeActiveStyling(data);
                 if (basemapChanged === true) {
+                    // Reset group and GUI layer settings
+                    this.groupSettings = {};
+                    this.guiLayerSettings = {};
+
                     this.activeBasemapChanged.emit();
                 }
             });
