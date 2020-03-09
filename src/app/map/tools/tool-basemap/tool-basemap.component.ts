@@ -57,7 +57,7 @@ export class ToolBasemapComponent implements OnInit {
     onLoadBasemapStart(basemapId: string) {
         let uuid = basemapId.toLowerCase();
         // Check entered URL
-        if (basemapId.startsWith(AppConfigService.settings.mapService.url)) {
+        if (basemapId.search(/\//) > -1) {
             uuid = basemapId.substring(basemapId.lastIndexOf('/') + 1);
         }
         // Check UUID format
