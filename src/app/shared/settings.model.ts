@@ -11,9 +11,6 @@ export interface SettingsModel {
     mapService: {
         url: string;
     };
-    ratingService: {
-        url: string;
-    };
     searchService: {
         searchApi: string,
         searchApiKey: string
