@@ -114,20 +114,18 @@ export default class MapboxGlSearchControl {
                     }}
                 }};
 
-                if (term.length > 0) {
-                    if (this.searchApi === 'ors' && this.searchApiKey !== '') {
-                        xhttp.open('GET', 'https://api.openrouteservice.org/geocode/search?api_key=' +
-                                            searchApiKey + '&text=' +
-                                            term +
-                                            '&boundary.rect.min_lon=6&boundary.rect.min_lat=51&boundary.rect.max_lon=12&boundary.rect.max_lat=54' +
-                                            '&boundary.country=DE&layers=address&size=5', true);
-                        xhttp.send();
-                    } else if (this.searchApi === 'bkg' && this.searchApiKey !== '') {
-                        xhttp.open('GET', 'https://sg.geodatenzentrum.de/gdz_geokodierung__' +
-                                            this.searchApiKey +
-                                            '/suggest?query=' + term + '&count=5&outputformat=json', true);
-                        xhttp.send();
-                    }
+                if (this.searchApi === 'ors' && this.searchApiKey !== '') {
+                    xhttp.open('GET', 'https://api.openrouteservice.org/geocode/search?api_key=' +
+                                        searchApiKey + '&text=' +
+                                        term +
+                                        '&boundary.rect.min_lon=6&boundary.rect.min_lat=51&boundary.rect.max_lon=12&boundary.rect.max_lat=54' +
+                                        '&boundary.country=DE&layers=address&size=5', true);
+                    xhttp.send();
+                } else if (this.searchApi === 'bkg' && this.searchApiKey !== '') {
+                    xhttp.open('GET', 'https://sg.geodatenzentrum.de/gdz_geokodierung__' +
+                                        this.searchApiKey +
+                                        '/suggest?query=' + term + '&count=5&outputformat=json', true);
+                    xhttp.send();
                 }
             } else {
                 document.getElementById('resultArea').innerHTML = '';

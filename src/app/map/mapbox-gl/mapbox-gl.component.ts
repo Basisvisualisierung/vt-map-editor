@@ -140,7 +140,8 @@ export class MapboxGlComponent implements OnInit {
             this.geolocateControl = new mapboxgl.GeolocateControl({
                 positionOptions: {
                     enableHighAccuracy: true
-                }
+                },
+                trackUserLocation: true
             });
             this.map.addControl(this.navigationControl, 'top-left');
             this.map.addControl(this.pitchControl, 'top-left');
