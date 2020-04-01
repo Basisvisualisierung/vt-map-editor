@@ -37,4 +37,29 @@
             {{stylingUrl}}
         </div>
     </div>
+    <div class="row">
+        <div class="col">
+            <mat-divider></mat-divider>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <h2>Editor</h2>
+        </div>
+        <div class="col-6">
+            <button mat-fab color="accent" ngxClipboard [cbContent]="editorUrl" (cbOnSuccess)="onCopySuccess()" title="URL kopieren">
+                <mat-icon>content_copy</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {{editorUrl}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <mat-divider></mat-divider>
+        </div>
+    </div>
 </div>

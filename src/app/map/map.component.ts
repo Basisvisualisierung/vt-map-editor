@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MapTool } from './tools/map-tool';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HeaderService } from '../header/header.service';
 import { AppConfigService } from '../app-config.service';
+import { MapStylingService } from './map-styling.service';
 
 /**
  * Map component containing map client, toolbar and tool overlay
@@ -37,7 +38,17 @@ export class MapComponent implements OnInit {
     toolOverlayMinHeight: number;
     headerTitle: string;
 
-    constructor(private router: Router, private headerService: HeaderService) { }
+    constructor(private router: Router,
+                private route: ActivatedRoute,
+                private headerService: HeaderService,
+                private mapStylingService: MapStylingService) {
+
+        // Load map by uuid from query parameters
+        const mapId = route.snapshot.queryParamMap.get('id');
+        if (mapId !== null) {
+            mapStylingService.addBasemap(mapId, true);
+        }
+    }
 
     ngOnInit() {
         this.toolOverlayHeight = 300;
