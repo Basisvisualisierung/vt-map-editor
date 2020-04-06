@@ -33,7 +33,7 @@ export class ToolBasemapComponent implements OnInit {
      */
     onBasemapSelected(basemap) {
         this.activeBasemap = basemap;
-        this.mapStylingService.changeActiveBasemap(basemap);
+        this.mapStylingService.changeActiveBasemap(basemap, false);
     }
 
     /**
