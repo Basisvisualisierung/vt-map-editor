@@ -55,7 +55,7 @@ export class ToolShareComponent implements OnInit {
             this.appUrl = response.application_url;
             this.appIframe = '<iframe src="' + response.application_url + '" style="border:none;width:100%;height:500px">';
             const mapPageUrl = window.location.protocol + '//' + window.location.host +
-                           window.location.pathname.substring(0, window.location.pathname.search("/map/") + 4);
+                           window.location.pathname.substring(0, window.location.pathname.search('/map/') + 4);
             this.editorUrl = mapPageUrl + '?id=' + response.id;
         });
     }

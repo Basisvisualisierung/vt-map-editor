@@ -124,8 +124,8 @@ export class GuiLayerConfigurationComponent implements OnInit {
     sortGroupsAndLayers() {
         this.groups.sort(this.compareNames);
 
-        for (let i = 0; i < this.groups.length; i++) {
-            this.groups[i].guiLayers.sort(this.compareNames);
+        for (const group of this.groups) {
+            group.guiLayers.sort(this.compareNames);
         }
     }
 

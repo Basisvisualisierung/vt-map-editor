@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { HeaderService } from '../header/header.service';
@@ -12,7 +12,7 @@ import { HeaderService } from '../header/header.service';
     styleUrls: ['./info.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class InfoComponent implements OnInit {
+export class InfoComponent implements OnInit, AfterViewInit {
 
     @ViewChild('content', { static: false }) content: ElementRef;
 
@@ -35,7 +35,7 @@ export class InfoComponent implements OnInit {
             header = 'Impressum';
         }
 
-        this.http.get('assets/templates/' + file, {responseType: "text"}).subscribe((data) => {
+        this.http.get('assets/templates/' + file, {responseType: 'text'}).subscribe((data) => {
             this.headerService.changeTitle(header);
             this.content.nativeElement.innerHTML = data;
         });

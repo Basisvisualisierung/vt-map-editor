@@ -33,8 +33,8 @@ export default class MapboxGlSearchControl {
                 document.getElementById('resultArea').classList.remove('hidden');
 
                 const xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {{
-                    if (this.readyState === 4 && this.status === 200) {{
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState === 4 && this.status === 200) {
                         let response = JSON.parse(this.responseText);
                         if (searchApi === 'ors') {
                             response = response.features;
@@ -71,37 +71,39 @@ export default class MapboxGlSearchControl {
                             result.append(mainTextDiv, subTextDiv);
 
                             result.onclick = () => {
-                                (document.getElementById('searchInput') as HTMLInputElement).value = (searchApi === 'bkg') ? respEntry.suggestion: respEntry.properties.label;
+                                (document.getElementById('searchInput') as HTMLInputElement).value = (searchApi === 'bkg') ? respEntry.suggestion : respEntry.properties.label;
                                 const termResult = (document.getElementById('searchInput') as HTMLInputElement).value;
                                 const xhttpResult = new XMLHttpRequest();
 
-                                xhttpResult.onreadystatechange = function() {{
-                                    if (this.readyState === 4 && this.status === 200) {{
-                                        const responseResult = JSON.parse(this.responseText);
-                                        if (searchApi === 'ors') {
-                                            (document.getElementById('searchInput') as HTMLInputElement).value = responseResult.features[0].properties.label;
-                                        } else if (searchApi === 'bkg') {
-                                            (document.getElementById('searchInput') as HTMLInputElement).value = responseResult.features[0].properties.text;
-                                        }
+                                xhttpResult.onreadystatechange = function() {
+                                    if (this.readyState === 4 && this.status === 200) {
+                                        {
+                                            const responseResult = JSON.parse(this.responseText);
+                                            if (searchApi === 'ors') {
+                                                (document.getElementById('searchInput') as HTMLInputElement).value = responseResult.features[0].properties.label;
+                                            } else if (searchApi === 'bkg') {
+                                                (document.getElementById('searchInput') as HTMLInputElement).value = responseResult.features[0].properties.text;
+                                            }
 
-                                        map.flyTo({
-                                            center: [responseResult.features[0].geometry.coordinates[0], responseResult.features[0].geometry.coordinates[1]]
-                                        });
-                                    }}
-                                }};
+                                            map.flyTo({
+                                                center: [responseResult.features[0].geometry.coordinates[0], responseResult.features[0].geometry.coordinates[1]]
+                                            });
+                                        }
+                                    }
+                                };
 
                                 if (termResult.length > 0) {
                                     if (searchApi === 'ors' && searchApiKey !== '') {
                                         xhttpResult.open('GET', 'https://api.openrouteservice.org/geocode/search?api_key=' +
-                                                            searchApiKey + '&text=' +
-                                                            termResult +
-                                                            '&boundary.rect.min_lon=6&boundary.rect.min_lat=51&boundary.rect.max_lon=12&boundary.rect.max_lat=54' +
-                                                            '&boundary.country=DE&layers=address&size=5', true);
+                                            searchApiKey + '&text=' +
+                                            termResult +
+                                            '&boundary.rect.min_lon=6&boundary.rect.min_lat=51&boundary.rect.max_lon=12&boundary.rect.max_lat=54' +
+                                            '&boundary.country=DE&layers=address&size=5', true);
                                         xhttpResult.send();
                                     } else if (searchApi === 'bkg' && searchApiKey !== '') {
                                         xhttpResult.open('GET', 'https://sg.geodatenzentrum.de/gdz_geokodierung__' +
-                                                            searchApiKey +
-                                                            '/geosearch?query=' + termResult + '&outputformat=json', true);
+                                            searchApiKey +
+                                            '/geosearch?query=' + termResult + '&outputformat=json', true);
                                         xhttpResult.send();
                                     }
                                 }
@@ -111,20 +113,20 @@ export default class MapboxGlSearchControl {
                             };
                             document.getElementById('resultArea').appendChild(result);
                         }
-                    }}
-                }};
+                    }
+                };
 
                 if (this.searchApi === 'ors' && this.searchApiKey !== '') {
                     xhttp.open('GET', 'https://api.openrouteservice.org/geocode/search?api_key=' +
-                                        searchApiKey + '&text=' +
-                                        term +
-                                        '&boundary.rect.min_lon=6&boundary.rect.min_lat=51&boundary.rect.max_lon=12&boundary.rect.max_lat=54' +
-                                        '&boundary.country=DE&layers=address&size=5', true);
+                        searchApiKey + '&text=' +
+                        term +
+                        '&boundary.rect.min_lon=6&boundary.rect.min_lat=51&boundary.rect.max_lon=12&boundary.rect.max_lat=54' +
+                        '&boundary.country=DE&layers=address&size=5', true);
                     xhttp.send();
                 } else if (this.searchApi === 'bkg' && this.searchApiKey !== '') {
                     xhttp.open('GET', 'https://sg.geodatenzentrum.de/gdz_geokodierung__' +
-                                        this.searchApiKey +
-                                        '/suggest?query=' + term + '&count=5&outputformat=json', true);
+                        this.searchApiKey +
+                        '/suggest?query=' + term + '&count=5&outputformat=json', true);
                     xhttp.send();
                 }
             } else {

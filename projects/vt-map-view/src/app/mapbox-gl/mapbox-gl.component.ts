@@ -32,7 +32,7 @@ export class MapboxGlComponent implements OnInit {
 
 
         const options = {
-            headers: new HttpHeaders ({
+            headers: new HttpHeaders({
                 'Content-Type': 'application/json'
             })
         };

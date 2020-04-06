@@ -17,7 +17,7 @@ export default class MapboxGlPitchControl {
         this.btn.title = 'Neigung einstellen';
         this.btn.onclick = () => {
             const pitch = (map.getPitch() > 0) ? 0 : 60;
-            map.easeTo({pitch});
+            map.easeTo({pitch: pitch});
         };
 
         const icon = document.createElement('mat-icon');

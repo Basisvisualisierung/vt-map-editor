@@ -299,7 +299,7 @@ export class MapStylingService {
 
                 if (layer.metadata['map-editor:detail-level'] <= detailLevel) {
                     layer.layout.visibility = 'visible';
-                } else if (layer.metadata['map-editor:detail-level'] > detailLevel){
+                } else if (layer.metadata['map-editor:detail-level'] > detailLevel) {
                     layer.layout.visibility = 'none';
                 }
             }

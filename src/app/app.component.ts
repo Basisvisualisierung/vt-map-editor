@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.appTitle = 'VT Map Editor';
-        this.version = 'V0.5.0';
+        this.version = 'v0.6.0';
     }
 
     /**
