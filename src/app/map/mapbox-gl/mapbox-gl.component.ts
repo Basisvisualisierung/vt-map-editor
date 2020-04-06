@@ -8,6 +8,7 @@ import MapboxGlSearchControl from './mapbox-gl.search.control';
 import MapboxGlShowZoomControl from './mapbox-gl.show-zoom.control';
 import { AppConfigService } from 'src/app/app-config.service';
 import { MapFunctionService } from '../map-function.service';
+import { MapView } from 'src/app/shared/mapview';
 
 /**
  * Mapbox GL JS map client
@@ -34,6 +35,18 @@ export class MapboxGlComponent implements OnInit {
             (styling) => {
                 this.activeStyling = styling;
                 this.map.setStyle(this.activeStyling);
+            }
+        );
+
+        // Get active styling from MapStylingService and use it as map content
+        this.mapStylingService.activeBasemapChanged.subscribe(
+            (mapView: MapView) => {
+                if (mapView !== null) {
+                    this.map.setZoom(mapView.zoom);
+                    this.map.setCenter(mapView.center);
+                    this.map.setPitch(mapView.pitch);
+                    this.map.setBearing(mapView.bearing);
+                }
             }
         );
 

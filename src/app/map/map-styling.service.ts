@@ -1,8 +1,10 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Basemap } from '../shared/basemap';
+import { MapView } from '../shared/mapview';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from '../app-config.service';
 import * as convert from 'color-convert';
+import { ActivatedRoute } from '@angular/router';
 
 
 /**
@@ -13,34 +15,34 @@ export class MapStylingService {
     basemaps: Basemap[];
 
     activeStylingChanged = new EventEmitter<string>();
-    activeBasemapChanged = new EventEmitter<void>();
+    activeBasemapChanged = new EventEmitter<MapView>();
     activeStyling: any;
     activeBasemap: Basemap;
 
     // Save current map styling
-    mapView: {
-        zoom: number,
-        center: number[],
-        pitch: number,
-        bearing: number
-    };
+    mapView: MapView;
 
     // Save the configuration of input elements for group visibility (slider)
     groupSettings: any;
     // Save the configuartion of input elements for GUI layer visibility
     guiLayerSettings: any;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private route: ActivatedRoute) {
         this.basemaps = AppConfigService.settings.basemaps;
         this.activeBasemap = this.basemaps[0];
-        this.setActiveStylingJson();
 
-        this.mapView = {
-            zoom: AppConfigService.settings.map.startZoom,
-            center: AppConfigService.settings.map.startCenter,
-            pitch: 0,
-            bearing: 0
-        };
+        // Load standard style if no query parameter exists
+        const mapUuid = route.snapshot.queryParamMap.get('id');
+        if (mapUuid === null || mapUuid.length === 0) {
+            this.setActiveStylingJson();
+        }
+
+        this.mapView = new MapView (
+            AppConfigService.settings.map.startZoom,
+            AppConfigService.settings.map.startCenter,
+            0,
+            0
+        );
 
         this.groupSettings = {};
         this.guiLayerSettings = {};
@@ -159,22 +161,24 @@ export class MapStylingService {
     /**
      * Change active basemap
      * @param basemap New basemap
+     * @param changeMapView true: load view parameters (zoom, center, pitch, bearing) from style; false: keep current map view
      */
-    changeActiveBasemap(basemap: Basemap) {
+    changeActiveBasemap(basemap: Basemap, changeMapView: boolean) {
         this.activeBasemap = basemap;
         // Event activeBasemapChanged is called in setActiveStylingJson (because of asynchonous calls)
-        this.setActiveStylingJson(true);
+        this.setActiveStylingJson(true, changeMapView);
     }
 
     /**
      * Read styling JSON for activeBasemap
-     * @param basemapChanged true: functino was called by changing the basemap -> emit event activeBasemapChanged
+     * @param basemapChanged true: function was called by changing the basemap -> emit event activeBasemapChanged
+     * @param changeMapView true: load view parameters (zoom, center, pitch, bearing) from style; false: keep current map view
      * @emits MapStylingService#activeStylingChanged
      */
-    setActiveStylingJson(basemapChanged?: boolean) {
+    setActiveStylingJson(basemapChanged?: boolean, changeMapView?: boolean) {
         if (basemapChanged === true && this.activeBasemap.randomColors === true) {
             this.changeActiveStyling(this.randomColors(this.activeStyling));
-            this.activeBasemapChanged.emit();
+            this.activeBasemapChanged.emit(null);
         } else {
             this.http.get(this.activeBasemap.styling).subscribe((data) => {
                 this.changeActiveStyling(data);
@@ -183,7 +187,14 @@ export class MapStylingService {
                     this.groupSettings = {};
                     this.guiLayerSettings = {};
 
-                    this.activeBasemapChanged.emit();
+                    const basemapView = (changeMapView) ? new MapView(
+                        data['zoom'],
+                        data['center'],
+                        data['pitch'],
+                        data['bearing']
+                    ) : null;
+
+                    this.activeBasemapChanged.emit(basemapView);
                 }
             });
         }
@@ -193,17 +204,18 @@ export class MapStylingService {
      * Add new basemap
      * @param basemapId: Styling ID
      * @param activateBasemap true: activate basemap
+     * @param changeMapView true: load view parameters (zoom, center, pitch, bearing) from style; false: keep current map view
      * @returns New basemap
      */
-    addBasemap(basemapId: string, activeBasemap: boolean) {
+    addBasemap(basemapId: string, activateBasemap: boolean, changeMapView: boolean) {
         const newBasemap = new Basemap(
             basemapId,
             'assets/basemaps/thumbnails/basemap_standard.png',
             AppConfigService.settings.mapService.url + '/style/' + basemapId
         );
         this.basemaps.push(newBasemap);
-        if (activeBasemap) {
-            this.changeActiveBasemap(newBasemap);
+        if (activateBasemap) {
+            this.changeActiveBasemap(newBasemap, changeMapView);
         }
         return newBasemap;
     }

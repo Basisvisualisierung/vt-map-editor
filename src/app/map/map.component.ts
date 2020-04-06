@@ -44,9 +44,9 @@ export class MapComponent implements OnInit {
                 private mapStylingService: MapStylingService) {
 
         // Load map by uuid from query parameters
-        const mapId = route.snapshot.queryParamMap.get('id');
-        if (mapId !== null) {
-            mapStylingService.addBasemap(mapId, true);
+        const mapUuid = route.snapshot.queryParamMap.get('id');
+        if (mapUuid !== null && mapUuid.length > 0) {
+            mapStylingService.addBasemap(mapUuid, true, true);
         }
     }
 

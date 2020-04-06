@@ -57,13 +57,17 @@ export class ToolBasemapComponent implements OnInit {
     onLoadBasemapStart(basemapId: string) {
         let uuid = basemapId.toLowerCase();
         // Check entered URL
-        if (basemapId.search(/\//) > -1) {
+        if (basemapId.search(/\?id\=/) > -1) {
+            // Editor URL
+            uuid = basemapId.substring(basemapId.lastIndexOf('?id=') + 4);
+        } else if (basemapId.search(/\//) > -1) {
+            // Style or Aplication URL
             uuid = basemapId.substring(basemapId.lastIndexOf('/') + 1);
         }
         // Check UUID format
         if (uuid.search(/\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b$/) === 0) {
             // Load basemap
-            const newBasemap: Basemap = this.mapStylingService.addBasemap(uuid, true);
+            const newBasemap: Basemap = this.mapStylingService.addBasemap(uuid, true, false);
             this.activeBasemap = newBasemap;
             this.showLoadBasemap = false;
         }
