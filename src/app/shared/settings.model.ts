@@ -15,6 +15,9 @@ export interface SettingsModel {
         searchApi: string,
         searchApiKey: string
     };
+    mapView: {
+        url: string;
+    };
     map: {
         maxZoom: number;
         startCenter: number[];

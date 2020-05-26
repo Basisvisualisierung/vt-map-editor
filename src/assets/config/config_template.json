@@ -9,6 +9,9 @@
         "searchApi": "ors",
         "searchApiKey": ""
     },
+    "mapView": {
+        "url": "http://localhost:4201"
+    },
     "map": {
         "maxZoom": 18,
         "startCenter": [9.361699,52.104253],

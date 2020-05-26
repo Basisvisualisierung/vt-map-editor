@@ -17,6 +17,9 @@ Here is a template for the configuration:
         "searchApi": "ors",
         "searchApiKey": ""
     },
+    "mapView": {
+        "url": "http://localhost:4201"
+    },
     "map": {
         "maxZoom": 18,
         "startCenter": [9.361699,52.104253],
@@ -67,7 +70,7 @@ Header Title of page _map_. It can contain HTML tags.
 === mapService
 `url`: string
 
-URL of the back end service _vt-map-service_.
+URL of the back end service _VT Map Service_.
 
 === searchService
 `searchApi`: "ors" | "bkg"
@@ -80,6 +83,11 @@ Geolocation API to use for address search.
 `searchApiKey`: string
 
 Key / token to access the geolocation API.
+
+=== mapView
+`url`: string
+
+URL of application _VT Map View_
 
 === map
 `maxZoom`: integer
