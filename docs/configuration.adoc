@@ -70,7 +70,7 @@ Header Title of page _map_. It can contain HTML tags.
 === mapService
 `url`: string
 
-URL of the back end service _VT Map Service_.
+URL of the back end service _VT Map Service_. It can be a relative URL, if VT Map Editor and VT Map Service are running on the same domain.
 
 === searchService
 `searchApi`: "ors" | "bkg"
@@ -87,7 +87,7 @@ Key / token to access the geolocation API.
 === mapView
 `url`: string
 
-URL of application _VT Map View_
+URL of application _VT Map View_. It can be a relative URL, if VT Map Editor and VT Map View are running on the same domain.
 
 === map
 `maxZoom`: integer
@@ -161,11 +161,11 @@ Label of the basemap.
 
 `imgUrl`: string
 
-URL to a thumbnail of the basemap styling. It can be a relative or absolute URL.
+URL to a thumbnail of the basemap styling. It can be a URL or a relative file path.
 
 `styling`: string
 
-URL to the JSON styling file of the basemap. It can be a relative or absolute URL.
+URL to the JSON styling file of the basemap. It can be an absolute URL, a relative URL (with leading slash) or a relative file path (without leading slash).
 
 `randomColors`: true | false
 
