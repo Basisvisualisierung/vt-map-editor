@@ -11,7 +11,7 @@ Here is a template for the configuration:
         "map": "Basis<span class=\"accent\">visualisierung</span>"
     },
     "mapService": {
-        "url": "http://localhost:5000/map-service"
+        "url": "http://localhost:5000"
     },
     "searchService": {
         "searchApi": "ors",

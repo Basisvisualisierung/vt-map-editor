@@ -4,6 +4,7 @@
 
 ### New Features
 * New configuration parameter _mapView_ in config.json, for URL of VT Map View.
+* Parameter _url_ of configuration parameters _mapService_ and _mapView_ can contain relative URLs.
 
 ## v0.6.1 (2020-04-21)
 ### New Features
