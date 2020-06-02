@@ -12,12 +12,16 @@ export default class MapboxGlSearchControl {
     private searchApi;
     private searchApiKey;
 
-    constructor() {
+    /**
+     * Constructor
+     * @param mapServiceUrl URL of VT Map Service
+     */
+    constructor(mapServiceUrl: string) {
         this.searchApi = 'bkg';
         this.searchApi = '';
 
         const xhttp = new XMLHttpRequest();
-        xhttp.open('GET', AppConfigService.settings.mapService.url + '/search_params', false);
+        xhttp.open('GET', mapServiceUrl + '/search_params', false);
         xhttp.send();
         if (xhttp.readyState === 4 && xhttp.status === 200) {
             let response = JSON.parse(xhttp.responseText);
