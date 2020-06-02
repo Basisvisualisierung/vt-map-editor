@@ -13,10 +13,6 @@ Here is a template for the configuration:
     "mapService": {
         "url": "http://localhost:5000"
     },
-    "searchService": {
-        "searchApi": "ors",
-        "searchApiKey": ""
-    },
     "mapView": {
         "url": "http://localhost:4201"
     },
@@ -71,18 +67,6 @@ Header Title of page _map_. It can contain HTML tags.
 `url`: string
 
 URL of the back end service _VT Map Service_. It can be a relative URL, if VT Map Editor and VT Map Service are running on the same domain.
-
-=== searchService
-`searchApi`: "ors" | "bkg"
-
-Geolocation API to use for address search.
-
-"ors": Openrouteservice +
-"bkg": BKG Geocoder
-
-`searchApiKey`: string
-
-Key / token to access the geolocation API.
 
 === mapView
 `url`: string

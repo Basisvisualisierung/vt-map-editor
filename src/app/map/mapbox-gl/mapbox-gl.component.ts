@@ -172,8 +172,7 @@ export class MapboxGlComponent implements OnInit {
      */
     toggleSearchControl(enable: boolean) {
         if (enable) {
-            this.searchControl = new MapboxGlSearchControl(AppConfigService.settings.searchService.searchApi,
-                                                           AppConfigService.settings.searchService.searchApiKey);
+            this.searchControl = new MapboxGlSearchControl();
             this.map.addControl(this.searchControl, 'top-right');
         } else {
             this.map.removeControl(this.searchControl);

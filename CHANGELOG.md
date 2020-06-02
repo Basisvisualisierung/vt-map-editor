@@ -1,6 +1,8 @@
 ## v1.0.0 (not released)
 ### Breaking changes
-* URLs for custom styles and applications are no longer created by the back-end VT Map Service, but by VT Map Editor. Therefore VT Map Editor __v1.x__ needs as back-end service VT Map Service __v1.x__.
+* __VT Map Editor _v1.x_ requieres VT Map Service _v1.x_ as back-end service.__
+* URLs for custom styles and applications are no longer created by the back-end VT Map Service, but by VT Map Editor.
+* Parameter _searchService_ was removed from configuration file. By now the geolocation search API parameters are requested from VT Map Service.
 
 ### New Features
 * New configuration parameter _mapView_ in config.json, for URL of VT Map View.

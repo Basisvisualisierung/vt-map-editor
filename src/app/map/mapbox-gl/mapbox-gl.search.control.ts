@@ -12,9 +12,18 @@ export default class MapboxGlSearchControl {
     private searchApi;
     private searchApiKey;
 
-    constructor(searchApi: string, searchApiKey: string) {
-        this.searchApi = searchApi;
-        this.searchApiKey = searchApiKey;
+    constructor() {
+        this.searchApi = 'bkg';
+        this.searchApi = '';
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.open('GET', AppConfigService.settings.mapService.url + '/search_params', false);
+        xhttp.send();
+        if (xhttp.readyState === 4 && xhttp.status === 200) {
+            let response = JSON.parse(xhttp.responseText);
+            this.searchApi = response.search_api;
+            this.searchApiKey = response.search_api_key;
+        }
     }
 
     onAdd(map) {
