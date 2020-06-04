@@ -9,15 +9,15 @@ RUN npm install -g @angular/cli
 
 COPY . .
 
-CMD ng build --prod --base-href=/vt-map-editor/ --output-path=dist
+RUN ng build vt-map-view --prod --base-href /vt-map-view/
 
 #######
 
 FROM nginx
 
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app/dist/vt-map-view /usr/share/nginx/html/vt-map-view
 
-COPY docker/nginx.conf /etc/nginx/nginx.conf
+COPY docker/nginx-vt-map-view.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 
