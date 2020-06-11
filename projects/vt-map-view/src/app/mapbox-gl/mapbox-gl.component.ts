@@ -65,8 +65,7 @@ export class MapboxGlComponent implements OnInit {
 
         // Custom search control
         if (config.search.show && config.search.enabled) {
-            this.map.addControl(new MapboxGlSearchControl(AppConfigService.settings.searchService.searchApi,
-                AppConfigService.settings.searchService.searchApiKey), 'top-right');
+            this.map.addControl(new MapboxGlSearchControl(AppConfigService.settings.mapService.url), 'top-right');
         }
 
         // Popup

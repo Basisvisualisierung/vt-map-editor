@@ -1,3 +1,13 @@
+## v1.0.0 (not released)
+### Breaking changes
+* __VT Map Editor _v1.x_ requieres VT Map Service _v1.x_ as back-end service.__
+* URLs for custom styles and applications are no longer created by the back-end VT Map Service, but by VT Map Editor.
+* Parameter _searchService_ was removed from configuration files of VT Map Editor and VT Map View. By now the geolocation search API parameters are requested from VT Map Service.
+
+### New Features
+* New configuration parameter _mapView_ in config.json, for URL of VT Map View.
+* Parameter _url_ of configuration parameters _mapService_ and _mapView_ can contain relative URLs.
+
 ## v0.6.1 (2020-04-21)
 ### New Features
 * Update Mapbox GL JS to version 1.9.1

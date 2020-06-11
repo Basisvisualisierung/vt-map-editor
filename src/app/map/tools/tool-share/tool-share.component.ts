@@ -51,9 +51,9 @@ export class ToolShareComponent implements OnInit {
         };
 
         this.http.post(AppConfigService.settings.mapService.url + '/map', data, options).subscribe((response: any) => {
-            this.stylingUrl = response.style_url;
-            this.appUrl = response.application_url;
-            this.appIframe = '<iframe src="' + response.application_url + '" style="border:none;width:100%;height:500px">';
+            this.stylingUrl = this.completeUrl(AppConfigService.settings.mapService.url + '/style/' + response.id);
+            this.appUrl = this.completeUrl(AppConfigService.settings.mapView.url + '/' + response.id);
+            this.appIframe = '<iframe src="' + this.appUrl + '" style="border:none;width:100%;height:500px">';
             const mapPageUrl = window.location.protocol + '//' + window.location.host +
                            window.location.pathname.substring(0, window.location.pathname.search('/map/') + 4);
             this.editorUrl = mapPageUrl + '?id=' + response.id;
@@ -67,5 +67,17 @@ export class ToolShareComponent implements OnInit {
         this.snackBar.open('URL wurde in die Zwischenablage kopiert.', '', {
             duration: 2000
         });
+    }
+
+    /**
+     * Prepends protocol and host to a relative URL
+     *
+     * @param url: Relative or absolute URL
+     */
+    completeUrl(url: string) {
+        if (url.indexOf('/') === 0) {
+            url = window.location.protocol + '//' + window.location.host + url;
+        }
+        return url;
     }
 }

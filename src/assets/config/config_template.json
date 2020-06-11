@@ -3,11 +3,10 @@
         "map": "Basis<span class=\"accent\">visualisierung</span>"
     },
     "mapService": {
-        "url": "http://localhost:5000/map-service"
+        "url": "http://localhost:5000"
     },
-    "searchService": {
-        "searchApi": "ors",
-        "searchApiKey": ""
+    "mapView": {
+        "url": "http://localhost:4201"
     },
     "map": {
         "maxZoom": 18,
