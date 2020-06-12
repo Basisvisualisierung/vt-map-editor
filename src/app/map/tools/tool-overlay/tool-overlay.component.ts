@@ -17,7 +17,7 @@ export class ToolOverlayComponent implements OnInit, AfterViewInit {
     @Output() overlayClosed = new EventEmitter<void>();
     @Output() overlayResized = new EventEmitter<number>();
 
-    @ViewChild('toolOverlay', { static: false }) overlay: ElementRef;
+    @ViewChild('toolOverlay') overlay: ElementRef;
 
     constructor(private router: Router) { }
 

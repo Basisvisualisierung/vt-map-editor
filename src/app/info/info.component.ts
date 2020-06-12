@@ -14,7 +14,7 @@ import { HeaderService } from '../header/header.service';
 })
 export class InfoComponent implements OnInit, AfterViewInit {
 
-    @ViewChild('content', { static: false }) content: ElementRef;
+    @ViewChild('content') content: ElementRef;
 
     constructor(private route: ActivatedRoute,
                 private router: Router,

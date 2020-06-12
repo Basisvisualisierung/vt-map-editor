@@ -1,8 +1,9 @@
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 
 /**
  * Service for changing the header title
  */
+@Injectable()
 export class HeaderService {
     title: string;
     titleChanged = new EventEmitter<string>();

@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
 
     appTitle: string;
     version: string;
-    @ViewChild('sidemenu', { static: false }) sidemenu: MatSidenav;
+    @ViewChild('sidemenu') sidemenu: MatSidenav;
 
     constructor(public vcRef: ViewContainerRef, private router: Router) { }
 

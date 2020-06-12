@@ -17,6 +17,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
+                        "aot": true,
                         "outputPath": "dist/vt-map-editor",
                         "index": "src/index.html",
                         "main": "src/main.ts",
@@ -60,6 +61,10 @@
                                     "type": "initial",
                                     "maximumWarning": "2mb",
                                     "maximumError": "5mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6kb"
                                 }
                             ]
                         }
@@ -160,7 +165,7 @@
                         "main": "projects/vt-map-view/src/main.ts",
                         "polyfills": "projects/vt-map-view/src/polyfills.ts",
                         "tsConfig": "projects/vt-map-view/tsconfig.app.json",
-                        "aot": false,
+                        "aot": true,
                         "assets": [
                             "projects/vt-map-view/src/favicon.ico",
                             "projects/vt-map-view/src/assets"
@@ -189,7 +194,6 @@
                             "sourceMap": false,
                             "extractCss": true,
                             "namedChunks": false,
-                            "aot": true,
                             "extractLicenses": true,
                             "vendorChunk": false,
                             "buildOptimizer": true,
