@@ -13,7 +13,7 @@ RUN ng build vt-map-editor --prod --base-href /vt-map-editor/
 
 #######
 
-FROM nginx
+FROM nginx:alpine
 
 COPY --from=build /app/dist/vt-map-editor /usr/share/nginx/html/vt-map-editor
 
