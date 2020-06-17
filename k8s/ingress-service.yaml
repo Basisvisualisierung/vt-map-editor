@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+    name: ingress-service
+    annotations:
+        kubernetes.io/ingress.class: nginx
+        nginx.ingress.kubernetes.io/rewrite-target: /$1
+        nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+    rules:
+        - http:
+            paths:
+                - path: /(vt-map-editor/?.*)
+                  backend:
+                    serviceName: vt-map-editor-cluster-ip
+                    servicePort: 8080
+                - path: /vt-map-service/(.*)
+                  backend:
+                    serviceName: vt-map-service-cluster-ip
+                    servicePort: 8081
+                - path: /(vt-map-view/?.*)
+                  backend:
+                    serviceName: vt-map-view-cluster-ip
+                    servicePort: 8082
+                - path: /([styles|fonts|sprites]/?.*)
+                  backend:
+                    serviceName: vt-styles-cluster-ip
+                    servicePort: 8083                  

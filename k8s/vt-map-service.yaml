@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    name: sqlite-pvc
+spec:
+    accessModes:
+        - ReadWriteOnce
+    resources:
+        requests:
+            storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: vt-map-service-cluster-ip
+spec:
+    type: ClusterIP
+    selector:
+        service: vt-map-service
+    ports:
+        - port: 8081
+          targetPort: 5000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: vt-map-service-deployment
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            service: vt-map-service
+    template:
+        metadata:
+            labels:
+                service: vt-map-service
+                tier: backend
+        spec:
+            volumes:
+                - name: vt-map-service-sqlite
+                  persistentVolumeClaim:
+                    claimName: sqlite-pvc
+            containers:
+                - name: vt-map-service
+                  image: basisvisualisierung/vt-map-service
+                  ports:
+                    - containerPort: 5000
+                  volumeMounts:
+                    - name: vt-map-service-sqlite
+                      mountPath: /service/data
+                  env:
+                    - name: VTMS_SEARCH_API
+                      value: "bkg"
+                    - name: VTMS_SEARCH_API_KEY
+                      valueFrom:
+                        secretKeyRef:
+                          name: bkg-geocoder
+                          key: BKG_GEOCODER_API_KEY
