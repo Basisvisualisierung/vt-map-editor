@@ -27,7 +27,6 @@ spec:
         spec:
             containers:
                 - name: vt-styles
-                  image: vt-styles
-                  imagePullPolicy: Never
+                  image: basisvisualisierung/vt-styles
                   ports:
                     - containerPort: 80

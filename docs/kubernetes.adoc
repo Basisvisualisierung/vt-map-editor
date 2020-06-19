@@ -1,6 +1,6 @@
 # Kubernetes deployment for VT Map Editor
 
-The folder __k8s__ in this repository contains configuration files for setting up a Kubernetes cluster with link:https://github.com/basisvisualisierung/vt-map-editor[VT Map Editor] and related applications and services.
+The folder link:../k8s[k8s] in this repository contains configuration files for setting up a Kubernetes cluster with VT Map Editor and related applications and services.
 
 ## Cluster
 
