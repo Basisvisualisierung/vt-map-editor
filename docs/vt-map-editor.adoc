@@ -7,3 +7,5 @@ link:layer_groups.adoc[Defining layer groups in style files]
 
 == Setup
 link:docker-setup.adoc[Docker setup]
+
+link:kubernetes.adoc[Kubernetes deployment]
