@@ -5,6 +5,7 @@ export default class MapboxGlShowZoomControl {
     private map;
     private container;
     private zoomControl;
+    private zoomControlWrapper;
     private zoomText;
 
     constructor() { }
@@ -15,7 +16,9 @@ export default class MapboxGlShowZoomControl {
         this.zoomControl.id = 'zoom-control';
         this.zoomControl.className = 'zoom-control';
         this.zoomText = document.createTextNode((Math.round(this.map.getZoom() * 100) / 100).toString());
-        this.zoomControl.append(this.zoomText);
+        this.zoomControlWrapper = document.createElement('span');
+        this.zoomControlWrapper.append(this.zoomText);
+        this.zoomControl.append(this.zoomControlWrapper);
 
         this.container = document.createElement('div');
         this.container.append(this.zoomControl);
@@ -33,8 +36,8 @@ export default class MapboxGlShowZoomControl {
      * @param zoomlevel Zoomlevel
      */
     changeText(zoomlevel: number) {
-        this.zoomControl.removeChild(this.zoomText);
+        this.zoomControlWrapper.removeChild(this.zoomText);
         this.zoomText = document.createTextNode((Math.round(this.map.getZoom() * 100) / 100).toString());
-        this.zoomControl.append(this.zoomText);
+        this.zoomControlWrapper.append(this.zoomText);
     }
 }
