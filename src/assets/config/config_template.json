@@ -3,10 +3,10 @@
         "map": "Basis<span class=\"accent\">visualisierung</span>"
     },
     "mapService": {
-        "url": "http://localhost:5000"
+        "url": "/vt-map-service"
     },
     "mapView": {
-        "url": "http://localhost:4201"
+        "url": "/vt-map-view"
     },
     "map": {
         "maxZoom": 18,
@@ -29,7 +29,7 @@
             "enabled": true
         },
         "routing": {
-            "show": true,
+            "show": false,
             "enabled": false,
             "configuration": {
                 "color": "#FF0000"

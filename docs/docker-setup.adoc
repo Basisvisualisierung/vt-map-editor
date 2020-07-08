@@ -1,17 +1,134 @@
 = Docker setup
 
-== Development environment with Docker Compose
+== Local environment with Docker Hub images
+If you want to run a local version of VT Map Editor and all related services, you can use the following Docker Compose file. You only need to create the following two files in the same folder and start it via Docker Compose.
 
-The instructions in this section assume you have cloned or downloaded the two repositories link:https://github.com/basisvisualisierung/vt-map-editor[VT Map Editor] and link:https://github.com/basisvisualisierung/vt-map-service[VT Map Service] and put them in the following folder structure:
+.nginx.conf
+```
+server {
+    listen       80;
+    server_name  localhost;
+
+    location /vt-map-service/ {
+    	proxy_pass http://map-service:5000/;
+    }
+
+    location /vt-map-editor/ {
+    	proxy_pass http://map-editor/vt-map-editor/;
+    }
+
+    location /vt-map-view/ {
+    	proxy_pass http://map-view/vt-map-view/;
+    }
+
+    location /styles/ {
+    	proxy_pass http://styles/styles/;
+    }
+
+    location /fonts/ {
+    	proxy_pass http://styles/fonts/;
+    }
+
+    location /sprites/ {
+    	proxy_pass http://styles/sprites/;
+    }
+}
+```
+
+.docker-compose.yml
+```
+version: '3'
+services:
+    map-service:
+        image: basisvisualisierung/vt-map-service
+        environment:
+            - VTMS_SEARCH_API=bkg
+            - VTMS_SEARCH_API_KEY=XXX
+    map-editor:
+        image: basisvisualisierung/vt-map-editor
+    map-view:
+        image: basisvisualisierung/vt-map-view
+    styles:
+        image: basisvisualisierung/vt-styles
+    nginx:
+        image: nginx
+        depends_on:
+            - map-editor
+            - map-service
+            - map-view
+            - styles
+        ports:
+            - "80:80"
+        volumes:
+            - .:/etc/nginx/conf.d
+
+```
+
+Now you can view VT Map Editor in a browser: link:http://localhost/vt-map-editor[http://localhost/vt-map-editor]
+
+== Development environment
+
+The instructions in this section assume you have cloned or downloaded the three repositories link:https://github.com/basisvisualisierung/vt-map-editor[VT Map Editor], link:https://github.com/basisvisualisierung/vt-map-service[VT Map Service] and link:https://github.com/basisvisualisierung/vt-styles[VT Styles], put them in the following folder structure and set them up like described in the repositories documentations:
 
 ```
 -- /project folder
+   |
+   |-- /nginx
+       |
+       |-- nginx.conf
    |
    |-- /vt-map-editor
    |
    |-- /vt-map-service
    |
+   |-- /vt-styles
+   |
    |-- docker-compose.yml
+```
+
+Besides the repositories from GitHub, the folder structure contains a folder _nginx_ with a configuration file _nginx.conf_. nginx is used as reverse proxy to receive all requests on port 80 to avoid cross origin requests.
+
+The repository _vt-styles_ contains two empty folders _fonts_ and _sprites_. Glyph sets and sprites, which are used by the styles, must be placed in this folders. You can get more information about this in the link:https://github.com/basisvisualisierung/vt-styles[VT Styles repository].
+
+.nginx.conf
+```
+server {
+    listen       80;
+    server_name  localhost;
+
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+    }
+
+    location /vt-map-service/ {
+    	proxy_pass http://map-service:5000/;
+    }
+
+    location /vt-map-editor/ {
+    	proxy_pass http://map-editor:4200/vt-map-editor/;
+    }
+
+    location /sockjs-node/ {
+    	proxy_pass http://map-editor:4200/sockjs-node/;
+    }
+
+    location /vt-map-view/ {
+    	proxy_pass http://map-view:4201/vt-map-view/;
+    }
+
+    location /styles/ {
+    	proxy_pass http://styles/styles/;
+    }
+
+    location /fonts/ {
+    	proxy_pass http://styles/fonts/;
+    }
+
+    location /sprites/ {
+    	proxy_pass http://styles/sprites/;
+    }
+}
 ```
 
 The Compose file `docker-compose.yml` can be used to start a complete development environment for VT Map Editor, including link:https://github.com/basisvisualisierung/vt-map-service[VT Map Service] and link:https://github.com/Basisvisualisierung/vt-map-editor/tree/master/projects/vt-map-view[VT Map View].
@@ -27,6 +144,9 @@ services:
             - "5000:5000"
         volumes:
             - ./vt-map-service/data:/service/data
+        environment:
+            - VTMS_SEARCH_API=bkg
+            - VTMS_SEARCH_API_KEY=XXX
     map-editor:
         build: ./vt-map-editor
         image: vt-map-editor:latest
@@ -38,6 +158,7 @@ services:
         volumes:
             - ./vt-map-editor:/app
             - /app/node_modules
+        command: ng serve --host 0.0.0.0 --disable-host-check --port 4200 --base-href /vt-map-editor/
     map-view:
         build: ./vt-map-editor
         image: vt-map-editor:latest
@@ -48,7 +169,25 @@ services:
         volumes:
             - ./vt-map-editor:/app
             - /app/node_modules
-        command: ng serve --host 0.0.0.0 --project vt-map-view --port 4201
+        command: ng serve --host 0.0.0.0 --disable-host-check --project vt-map-view --port 4201 --base-href /vt-map-view/
+    styles:
+        build: ./vt-styles
+        image: vt-styles:latest
+        volumes:
+            - ./vt-styles/styles:/usr/share/nginx/html/styles
+            - ./vt-styles/fonts:/usr/share/nginx/html/fonts
+            - ./vt-styles/sprites:/usr/share/nginx/html/sprites
+    nginx:
+        image: nginx
+        depends_on:
+            - map-editor
+            - map-service
+            - map-view
+            - styles
+        ports:
+            - "80:80"
+        volumes:
+            - ./nginx:/etc/nginx/conf.d
 ```
 
-The services `map-editor` and `map-view` use the same Docker image but start different applications in it.
+Now you can view VT Map Editor in a browser: link:http://localhost/vt-map-editor[http://localhost/vt-map-editor]
