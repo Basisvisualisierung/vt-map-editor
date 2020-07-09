@@ -8,8 +8,8 @@
 * New configuration parameter _mapView_ in config.json, for URL of VT Map View.
 * Parameter _url_ of configuration parameters _mapService_ and _mapView_ can contain relative URLs.
 * Framework / library updates:
-  * Angular version 9
-  * Mapbox GL JS version 1.11
+  * Angular version 10
+  * Mapbox GL JS version 1.11.1
   * And more... (see [package.json](package.json))
 
 ## v0.6.1 (2020-04-21)
