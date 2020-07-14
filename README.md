@@ -38,6 +38,13 @@ Run VT Map View on port 4201:
 ng serve --project vt-map-view --port 4201
 ```
 
+Build VT Map Editor and VT Map View:
+
+```
+ng build vt-map-editor --prod --base-href /vt-map-editor/
+ng build vt-map-view --prod --base-href /vt-map-view/
+```
+
 ## Docker
 
 First customize the [configuration file](docs/configuration.adoc).
@@ -59,6 +66,8 @@ Start VT Map View in the running container:
 ```
 docker exec -it vt-map-editor ng serve --project vt-map-view --host 0.0.0.0 --port 4201
 ```
+
+For a complete development environment with all related services using Docker Compose see [Docker setup](https://github.com/Basisvisualisierung/vt-map-editor/blob/master/docs/docker-setup.adoc).
 
 ## Documentation
 You can find more details about the configuration and setup of the application in the [documentation](docs/vt-map-editor.adoc).

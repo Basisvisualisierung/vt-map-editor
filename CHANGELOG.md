@@ -1,4 +1,4 @@
-## v1.0.0 (not released)
+## v1.0.0 (2020-07-14)
 ### Breaking changes
 * __VT Map Editor _v1.x_ requieres VT Map Service _v1.x_ as back-end service.__
 * URLs for custom styles and applications are no longer created by the back-end VT Map Service, but by VT Map Editor.
