@@ -17,7 +17,6 @@ export default class MapboxGlSearchControl {
      * @param mapServiceUrl URL of VT Map Service
      */
     constructor(mapServiceUrl: string) {
-        this.searchApi = 'bkg';
         this.searchApi = '';
 
         const xhttp = new XMLHttpRequest();
@@ -49,32 +48,22 @@ export default class MapboxGlSearchControl {
                 xhttp.onreadystatechange = function() {
                     if (this.readyState === 4 && this.status === 200) {
                         let response = JSON.parse(this.responseText);
-                        if (searchApi === 'ors') {
-                            response = response.features;
-                        }
 
                         document.getElementById('resultArea').innerHTML = '';
 
-                        for (const respEntry of response) {
+                        for (const respEntry of response.suggestions) {
                             const result = document.createElement('div');
                             result.className = 'result-row';
                             let mainText = '';
                             let subText = '';
-                            if (searchApi === 'bkg') {
-                                if (respEntry.suggestion.search(/,/) > -1) {
-                                    mainText = respEntry.suggestion.split(',')[0].trim();
-                                    subText = respEntry.suggestion.split(',')[1].trim();
-                                } else {
-                                    mainText = respEntry.suggestion;
-                                }
-                            } else if (searchApi === 'ors') {
-                                if (respEntry.properties.label.search(/,/) > -1) {
-                                    mainText = respEntry.properties.label.split(',')[0].trim();
-                                    subText = respEntry.properties.label.split(',')[1].trim();
-                                } else {
-                                    mainText = respEntry.properties.label;
-                                }
+
+                            if (respEntry.suggestion.search(/,/) > -1) {
+                                mainText = respEntry.suggestion.split(',')[0].trim();
+                                subText = respEntry.suggestion.split(',')[1].trim();
+                            } else {
+                                mainText = respEntry.suggestion;
                             }
+
                             const mainTextDiv = document.createElement('div');
                             mainTextDiv.className = 'result-row-main';
                             mainTextDiv.textContent = mainText;
@@ -84,19 +73,14 @@ export default class MapboxGlSearchControl {
                             result.append(mainTextDiv, subTextDiv);
 
                             result.onclick = () => {
-                                (document.getElementById('searchInput') as HTMLInputElement).value = (searchApi === 'bkg') ? respEntry.suggestion : respEntry.properties.label;
-                                const termResult = (document.getElementById('searchInput') as HTMLInputElement).value;
+                                (document.getElementById('searchInput') as HTMLInputElement).value = respEntry.suggestion;
+                                const termResult = respEntry.suggestion;
                                 const xhttpResult = new XMLHttpRequest();
 
                                 xhttpResult.onreadystatechange = function() {
                                     if (this.readyState === 4 && this.status === 200) {
                                         {
                                             const responseResult = JSON.parse(this.responseText);
-                                            if (searchApi === 'ors') {
-                                                (document.getElementById('searchInput') as HTMLInputElement).value = responseResult.features[0].properties.label;
-                                            } else if (searchApi === 'bkg') {
-                                                (document.getElementById('searchInput') as HTMLInputElement).value = responseResult.features[0].properties.text;
-                                            }
 
                                             map.flyTo({
                                                 center: [responseResult.features[0].geometry.coordinates[0], responseResult.features[0].geometry.coordinates[1]]
@@ -106,19 +90,8 @@ export default class MapboxGlSearchControl {
                                 };
 
                                 if (termResult.length > 0) {
-                                    if (searchApi === 'ors' && searchApiKey !== '') {
-                                        xhttpResult.open('GET', 'https://api.openrouteservice.org/geocode/search?api_key=' +
-                                            searchApiKey + '&text=' +
-                                            termResult +
-                                            '&boundary.rect.min_lon=6&boundary.rect.min_lat=51&boundary.rect.max_lon=12&boundary.rect.max_lat=54' +
-                                            '&boundary.country=DE&layers=address&size=5', true);
-                                        xhttpResult.send();
-                                    } else if (searchApi === 'bkg' && searchApiKey !== '') {
-                                        xhttpResult.open('GET', 'https://sg.geodatenzentrum.de/gdz_geokodierung__' +
-                                            searchApiKey +
-                                            '/geosearch?query=' + termResult + '&outputformat=json', true);
-                                        xhttpResult.send();
-                                    }
+                                    xhttpResult.open('GET', AppConfigService.settings.mapService.url + '/search?term=' + termResult, true);
+                                    xhttpResult.send();
                                 }
 
                                 document.getElementById('resultArea').innerHTML = '';
@@ -129,19 +102,8 @@ export default class MapboxGlSearchControl {
                     }
                 };
 
-                if (this.searchApi === 'ors' && this.searchApiKey !== '') {
-                    xhttp.open('GET', 'https://api.openrouteservice.org/geocode/search?api_key=' +
-                        searchApiKey + '&text=' +
-                        term +
-                        '&boundary.rect.min_lon=6&boundary.rect.min_lat=51&boundary.rect.max_lon=12&boundary.rect.max_lat=54' +
-                        '&boundary.country=DE&layers=address&size=5', true);
-                    xhttp.send();
-                } else if (this.searchApi === 'bkg' && this.searchApiKey !== '') {
-                    xhttp.open('GET', 'https://sg.geodatenzentrum.de/gdz_geokodierung__' +
-                        this.searchApiKey +
-                        '/suggest?query=' + term + '&count=5&outputformat=json', true);
-                    xhttp.send();
-                }
+                xhttp.open('GET', AppConfigService.settings.mapService.url + '/suggest?term=' + term, true);
+                xhttp.send();
             } else {
                 document.getElementById('resultArea').innerHTML = '';
                 document.getElementById('resultArea').classList.add('hidden');
