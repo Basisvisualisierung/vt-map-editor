@@ -1,3 +1,8 @@
+## v1.1.0 (not released)
+__VT Map Editor _v1.1_ requieres VT Map Service _v1.1_ as back-end service.__
+### Improvements
+* VT Map Editor does not longer communicate directly with external geocoder APIs, but sends the search requests to VT Map Service.
+
 ## v1.0.0 (2020-07-14)
 ### Breaking changes
 * __VT Map Editor _v1.x_ requieres VT Map Service _v1.x_ as back-end service.__
