@@ -9,16 +9,16 @@ server {
     listen       80;
     server_name  localhost;
 
-    location /vt-map-service/ {
+    location /map-service/ {
     	proxy_pass http://map-service:5000/;
     }
 
-    location /vt-map-editor/ {
-    	proxy_pass http://map-editor/vt-map-editor/;
+    location /map-editor/ {
+    	proxy_pass http://map-editor/map-editor/;
     }
 
-    location /vt-map-view/ {
-    	proxy_pass http://map-view/vt-map-view/;
+    location /map-view/ {
+    	proxy_pass http://map-view/map-view/;
     }
 
     location /styles/ {
@@ -64,7 +64,7 @@ services:
 
 ```
 
-Now you can view VT Map Editor in a browser: link:http://localhost/vt-map-editor[http://localhost/vt-map-editor]
+Now you can view VT Map Editor in a browser: link:http://localhost/map-editor[http://localhost/map-editor]
 
 == Development environment
 
@@ -101,20 +101,20 @@ server {
         index  index.html index.htm;
     }
 
-    location /vt-map-service/ {
+    location /map-service/ {
     	proxy_pass http://map-service:5000/;
     }
 
-    location /vt-map-editor/ {
-    	proxy_pass http://map-editor:4200/vt-map-editor/;
+    location /map-editor/ {
+    	proxy_pass http://map-editor:4200/map-editor/;
     }
 
     location /sockjs-node/ {
     	proxy_pass http://map-editor:4200/sockjs-node/;
     }
 
-    location /vt-map-view/ {
-    	proxy_pass http://map-view:4201/vt-map-view/;
+    location /map-view/ {
+    	proxy_pass http://map-view:4201/map-view/;
     }
 
     location /styles/ {
@@ -158,7 +158,7 @@ services:
         volumes:
             - ./vt-map-editor:/app
             - /app/node_modules
-        command: ng serve --host 0.0.0.0 --disable-host-check --port 4200 --base-href /vt-map-editor/
+        command: ng serve --host 0.0.0.0 --disable-host-check --port 4200 --base-href /map-editor/
     map-view:
         build: ./vt-map-editor
         image: vt-map-editor:latest
@@ -169,7 +169,7 @@ services:
         volumes:
             - ./vt-map-editor:/app
             - /app/node_modules
-        command: ng serve --host 0.0.0.0 --disable-host-check --project vt-map-view --port 4201 --base-href /vt-map-view/
+        command: ng serve --host 0.0.0.0 --disable-host-check --project vt-map-view --port 4201 --base-href /map-view/
     styles:
         build: ./vt-styles
         image: vt-styles:latest
@@ -190,4 +190,4 @@ services:
             - ./nginx:/etc/nginx/conf.d
 ```
 
-Now you can view VT Map Editor in a browser: link:http://localhost/vt-map-editor[http://localhost/vt-map-editor]
+Now you can view VT Map Editor in a browser: link:http://localhost/map-editor[http://localhost/map-editor]

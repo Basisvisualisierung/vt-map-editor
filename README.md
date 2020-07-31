@@ -41,8 +41,8 @@ ng serve --project vt-map-view --port 4201
 Build VT Map Editor and VT Map View:
 
 ```
-ng build vt-map-editor --prod --base-href /vt-map-editor/
-ng build vt-map-view --prod --base-href /vt-map-view/
+ng build vt-map-editor --prod --base-href /map-editor/
+ng build vt-map-view --prod --base-href /map-view/
 ```
 
 ## Docker

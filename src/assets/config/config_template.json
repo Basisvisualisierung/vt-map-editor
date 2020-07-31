@@ -3,10 +3,10 @@
         "map": "Basis<span class=\"accent\">visualisierung</span>"
     },
     "mapService": {
-        "url": "/vt-map-service"
+        "url": "/map-service"
     },
     "mapView": {
-        "url": "/vt-map-view"
+        "url": "/map-view"
     },
     "map": {
         "maxZoom": 18,

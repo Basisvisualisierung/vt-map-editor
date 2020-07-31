@@ -9,31 +9,21 @@ export default class MapboxGlSearchControl {
     private input;
     private resultArea;
     private container;
-    private searchApi;
-    private searchApiKey;
+    private mapServiceUrl;
 
     /**
      * Constructor
      * @param mapServiceUrl URL of VT Map Service
      */
     constructor(mapServiceUrl: string) {
-        this.searchApi = '';
-
-        const xhttp = new XMLHttpRequest();
-        xhttp.open('GET', mapServiceUrl + '/search_params', false);
-        xhttp.send();
-        if (xhttp.readyState === 4 && xhttp.status === 200) {
-            let response = JSON.parse(xhttp.responseText);
-            this.searchApi = response.search_api;
-            this.searchApiKey = response.search_api_key;
-        }
+        this.mapServiceUrl = mapServiceUrl;
     }
 
     onAdd(map) {
-        this.map = map;
-        const searchApi = this.searchApi;
-        const searchApiKey = this.searchApiKey;
+        // Add the mapServiceUrl to the map object to access it via event functions
+        map.mapServiceUrl = this.mapServiceUrl;
 
+        this.map = map;
         this.input = document.createElement('input');
         this.input.type = 'text';
         this.input.placeholder = 'Suche';
@@ -47,7 +37,7 @@ export default class MapboxGlSearchControl {
                 const xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
                     if (this.readyState === 4 && this.status === 200) {
-                        let response = JSON.parse(this.responseText);
+                        const response = JSON.parse(this.responseText);
 
                         document.getElementById('resultArea').innerHTML = '';
 
@@ -71,7 +61,6 @@ export default class MapboxGlSearchControl {
                             subTextDiv.className = 'result-row-sub';
                             subTextDiv.textContent = subText;
                             result.append(mainTextDiv, subTextDiv);
-
                             result.onclick = () => {
                                 (document.getElementById('searchInput') as HTMLInputElement).value = respEntry.suggestion;
                                 const termResult = respEntry.suggestion;
@@ -83,14 +72,15 @@ export default class MapboxGlSearchControl {
                                             const responseResult = JSON.parse(this.responseText);
 
                                             map.flyTo({
-                                                center: [responseResult.features[0].geometry.coordinates[0], responseResult.features[0].geometry.coordinates[1]]
+                                                center: [responseResult.features[0].geometry.coordinates[0],
+                                                         responseResult.features[0].geometry.coordinates[1]]
                                             });
                                         }
                                     }
                                 };
 
                                 if (termResult.length > 0) {
-                                    xhttpResult.open('GET', AppConfigService.settings.mapService.url + '/search?term=' + termResult, true);
+                                    xhttpResult.open('GET', map.mapServiceUrl + '/search?term=' + termResult, true);
                                     xhttpResult.send();
                                 }
 
@@ -102,7 +92,7 @@ export default class MapboxGlSearchControl {
                     }
                 };
 
-                xhttp.open('GET', AppConfigService.settings.mapService.url + '/suggest?term=' + term, true);
+                xhttp.open('GET', map.mapServiceUrl + '/suggest?term=' + term, true);
                 xhttp.send();
             } else {
                 document.getElementById('resultArea').innerHTML = '';

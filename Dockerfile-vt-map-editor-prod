@@ -9,13 +9,13 @@ RUN npm install -g @angular/cli
 
 COPY . .
 
-RUN ng build vt-map-editor --prod --base-href /vt-map-editor/
+RUN ng build vt-map-editor --prod --base-href /map-editor/
 
 #######
 
 FROM nginx:alpine
 
-COPY --from=build /app/dist/vt-map-editor /usr/share/nginx/html/vt-map-editor
+COPY --from=build /app/dist/vt-map-editor /usr/share/nginx/html/map-editor
 
 COPY docker/nginx-vt-map-editor.conf /etc/nginx/nginx.conf
 

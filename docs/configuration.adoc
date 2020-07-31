@@ -11,10 +11,10 @@ Here is a template for the configuration:
         "map": "Basis<span class=\"accent\">visualisierung</span>"
     },
     "mapService": {
-        "url": "http://localhost:5000"
+        "url": "/map-service"
     },
     "mapView": {
-        "url": "http://localhost:4201"
+        "url": "/map-view"
     },
     "map": {
         "maxZoom": 18,
@@ -84,10 +84,7 @@ Initial center coordinates of the map [latitude, longitude].
 
 `startZoom`: integer
 
-Initial zoom level of the map (\<= 22).
-
-`showZoomLevel`: true | false
-
+Initial zoom level of the map (\<= 2vt-map-view
 Display current zoom level on the bottom of the map.
 
 `showScaleBar`: true | false

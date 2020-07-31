@@ -1,7 +1,8 @@
-## v1.1.0 (not released)
+## v1.1.0 (2020-07-31)
 __VT Map Editor _v1.1_ requieres VT Map Service _v1.1_ as back-end service.__
-### Improvements
+### Changes
 * VT Map Editor does not longer communicate directly with external geocoder APIs, but sends the search requests to VT Map Service.
+* Default URL paths for the applications in the Docker images changed to _/map-editor_, _/map-view_ and _/map-service_
 
 ## v1.0.0 (2020-07-14)
 ### Breaking changes

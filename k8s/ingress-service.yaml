@@ -10,19 +10,19 @@ spec:
     rules:
         - http:
             paths:
-                - path: /(vt-map-editor/?.*)
+                - path: /(map-editor/?.*)
                   backend:
                     serviceName: vt-map-editor-cluster-ip
                     servicePort: 8080
-                - path: /vt-map-service/(.*)
+                - path: /map-service/(.*)
                   backend:
                     serviceName: vt-map-service-cluster-ip
                     servicePort: 8081
-                - path: /(vt-map-view/?.*)
+                - path: /(map-view/?.*)
                   backend:
                     serviceName: vt-map-view-cluster-ip
                     servicePort: 8082
                 - path: /([styles|fonts|sprites]/?.*)
                   backend:
                     serviceName: vt-styles-cluster-ip
-                    servicePort: 8083                  
+                    servicePort: 8083

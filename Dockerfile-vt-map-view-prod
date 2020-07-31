@@ -9,13 +9,13 @@ RUN npm install -g @angular/cli
 
 COPY . .
 
-RUN ng build vt-map-view --prod --base-href /vt-map-view/
+RUN ng build vt-map-view --prod --base-href /map-view/
 
 #######
 
 FROM nginx:alpine
 
-COPY --from=build /app/dist/vt-map-view /usr/share/nginx/html/vt-map-view
+COPY --from=build /app/dist/vt-map-view /usr/share/nginx/html/map-view
 
 COPY docker/nginx-vt-map-view.conf /etc/nginx/nginx.conf
 
