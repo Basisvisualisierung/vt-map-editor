@@ -39,7 +39,7 @@
     "basemaps": [
         {
             "name": "My Map",
-            "imgUrl": "assets/basemaps/thumbnails/basemap_color.png",
+            "imgUrl": "assets/images/thumbnails/basemap_color.png",
             "styling": "assets/basemaps/style.json"
         }
     ],
