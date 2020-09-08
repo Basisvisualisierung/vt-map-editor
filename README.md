@@ -12,7 +12,7 @@ To set up the development environment for VT Map Editor on your local machine yo
 
 ### Prerequisites
 
-To get VT Map Editor up and running locally you first need to install a current Node.js LTS version and Angular CLI 8.
+To get VT Map Editor up and running locally you first need to install a current Node.js LTS version and Angular CLI 10.
 
 To be able to share map styles and map applications created with VT Map Editor you also need to set up the back-end service [VT Map Service](https://github.com/Basisvisualisierung/vt-map-service).
 
