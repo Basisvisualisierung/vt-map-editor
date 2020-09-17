@@ -1,4 +1,4 @@
-<span #colorbtn class="color-btn" [ngStyle]="{'background-color':color}" (click)="showColorPicker=!showColorPicker"></span>
+<span #colorbtn class="color-btn" [ngStyle]="{'background-color':color}" (click)= changeVisibility()></span>
 <span #colorpicker class="color-input"
         [(colorPicker)]="color"
         [style.background]="color"
