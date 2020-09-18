@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { AppConfigService } from '../app-config.service';
 import { MenuItem } from './menu-item';
 
 /**
@@ -14,25 +15,14 @@ export class MenuComponent implements OnInit {
     @Input() version: string;
     @Output() itemSelected = new EventEmitter<MenuItem>();
 
-    menuItems: MenuItem[] = [
-        new MenuItem(
-            'Karte',
-            'map',
-            'map'
-        ),
-        new MenuItem(
-            'Datenschutz',
-            'lock',
-            'privacy'
-        ),
-        new MenuItem(
-            'Impressum',
-            'comment',
-            'legals'
-        )
-    ];
+    menuItems: MenuItem[];
 
-    constructor() { }
+    constructor() {
+        // Read menu items definitions from configuration
+        if (AppConfigService.settings.menuItems !== undefined) {
+            this.menuItems = AppConfigService.settings.menuItems;
+        }
+    }
 
     ngOnInit() { }
 
