@@ -37,7 +37,7 @@ export class MapStylingService {
             this.setActiveStylingJson();
         }
 
-        this.mapView = new MapView (
+        this.mapView = new MapView(
             AppConfigService.settings.map.startZoom,
             AppConfigService.settings.map.startCenter,
             0,
@@ -73,7 +73,7 @@ export class MapStylingService {
 
     /**
      * Change saturation and/or lightness for the whole map
-     * Convert color value to HSL
+     * Convert color value to HSL or HSLA
      * @param changeValueS value to increase/decrease the saturation
      * @param changeValueL value to increase/decrease the lightness
      */
@@ -99,9 +99,10 @@ export class MapStylingService {
                                 .replace(/ /g, '')
                                 .split(',');
 
-                            // Remove alpha value (transparency)
+                            // Temporarily remove alpha value for convertion
+                            let alpha = 1;
                             if (color.search(/^rgba/) === 0) {
-                                colorArray.pop();
+                                alpha = colorArray.pop();
                             }
                             colorArray = [
                                 parseInt(colorArray[0], 10),
@@ -112,7 +113,7 @@ export class MapStylingService {
                             convertColor[1] += changeValueS;
                             convertColor[2] += changeValueL;
 
-                            layer.paint[colorType] = 'hsl(' + convertColor[0] + ',' + convertColor[1] + '%,' + convertColor[2] + '%)';
+                            layer.paint[colorType] = 'hsla(' + convertColor[0] + ',' + convertColor[1] + '%,' + convertColor[2] + '%,' + alpha + ')';
 
                         } else if (color.search(/^#/) === 0) {
                             // #FF0 -> [255,255,0]
@@ -128,9 +129,11 @@ export class MapStylingService {
                             let colorArray = color.substring(color.search(/\(/) + 1, color.length - 1)
                                 .replace(/ /g, '')
                                 .split(',');
-                            // Remove alpha value (transparency)
+
+                            // Temporarily remove alpha value for convertion
+                            let alpha = 1;
                             if (color.search(/^hsla/) === 0) {
-                                colorArray.pop();
+                                alpha = colorArray.pop();
                             }
                             colorArray = [
                                 parseInt(colorArray[0], 10),
@@ -138,7 +141,7 @@ export class MapStylingService {
                                 parseInt(colorArray[2].substring(0, colorArray[2].length - 1), 10) + changeValueL
                             ];
 
-                            layer.paint[colorType] = 'hsl(' + colorArray[0] + ',' + colorArray[1] + '%,' + colorArray[2] + '%)';
+                            layer.paint[colorType] = 'hsla(' + colorArray[0] + ',' + colorArray[1] + '%,' + colorArray[2] + '%,' + alpha + ')';
                         }
                     }
                 }
