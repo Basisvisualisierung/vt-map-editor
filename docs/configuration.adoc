@@ -51,6 +51,19 @@ Here is a template for the configuration:
             "styling": "assets/basemaps/style.json"
         }
     ],
+    "menuItems": [
+        {
+            "label": "Map",
+            "icon": "map",
+            "link": "map",
+            "externalLink": false
+        },
+        {
+            "label": "Legals",
+            "icon": "lock",
+            "link": "https://domain/path/...",
+            "externalLink": true
+        }
     "guiLayers": {
         "sortByName": true
     }
@@ -152,6 +165,25 @@ URL to the JSON styling file of the basemap. It can be an absolute URL, a relati
 
 If set to _true_ the current map styling will be rendered with random colors when the button for this basemap is clicked. +
 This attribute is optional. The default value is _false_ when the attribute is not specified.
+
+=== menuItems
+This array defines the items of the sidebar menu. Each item has the following attributes:
+
+`label`: string
+
+Label of the menu item that is displayed in the user interface.
+
+`icon`: string
+
+Name of the Material Design icon that is displayed in the user interface. For available icons see https://material.io/resources/icons
+
+`link`: string
+
+Either an Angular routing path (externalLink = false) of any URL (externalLink = true)
+
+`externalLink`: true | false
+
+If set to _true_ the menu item is a link that opens in a new browser window.
 
 === guiLayers
 `sortByName`: true | false
