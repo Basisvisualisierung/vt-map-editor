@@ -1,4 +1,8 @@
 ## v1.x (not released)
+### New Features
+* Menu items can be configured via the configuration file.
+* Menu items can be external links.
+
 ### Bug fixes
 * Alpha channel was removed from color values when the saturation or lightness of the map was changed.
 
