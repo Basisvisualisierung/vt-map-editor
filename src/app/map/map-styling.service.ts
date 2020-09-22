@@ -344,7 +344,6 @@ export class MapStylingService {
         if (color.includes('rgba')) {
             opacity = parseFloat(color.replace(/^.*,(.+)\)/, '$1'));
             color = color.match(/rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?/)[0] + ', 1)';
-
         }
         for (const layer of styling.layers) {
             if (layer.metadata !== undefined
@@ -353,7 +352,6 @@ export class MapStylingService {
                 if (layer.paint === undefined) {
                     layer.paint = {};
                 }
-
                 const colorType = (layer.type === 'symbol') ? 'text' : layer.type;
                 layer.paint[colorType + '-color'] = color;
                 if (opacity !== undefined) {
@@ -362,5 +360,37 @@ export class MapStylingService {
             }
         }
         this.changeActiveStyling(styling);
+    }
+
+    /**
+     * will return a supported color with opacity or a predefined HTML color name, like yellow
+     * @param color (hex, rgb, rgba, hsl, hsla, predefined HTML color name)
+     * @param opacity opacity (0-1)
+     */
+    changeColorToSupported(color: string, opacity: number = 1){
+        if (color.includes('rgba')){
+            return color;
+        }else if (color.includes('rgb(')){
+            return `rgba(${color.slice(4, color.length - 1)}, ${opacity})`;
+        }else if (color.includes('#') && color.length === 7) {
+            const tempHex = color.replace('#', '');
+            const r = parseInt(tempHex.substring(0, 2), 16);
+            const g = parseInt(tempHex.substring(2, 4), 16);
+            const b = parseInt(tempHex.substring(4, 6), 16);
+            return `rgba(${r},${g},${b},${opacity})`;
+        }else if (color.includes('#') && color.length < 7){
+            let tempHex = color.replace('#', '');
+            tempHex = tempHex[0] + tempHex[0] + tempHex[1] + tempHex[1] + tempHex[2] + tempHex[2];
+            const r = parseInt(tempHex.substring(0, 2), 16);
+            const g = parseInt(tempHex.substring(2, 4), 16);
+            const b = parseInt(tempHex.substring(4, 6), 16);
+            return `rgba(${r},${g},${b},${opacity})`;
+        }else if (color.includes('hsla')){
+            return color;
+        }else if (color.includes('hsl(')){
+            return `hsla(${color.slice(4, color.length - 1)}, ${opacity})`;
+        }else{
+            return color;
+        }
     }
 }

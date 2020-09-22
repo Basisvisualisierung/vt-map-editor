@@ -29,9 +29,10 @@ export class GuiLayerElementComponent implements OnInit{
         if (this.layer.paint !== undefined) {
             // tslint:disable-next-line:max-line-length
             if (this.layer.paint[colorAttribute]  !== undefined && this.layer.paint[opacityAttribute] !== undefined && typeof this.layer.paint[opacityAttribute] !== 'object') {
-                this.color = this.layer.paint[colorAttribute] + Math.floor(this.layer.paint[opacityAttribute] * 255).toString(16);
+                // tslint:disable-next-line:max-line-length
+                this.color = this.mapStylingService.changeColorToSupported(this.layer.paint[colorAttribute], this.layer.paint[opacityAttribute]);
             } else if (this.layer.paint[colorAttribute] !== undefined ) {
-                this.color = this.layer.paint[colorAttribute];
+                this.color = this.mapStylingService.changeColorToSupported(this.layer.paint[colorAttribute]);
             } else {
                 this.color = '#000000';
             }
