@@ -340,6 +340,12 @@ export class MapStylingService {
      */
     changeGuiLayerColor(guiLayerName: string, elementName: string, color: string) {
         const styling = this.activeStyling;
+        let opacity: number;
+        if (color.includes('rgba')) {
+            opacity = parseFloat(color.replace(/^.*,(.+)\)/, '$1'));
+            color = color.match(/rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?/)[0] + ', 1)';
+
+        }
         for (const layer of styling.layers) {
             if (layer.metadata !== undefined
                 && layer.metadata['map-editor:layer'] === guiLayerName
@@ -350,6 +356,9 @@ export class MapStylingService {
 
                 const colorType = (layer.type === 'symbol') ? 'text' : layer.type;
                 layer.paint[colorType + '-color'] = color;
+                if (opacity !== undefined) {
+                    layer.paint[colorType + '-opacity'] = opacity;
+                }
             }
         }
         this.changeActiveStyling(styling);

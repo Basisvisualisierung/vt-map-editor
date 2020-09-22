@@ -20,18 +20,22 @@ export class GuiLayerElementComponent implements OnInit{
     constructor(private mapStylingService: MapStylingService, private cdr: ChangeDetectorRef) { }
 
     ngOnInit() {
-            this.showColorPicker = false;
+        this.showColorPicker = false;
 
-            // Read paint attributes from styling
-            const colorType = (this.layer.type === 'symbol') ? 'text' : this.layer.type;
-            const colorAttribute = colorType + '-color';
-            if (this.layer.paint !== undefined) {
-                if (this.layer.paint[colorAttribute] !== undefined) {
-                    this.color = this.layer.paint[colorAttribute];
-                } else {
-                    this.color = '#000000';
-                }
+        // Read paint attributes from styling
+        const colorType = (this.layer.type === 'symbol') ? 'text' : this.layer.type;
+        const colorAttribute = colorType + '-color';
+        const opacityAttribute = colorType + '-opacity';
+        if (this.layer.paint !== undefined) {
+            // tslint:disable-next-line:max-line-length
+            if (this.layer.paint[colorAttribute]  !== undefined && this.layer.paint[opacityAttribute] !== undefined && typeof this.layer.paint[opacityAttribute] !== 'object') {
+                this.color = this.layer.paint[colorAttribute] + Math.floor(this.layer.paint[opacityAttribute] * 255).toString(16);
+            } else if (this.layer.paint[colorAttribute] !== undefined ) {
+                this.color = this.layer.paint[colorAttribute];
+            } else {
+                this.color = '#000000';
             }
+        }
     }
 
     /**
