@@ -1,3 +1,12 @@
+## v1.x (not released)
+### New Features
+* Menu items can be configured via the configuration file.
+* Menu items can be external links.
+* Update Mapbox GL JS to version 1.12.0
+
+### Bug fixes
+* Alpha channel was removed from color values when the saturation or lightness of the map was changed.
+
 ## v1.1.0 (2020-07-31)
 __VT Map Editor _v1.1_ requieres VT Map Service _v1.1_ as back-end service.__
 ### Changes

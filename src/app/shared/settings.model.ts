@@ -1,3 +1,4 @@
+import { MenuItem } from '../menu/menu-item';
 import { Basemap } from './basemap';
 import { MapFunctions } from './map-functions';
 
@@ -23,6 +24,7 @@ export interface SettingsModel {
     };
     mapFunctions: MapFunctions;
     basemaps: Basemap[];
+    menuItems: MenuItem[];
     guiLayers: {
         sortByName: boolean;
     };

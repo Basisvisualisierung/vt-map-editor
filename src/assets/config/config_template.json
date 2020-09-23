@@ -43,6 +43,26 @@
             "styling": "assets/basemaps/style.json"
         }
     ],
+    "menuItems": [
+        {
+            "label": "Map",
+            "icon": "map",
+            "link": "map",
+            "externalLink": false
+        },
+        {
+            "label": "Privacy",
+            "icon": "lock",
+            "link": "privacy",
+            "externalLink": false
+        },
+        {
+            "label": "Legals",
+            "icon": "comment",
+            "link": "https://...",
+            "externalLink": true
+        }
+    ],
     "guiLayers": {
         "sortByName": true
     }
