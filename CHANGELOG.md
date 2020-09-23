@@ -2,6 +2,7 @@
 ### New Features
 * Menu items can be configured via the configuration file.
 * Menu items can be external links.
+* Update Mapbox GL JS to version 1.12.0
 
 ### Bug fixes
 * Alpha channel was removed from color values when the saturation or lightness of the map was changed.
