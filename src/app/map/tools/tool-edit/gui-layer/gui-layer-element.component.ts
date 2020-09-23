@@ -47,11 +47,13 @@ export class GuiLayerElementComponent implements OnInit{
         this.color = color;
         this.mapStylingService.changeGuiLayerColor(this.guiLayerName, this.elementName, color);
         this.cdr.detectChanges();
-
     }
+
+    /**
+     * Change visibility of colorPicker
+     */
     changeVisibility(){
         this.showColorPicker = !this.showColorPicker;
         this.cdr.detectChanges();
     }
-
 }
