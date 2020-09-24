@@ -1,7 +1,8 @@
-## v1.x (not released)
+## v1.2.0 (2020-09-24)
 ### New Features
 * Menu items can be configured via the configuration file.
 * Menu items can be external links.
+* Change opacity of GUI layers.
 * Update Mapbox GL JS to version 1.12.0
 
 ### Bug fixes
