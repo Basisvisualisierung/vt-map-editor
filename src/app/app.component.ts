@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.appTitle = 'VT Map Editor';
-        this.version = 'v1.1.0';
+        this.version = 'v1.2.0';
     }
 
     /**
@@ -29,7 +29,11 @@ export class AppComponent implements OnInit {
      * @param item MenuItem
      */
     onItemSelected(item: MenuItem) {
-        this.router.navigate([item.link]);
+        if (item.externalLink) {
+            window.open(item.link, '_blank');
+        } else {
+            this.router.navigate([item.link]);
+        }
         this.sidemenu.close();
     }
 }

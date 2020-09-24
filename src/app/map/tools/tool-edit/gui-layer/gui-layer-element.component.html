@@ -1,18 +1,16 @@
-<span #colorbtn class="color-btn" [ngStyle]="{'background-color':color}" (click)="showColorPicker=!showColorPicker"></span>
+<span #colorbtn class="color-btn" [ngStyle]="{'background-color':color}" (click)= changeVisibility()></span>
 <span #colorpicker class="color-input"
         [(colorPicker)]="color"
         [style.background]="color"
         [cpFallbackColor]="'#000000'"
-        [cpAlphaChannel]="'disabled'"
-        [cpOutputFormat]="'rgb'"
+        [cpAlphaChannel]="'forced'"
+        [cpOutputFormat]="'rgba'"
         [cpUseRootViewContainer]="true"
-        [cpPosition]="'right'"
-        [cpPositionOffset]="100"
         [cpOKButton]="true"
         [cpCancelButton]="false"
         [(cpToggle)]="showColorPicker"
         [cpIgnoredElements]="[colorpicker,colorbtn]"
         [cpCloseClickOutside]="true"
         [cpSaveClickOutside]="false"
-        (colorPickerChange)="onColorChanged($event)" style="left: 0 !important"></span>
+        (colorPickerChange)="onColorChanged($event)"></span>
 <label class="element-label">{{elementName}}</label>

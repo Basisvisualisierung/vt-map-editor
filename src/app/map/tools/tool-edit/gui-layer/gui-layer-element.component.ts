@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef, Input, ViewEncapsulation} from '@angular/core';
 import { MapStylingService } from 'src/app/map/map-styling.service';
 
 /**
@@ -8,16 +8,16 @@ import { MapStylingService } from 'src/app/map/map-styling.service';
     selector: 'app-gui-layer-element',
     templateUrl: './gui-layer-element.component.html',
     styleUrls: ['./gui-layer-element.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
-export class GuiLayerElementComponent implements OnInit {
+export class GuiLayerElementComponent implements OnInit{
     @Input() guiLayerName: string;
     @Input() elementName: string;
     @Input() layer: any;
     color: string;
     showColorPicker: boolean;
 
-    constructor(private mapStylingService: MapStylingService) { }
+    constructor(private mapStylingService: MapStylingService, private cdr: ChangeDetectorRef) { }
 
     ngOnInit() {
         this.showColorPicker = false;
@@ -25,9 +25,14 @@ export class GuiLayerElementComponent implements OnInit {
         // Read paint attributes from styling
         const colorType = (this.layer.type === 'symbol') ? 'text' : this.layer.type;
         const colorAttribute = colorType + '-color';
+        const opacityAttribute = colorType + '-opacity';
         if (this.layer.paint !== undefined) {
-            if (this.layer.paint[colorAttribute] !== undefined) {
-                this.color = this.layer.paint[colorAttribute];
+            // tslint:disable-next-line:max-line-length
+            if (this.layer.paint[colorAttribute]  !== undefined && this.layer.paint[opacityAttribute] !== undefined && typeof this.layer.paint[opacityAttribute] !== 'object') {
+                // tslint:disable-next-line:max-line-length
+                this.color = this.mapStylingService.changeColorToSupported(this.layer.paint[colorAttribute], this.layer.paint[opacityAttribute]);
+            } else if (this.layer.paint[colorAttribute] !== undefined ) {
+                this.color = this.mapStylingService.changeColorToSupported(this.layer.paint[colorAttribute]);
             } else {
                 this.color = '#000000';
             }
@@ -40,7 +45,15 @@ export class GuiLayerElementComponent implements OnInit {
      */
     onColorChanged(color: string) {
         this.color = color;
-        const colorType = (this.layer.type === 'symbol') ? 'text' : this.layer.type;
         this.mapStylingService.changeGuiLayerColor(this.guiLayerName, this.elementName, color);
+        this.cdr.detectChanges();
+    }
+
+    /**
+     * Change visibility of colorPicker
+     */
+    changeVisibility(){
+        this.showColorPicker = !this.showColorPicker;
+        this.cdr.detectChanges();
     }
 }

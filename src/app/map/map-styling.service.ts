@@ -37,7 +37,7 @@ export class MapStylingService {
             this.setActiveStylingJson();
         }
 
-        this.mapView = new MapView (
+        this.mapView = new MapView(
             AppConfigService.settings.map.startZoom,
             AppConfigService.settings.map.startCenter,
             0,
@@ -73,7 +73,7 @@ export class MapStylingService {
 
     /**
      * Change saturation and/or lightness for the whole map
-     * Convert color value to HSL
+     * Convert color value to HSL or HSLA
      * @param changeValueS value to increase/decrease the saturation
      * @param changeValueL value to increase/decrease the lightness
      */
@@ -99,9 +99,10 @@ export class MapStylingService {
                                 .replace(/ /g, '')
                                 .split(',');
 
-                            // Remove alpha value (transparency)
+                            // Temporarily remove alpha value for convertion
+                            let alpha = 1;
                             if (color.search(/^rgba/) === 0) {
-                                colorArray.pop();
+                                alpha = colorArray.pop();
                             }
                             colorArray = [
                                 parseInt(colorArray[0], 10),
@@ -112,7 +113,7 @@ export class MapStylingService {
                             convertColor[1] += changeValueS;
                             convertColor[2] += changeValueL;
 
-                            layer.paint[colorType] = 'hsl(' + convertColor[0] + ',' + convertColor[1] + '%,' + convertColor[2] + '%)';
+                            layer.paint[colorType] = 'hsla(' + convertColor[0] + ',' + convertColor[1] + '%,' + convertColor[2] + '%,' + alpha + ')';
 
                         } else if (color.search(/^#/) === 0) {
                             // #FF0 -> [255,255,0]
@@ -128,9 +129,11 @@ export class MapStylingService {
                             let colorArray = color.substring(color.search(/\(/) + 1, color.length - 1)
                                 .replace(/ /g, '')
                                 .split(',');
-                            // Remove alpha value (transparency)
+
+                            // Temporarily remove alpha value for convertion
+                            let alpha = 1;
                             if (color.search(/^hsla/) === 0) {
-                                colorArray.pop();
+                                alpha = colorArray.pop();
                             }
                             colorArray = [
                                 parseInt(colorArray[0], 10),
@@ -138,7 +141,7 @@ export class MapStylingService {
                                 parseInt(colorArray[2].substring(0, colorArray[2].length - 1), 10) + changeValueL
                             ];
 
-                            layer.paint[colorType] = 'hsl(' + colorArray[0] + ',' + colorArray[1] + '%,' + colorArray[2] + '%)';
+                            layer.paint[colorType] = 'hsla(' + colorArray[0] + ',' + colorArray[1] + '%,' + colorArray[2] + '%,' + alpha + ')';
                         }
                     }
                 }
@@ -340,6 +343,11 @@ export class MapStylingService {
      */
     changeGuiLayerColor(guiLayerName: string, elementName: string, color: string) {
         const styling = this.activeStyling;
+        let opacity: number;
+        if (color.includes('rgba')) {
+            opacity = parseFloat(color.replace(/^.*,(.+)\)/, '$1'));
+            color = color.match(/rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?/)[0] + ', 1)';
+        }
         for (const layer of styling.layers) {
             if (layer.metadata !== undefined
                 && layer.metadata['map-editor:layer'] === guiLayerName
@@ -347,11 +355,45 @@ export class MapStylingService {
                 if (layer.paint === undefined) {
                     layer.paint = {};
                 }
-
                 const colorType = (layer.type === 'symbol') ? 'text' : layer.type;
                 layer.paint[colorType + '-color'] = color;
+                if (opacity !== undefined) {
+                    layer.paint[colorType + '-opacity'] = opacity;
+                }
             }
         }
         this.changeActiveStyling(styling);
+    }
+
+    /**
+     * will return a supported color with opacity or a predefined HTML color name, like yellow
+     * @param color (hex, rgb, rgba, hsl, hsla, predefined HTML color name)
+     * @param opacity opacity (0-1)
+     */
+    changeColorToSupported(color: string, opacity: number = 1){
+        if (color.includes('rgba')){
+            return color;
+        }else if (color.includes('rgb(')){
+            return `rgba(${color.slice(4, color.length - 1)}, ${opacity})`;
+        }else if (color.includes('#') && color.length === 7) {
+            const tempHex = color.replace('#', '');
+            const r = parseInt(tempHex.substring(0, 2), 16);
+            const g = parseInt(tempHex.substring(2, 4), 16);
+            const b = parseInt(tempHex.substring(4, 6), 16);
+            return `rgba(${r},${g},${b},${opacity})`;
+        }else if (color.includes('#') && color.length < 7){
+            let tempHex = color.replace('#', '');
+            tempHex = tempHex[0] + tempHex[0] + tempHex[1] + tempHex[1] + tempHex[2] + tempHex[2];
+            const r = parseInt(tempHex.substring(0, 2), 16);
+            const g = parseInt(tempHex.substring(2, 4), 16);
+            const b = parseInt(tempHex.substring(4, 6), 16);
+            return `rgba(${r},${g},${b},${opacity})`;
+        }else if (color.includes('hsla')){
+            return color;
+        }else if (color.includes('hsl(')){
+            return `hsla(${color.slice(4, color.length - 1)}, ${opacity})`;
+        }else{
+            return color;
+        }
     }
 }
