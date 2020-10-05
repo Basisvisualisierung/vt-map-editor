@@ -1,20 +1,33 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HeaderService } from 'src/app/header/header.service';
+import { MapStylingService } from 'src/app/map/map-styling.service';
+import { RouterTestingModule } from '@angular/router/testing';
 import { MapboxGlComponent } from './mapbox-gl.component';
+import {ToolBasemapComponent} from '../tools/tool-basemap/tool-basemap.component';
+import {HttpClientModule} from '@angular/common/http';
 
 describe('MapboxGlComponent', () => {
-    let component: MapboxGlComponent;
-    let fixture: ComponentFixture<MapboxGlComponent>;
+    let component: ToolBasemapComponent;
+    let fixture: ComponentFixture<ToolBasemapComponent>;
 
     beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            declarations: [MapboxGlComponent]
-        })
-            .compileComponents();
+        return TestBed.configureTestingModule({
+            declarations: [
+                ToolBasemapComponent
+            ],
+            imports: [
+                HttpClientModule,
+                RouterTestingModule
+            ],
+            providers: [
+                {provide: MapStylingService, useClass: MapStylingServiceStub},
+                {provide: HeaderService, useClass: HeaderServiceStub}
+            ]
+        }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(MapboxGlComponent);
+        fixture = TestBed.createComponent(ToolBasemapComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
@@ -23,3 +36,9 @@ describe('MapboxGlComponent', () => {
         expect(component).toBeTruthy();
     });
 });
+class MapStylingServiceStub {
+
+}
+class HeaderServiceStub {
+    changeTitle(title: string) {}
+}
