@@ -29,7 +29,8 @@ export class MapboxGlComponent implements OnInit {
     geolocateControl: any;
 
     constructor(private mapStylingService: MapStylingService,
-                private mapFunctionService: MapFunctionService) {
+                private mapFunctionService: MapFunctionService,
+                private appConfigService: AppConfigService) {
         // Get active styling from MapStylingService and use it as map content
         this.mapStylingService.activeStylingChanged.subscribe(
             (styling) => {
@@ -67,13 +68,14 @@ export class MapboxGlComponent implements OnInit {
         this.map = new mapboxgl.Map({
             container: 'map',
             style: this.activeStyling,
-            maxZoom: AppConfigService.settings.map.maxZoom,
-            center: AppConfigService.settings.map.startCenter,
-            zoom: AppConfigService.settings.map.startZoom
+            maxZoom: this.appConfigService.exportSettings.map.maxZoom,
+            center: this.appConfigService.exportSettings.map.startCenter,
+            zoom: this.appConfigService.exportSettings.map.startZoom,
         });
-
+        // tslint:disable-next-line:no-debugger
+        debugger;
         // Scale bar control
-        if (AppConfigService.settings.map.showScaleBar) {
+        if (this.appConfigService.exportSettings.map.showScaleBar) {
             this.map.addControl(new mapboxgl.ScaleControl());
         }
 
@@ -89,7 +91,7 @@ export class MapboxGlComponent implements OnInit {
         }
 
         // Custom zoom control
-        if (AppConfigService.settings.map.showZoomLevel === true) {
+        if (this.appConfigService.exportSettings.map.showZoomLevel === true) {
             this.zoomControl = new MapboxGlShowZoomControl();
             this.map.addControl(this.zoomControl, 'bottom-right');
         }
@@ -126,7 +128,7 @@ export class MapboxGlComponent implements OnInit {
         // Save changes of the map view in MapStylingService
         this.map.on('moveend', (event: any) => {
             this.setMapView();
-            if (AppConfigService.settings.map.showZoomLevel === true) {
+            if (this.appConfigService.exportSettings.map.showZoomLevel === true) {
                 this.zoomControl.changeText(Math.round(this.map.getZoom() * 100) / 100);
             }
         });
@@ -172,7 +174,7 @@ export class MapboxGlComponent implements OnInit {
      */
     toggleSearchControl(enable: boolean) {
         if (enable) {
-            this.searchControl = new MapboxGlSearchControl(AppConfigService.settings.mapService.url);
+            this.searchControl = new MapboxGlSearchControl(this.appConfigService.exportSettings.mapService.url);
             this.map.addControl(this.searchControl, 'top-right');
         } else {
             this.map.removeControl(this.searchControl);
