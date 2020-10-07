@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { GuiLayerConfigurationComponent } from './gui-layer-configuration.component';
+import {EventEmitter} from '@angular/core';
+import {MapView} from '../../../../shared/mapview';
+import {MapStylingService} from '../../../map-styling.service';
 
 describe('GuiLayerConfigurationComponent', () => {
     let component: GuiLayerConfigurationComponent;
@@ -9,7 +12,10 @@ describe('GuiLayerConfigurationComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [GuiLayerConfigurationComponent],
-            imports: [RouterTestingModule]
+            imports: [RouterTestingModule],
+            providers: [
+                { provide: MapStylingService, useClass: MapStylingServiceStub}
+            ]
         })
             .compileComponents();
     }));
@@ -20,7 +26,10 @@ describe('GuiLayerConfigurationComponent', () => {
         fixture.detectChanges();
     });
 
-    /*it('should create', () => {
+    it('should create', () => {
         expect(component).toBeTruthy();
-    });*/
+    });
 });
+class MapStylingServiceStub {
+    activeStyling = {layers: [{}]};
+}
