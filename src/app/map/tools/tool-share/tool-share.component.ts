@@ -25,7 +25,9 @@ export class ToolShareComponent implements OnInit {
                 private mapStylingService: MapStylingService,
                 private mapFunctionService: MapFunctionService,
                 private http: HttpClient,
-                private snackBar: MatSnackBar) { }
+                private snackBar: MatSnackBar,
+                private appConfigService: AppConfigService) { }
+
 
     ngOnInit() {
         this.headerService.changeTitle('Karte <span class="accent">veröffentlichen</span>');
@@ -49,10 +51,10 @@ export class ToolShareComponent implements OnInit {
             style: activeStyling,
             configuration: this.mapFunctionService.mapFunctions
         };
-
-        this.http.post(AppConfigService.settings.mapService.url + '/map', data, options).subscribe((response: any) => {
-            this.stylingUrl = this.completeUrl(AppConfigService.settings.mapService.url + '/style/' + response.id);
-            this.appUrl = this.completeUrl(AppConfigService.settings.mapView.url + '/' + response.id);
+        console.log(`here`);
+        this.http.post(this.appConfigService.exportSettings.mapService.url + '/map', data, options).subscribe((response: any) => {
+            this.stylingUrl = this.completeUrl(this.appConfigService.exportSettings.mapService.url + '/style/' + response.id);
+            this.appUrl = this.completeUrl(this.appConfigService.exportSettings.mapView.url + '/' + response.id);
             this.appIframe = '<iframe src="' + this.appUrl + '" style="border:none;width:100%;height:500px">';
             const mapPageUrl = window.location.protocol + '//' + window.location.host +
                            window.location.pathname.substring(0, window.location.pathname.search('/map/') + 4);

@@ -72,8 +72,6 @@ export class MapboxGlComponent implements OnInit {
             center: this.appConfigService.exportSettings.map.startCenter,
             zoom: this.appConfigService.exportSettings.map.startZoom,
         });
-        // tslint:disable-next-line:no-debugger
-        debugger;
         // Scale bar control
         if (this.appConfigService.exportSettings.map.showScaleBar) {
             this.map.addControl(new mapboxgl.ScaleControl());

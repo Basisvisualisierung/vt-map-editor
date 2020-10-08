@@ -17,10 +17,12 @@ export class MenuComponent implements OnInit {
 
     menuItems: MenuItem[];
 
-    constructor() {
+    constructor(
+        private appConfigService: AppConfigService
+    ) {
         // Read menu items definitions from configuration
-        if (AppConfigService.settings.menuItems !== undefined) {
-            this.menuItems = AppConfigService.settings.menuItems;
+        if (appConfigService.exportSettings.menuItems !== undefined) {
+            this.menuItems = appConfigService.exportSettings.menuItems;
         }
     }
 
