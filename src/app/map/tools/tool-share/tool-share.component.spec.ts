@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ToolShareComponent } from './tool-share.component';
+import {HeaderService} from '../../../header/header.service';
+import {MapStylingService} from '../../map-styling.service';
+import {MapFunctionService} from '../../map-function.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {AppConfigService} from '../../../app-config.service';
 
 describe('ToolShareComponent', () => {
     let component: ToolShareComponent;
@@ -8,7 +14,15 @@ describe('ToolShareComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ToolShareComponent]
+            declarations: [ToolShareComponent],
+            imports: [HttpClientTestingModule],
+            providers: [
+                {provide: HeaderService, useClass: HeaderServiceStub},
+                {provide: MapStylingService, useClass: MapStylingServiceStub},
+                {provide: MapFunctionService, useClass: MapFunctionServiceStub},
+                {provide: MatSnackBar, useValue: {}},
+                {provide: AppConfigService, useClass: AppConfigServiceStub}
+                ]
         })
             .compileComponents();
     }));
@@ -19,7 +33,21 @@ describe('ToolShareComponent', () => {
         fixture.detectChanges();
     });
 
-    /*it('should create', () => {
+    it('should create', () => {
         expect(component).toBeTruthy();
-    });*/
+    });
 });
+
+class HeaderServiceStub{
+    changeTitle(){}
+}
+class MapStylingServiceStub{}
+class MapFunctionServiceStub{
+}
+class AppConfigServiceStub{
+    exportSettings = {
+        mapService: {
+            url: {}
+        }
+    };
+}

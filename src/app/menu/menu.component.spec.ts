@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MenuItem } from './menu-item';
 import { MenuComponent } from './menu.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {AppConfigService} from '../app-config.service';
 
 describe('MenuComponent', () => {
     let component: MenuComponent;
@@ -8,7 +10,11 @@ describe('MenuComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [MenuComponent]
+            declarations: [MenuComponent],
+            imports: [HttpClientTestingModule],
+            providers: [
+                {provide: AppConfigService, useClass: AppConfigServiceStub}
+            ]
         }).compileComponents();
     }));
 
@@ -18,7 +24,31 @@ describe('MenuComponent', () => {
         fixture.detectChanges();
     });
 
-    /*it('should create', () => {
+    it('should create', () => {
         expect(component).toBeTruthy();
-    });*/
+    });
 });
+class AppConfigServiceStub{
+    exportSettings = {menuItems: [
+            {
+                label: 'Map',
+                icon: 'map',
+                link: 'map',
+                externalLink: false
+            },
+            {
+                label: 'Privacy',
+                icon: 'lock',
+                link: 'privacy',
+                externalLink: false
+            },
+            {
+                label: 'Legals',
+                icon: 'comment',
+                link: 'https://...',
+                externalLink: true
+            }
+        ],
+
+    };
+}

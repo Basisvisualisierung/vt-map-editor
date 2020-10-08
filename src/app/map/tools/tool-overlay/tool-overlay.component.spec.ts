@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ToolOverlayComponent } from './tool-overlay.component';
+import {RouterTestingModule} from '@angular/router/testing';
+
 
 describe('ToolOverlayComponent', () => {
     let component: ToolOverlayComponent;
@@ -8,7 +10,8 @@ describe('ToolOverlayComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ToolOverlayComponent]
+            declarations: [ToolOverlayComponent],
+            imports: [RouterTestingModule]
         })
             .compileComponents();
     }));
@@ -19,7 +22,7 @@ describe('ToolOverlayComponent', () => {
         fixture.detectChanges();
     });
 
-    /*it('should create', () => {
+    it('should create', () => {
         expect(component).toBeTruthy();
-    });*/
+    });
 });
