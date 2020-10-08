@@ -11,8 +11,8 @@ export class MapFunctionService {
     mapFunctions: MapFunctions;
     mapFunctionsChanged = new EventEmitter<string>();
 
-    constructor() {
-        this.mapFunctions = AppConfigService.settings.mapFunctions;
+    constructor(private appConfigService: AppConfigService) {
+        this.mapFunctions = appConfigService.exportSettings.mapFunctions;
     }
 
     /**

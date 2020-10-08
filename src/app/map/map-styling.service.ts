@@ -27,8 +27,8 @@ export class MapStylingService {
     // Save the configuartion of input elements for GUI layer visibility
     guiLayerSettings: any;
 
-    constructor(private http: HttpClient, private route: ActivatedRoute) {
-        this.basemaps = AppConfigService.settings.basemaps;
+    constructor(private http: HttpClient, private route: ActivatedRoute, private appConfigService: AppConfigService) {
+        this.basemaps = this.appConfigService.exportSettings.basemaps;
         this.activeBasemap = this.basemaps[0];
 
         // Load standard style if no query parameter exists
@@ -38,8 +38,8 @@ export class MapStylingService {
         }
 
         this.mapView = new MapView(
-            AppConfigService.settings.map.startZoom,
-            AppConfigService.settings.map.startCenter,
+            this.appConfigService.exportSettings.map.startZoom,
+            this.appConfigService.exportSettings.map.startCenter,
             0,
             0
         );
@@ -214,7 +214,7 @@ export class MapStylingService {
         const newBasemap = new Basemap(
             basemapId,
             'assets/basemaps/thumbnails/basemap_standard.png',
-            AppConfigService.settings.mapService.url + '/style/' + basemapId
+            this.appConfigService.exportSettings.mapService.url + '/style/' + basemapId
         );
         this.basemaps.push(newBasemap);
         if (activateBasemap) {
