@@ -22,7 +22,7 @@ describe('MapComponent', () => {
             providers: [
                 {provide: HeaderService, useClass: HeaderServiceStub},
                 {provide: MapStylingService, useClass: MapStylingServiceStub},
-                {provide: AppConfigService, useValue: {exportSettings: {titles: {text: 'test'}}}}
+                {provide: AppConfigService, useValue: {settings: {titles: {text: 'test'}}}}
 
             ]
         }).compileComponents();

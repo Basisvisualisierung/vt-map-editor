@@ -29,7 +29,7 @@ describe('MenuComponent', () => {
     });
 });
 class AppConfigServiceStub{
-    exportSettings = {menuItems: [
+    settings = {menuItems: [
             {
                 label: 'Map',
                 icon: 'map',

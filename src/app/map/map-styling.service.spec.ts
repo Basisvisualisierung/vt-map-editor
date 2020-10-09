@@ -64,7 +64,7 @@ describe('MapStylingService', () => {
     )));*/
 });
 class AppConfigServiceStub{
-    exportSettings = {
+    settings = {
         map: {},
         basemaps: [{}]
     };

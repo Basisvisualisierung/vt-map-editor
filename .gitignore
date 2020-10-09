@@ -47,9 +47,6 @@ Thumbs.db
 
 # Custom asset files
 /src/assets/config/config.json
-/src/assets/fonts
-/src/assets/basemaps/*.json
-/src/assets/sprites
 
 # Documentation (temporary ignored)
 /docs/js

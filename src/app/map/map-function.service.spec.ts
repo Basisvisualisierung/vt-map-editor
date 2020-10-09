@@ -21,5 +21,5 @@ describe('MapFunctionService', () => {
    });
 });
 class AppConfigServiceStub {
-    exportSettings = {};
+    settings = {};
 }

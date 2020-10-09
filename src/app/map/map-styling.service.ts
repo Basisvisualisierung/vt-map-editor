@@ -28,7 +28,7 @@ export class MapStylingService {
     guiLayerSettings: any;
 
     constructor(private http: HttpClient, private route: ActivatedRoute, private appConfigService: AppConfigService) {
-        this.basemaps = this.appConfigService.exportSettings.basemaps;
+        this.basemaps = this.appConfigService.settings.basemaps;
         this.activeBasemap = this.basemaps[0];
 
         // Load standard style if no query parameter exists
@@ -38,8 +38,8 @@ export class MapStylingService {
         }
 
         this.mapView = new MapView(
-            this.appConfigService.exportSettings.map.startZoom,
-            this.appConfigService.exportSettings.map.startCenter,
+            this.appConfigService.settings.map.startZoom,
+            this.appConfigService.settings.map.startCenter,
             0,
             0
         );
@@ -214,7 +214,7 @@ export class MapStylingService {
         const newBasemap = new Basemap(
             basemapId,
             'assets/basemaps/thumbnails/basemap_standard.png',
-            this.appConfigService.exportSettings.mapService.url + '/style/' + basemapId
+            this.appConfigService.settings.mapService.url + '/style/' + basemapId
         );
         this.basemaps.push(newBasemap);
         if (activateBasemap) {

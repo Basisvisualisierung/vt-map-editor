@@ -21,8 +21,8 @@ export class MenuComponent implements OnInit {
         private appConfigService: AppConfigService
     ) {
         // Read menu items definitions from configuration
-        if (appConfigService.exportSettings.menuItems !== undefined) {
-            this.menuItems = appConfigService.exportSettings.menuItems;
+        if (appConfigService.settings.menuItems !== undefined) {
+            this.menuItems = appConfigService.settings.menuItems;
         }
     }
 

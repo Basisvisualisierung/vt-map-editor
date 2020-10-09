@@ -68,12 +68,12 @@ export class MapboxGlComponent implements OnInit {
         this.map = new mapboxgl.Map({
             container: 'map',
             style: this.activeStyling,
-            maxZoom: this.appConfigService.exportSettings.map.maxZoom,
-            center: this.appConfigService.exportSettings.map.startCenter,
-            zoom: this.appConfigService.exportSettings.map.startZoom,
+            maxZoom: this.appConfigService.settings.map.maxZoom,
+            center: this.appConfigService.settings.map.startCenter,
+            zoom: this.appConfigService.settings.map.startZoom,
         });
         // Scale bar control
-        if (this.appConfigService.exportSettings.map.showScaleBar) {
+        if (this.appConfigService.settings.map.showScaleBar) {
             this.map.addControl(new mapboxgl.ScaleControl());
         }
 
@@ -89,7 +89,7 @@ export class MapboxGlComponent implements OnInit {
         }
 
         // Custom zoom control
-        if (this.appConfigService.exportSettings.map.showZoomLevel === true) {
+        if (this.appConfigService.settings.map.showZoomLevel === true) {
             this.zoomControl = new MapboxGlShowZoomControl();
             this.map.addControl(this.zoomControl, 'bottom-right');
         }
@@ -126,7 +126,7 @@ export class MapboxGlComponent implements OnInit {
         // Save changes of the map view in MapStylingService
         this.map.on('moveend', (event: any) => {
             this.setMapView();
-            if (this.appConfigService.exportSettings.map.showZoomLevel === true) {
+            if (this.appConfigService.settings.map.showZoomLevel === true) {
                 this.zoomControl.changeText(Math.round(this.map.getZoom() * 100) / 100);
             }
         });
@@ -172,7 +172,7 @@ export class MapboxGlComponent implements OnInit {
      */
     toggleSearchControl(enable: boolean) {
         if (enable) {
-            this.searchControl = new MapboxGlSearchControl(this.appConfigService.exportSettings.mapService.url);
+            this.searchControl = new MapboxGlSearchControl(this.appConfigService.settings.mapService.url);
             this.map.addControl(this.searchControl, 'top-right');
         } else {
             this.map.removeControl(this.searchControl);

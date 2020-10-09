@@ -45,7 +45,7 @@ class MapStylingServiceStub{}
 class MapFunctionServiceStub{
 }
 class AppConfigServiceStub{
-    exportSettings = {
+    settings = {
         mapService: {
             url: {}
         }

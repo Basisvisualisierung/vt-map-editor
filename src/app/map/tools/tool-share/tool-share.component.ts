@@ -52,9 +52,9 @@ export class ToolShareComponent implements OnInit {
             configuration: this.mapFunctionService.mapFunctions
         };
         console.log(`here`);
-        this.http.post(this.appConfigService.exportSettings.mapService.url + '/map', data, options).subscribe((response: any) => {
-            this.stylingUrl = this.completeUrl(this.appConfigService.exportSettings.mapService.url + '/style/' + response.id);
-            this.appUrl = this.completeUrl(this.appConfigService.exportSettings.mapView.url + '/' + response.id);
+        this.http.post(this.appConfigService.settings.mapService.url + '/map', data, options).subscribe((response: any) => {
+            this.stylingUrl = this.completeUrl(this.appConfigService.settings.mapService.url + '/style/' + response.id);
+            this.appUrl = this.completeUrl(this.appConfigService.settings.mapView.url + '/' + response.id);
             this.appIframe = '<iframe src="' + this.appUrl + '" style="border:none;width:100%;height:500px">';
             const mapPageUrl = window.location.protocol + '//' + window.location.host +
                            window.location.pathname.substring(0, window.location.pathname.search('/map/') + 4);

@@ -25,7 +25,7 @@ describe('MapboxGlComponent', () => {
             ],
             providers: [
                 {provide: AppConfigService, useValue: {
-                    exportSettings: {
+                    settings: {
                         titles: {
                             map: ''
                         },

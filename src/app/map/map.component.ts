@@ -57,7 +57,7 @@ export class MapComponent implements OnInit {
         this.showToolOverlay = false;
 
         // Header title
-        this.headerTitle = this.appConfigService.exportSettings.titles.map;
+        this.headerTitle = this.appConfigService.settings.titles.map;
         this.headerService.changeTitle(this.headerTitle);
     }
 

@@ -12,7 +12,7 @@ export class MapFunctionService {
     mapFunctionsChanged = new EventEmitter<string>();
 
     constructor(private appConfigService: AppConfigService) {
-        this.mapFunctions = appConfigService.exportSettings.mapFunctions;
+        this.mapFunctions = appConfigService.settings.mapFunctions;
     }
 
     /**
