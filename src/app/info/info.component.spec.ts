@@ -6,7 +6,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {HeaderService} from '../header/header.service';
 import {MenuComponent} from '../menu/menu.component';
 import {ActivatedRoute} from '@angular/router';
-import {ActivatedRouteStub} from '../testing/acticated-route-stub';
+import {ActivatedRouteStub} from '../testing/activated-route-stub';
 
 
 
