@@ -1,5 +1,3 @@
-import { AppConfigService } from 'src/app/app-config.service';
-
 /**
  * Search control for Mapbox GL
  */

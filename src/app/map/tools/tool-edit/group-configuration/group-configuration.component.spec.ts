@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GroupConfigurationComponent } from './group-configuration.component';
+import {MapStylingService} from '../../../map-styling.service';
 
 describe('GroupConfigurationComponent', () => {
     let component: GroupConfigurationComponent;
@@ -8,7 +9,10 @@ describe('GroupConfigurationComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [GroupConfigurationComponent]
+            declarations: [GroupConfigurationComponent],
+            providers: [
+                {provide: MapStylingService, useClass: MapStylingServiceStub}
+            ]
         })
             .compileComponents();
     }));
@@ -23,3 +27,6 @@ describe('GroupConfigurationComponent', () => {
         expect(component).toBeTruthy();
     });
 });
+class MapStylingServiceStub{
+    activeStyling = {layers: [{}]};
+}

@@ -41,7 +41,8 @@ export class MapComponent implements OnInit {
     constructor(private router: Router,
                 private route: ActivatedRoute,
                 private headerService: HeaderService,
-                private mapStylingService: MapStylingService) {
+                private mapStylingService: MapStylingService,
+                private appConfigService: AppConfigService) {
 
         // Load map by uuid from query parameters
         const mapUuid = route.snapshot.queryParamMap.get('id');
@@ -56,7 +57,7 @@ export class MapComponent implements OnInit {
         this.showToolOverlay = false;
 
         // Header title
-        this.headerTitle = AppConfigService.settings.titles.map;
+        this.headerTitle = this.appConfigService.settings.titles.map;
         this.headerService.changeTitle(this.headerTitle);
     }
 

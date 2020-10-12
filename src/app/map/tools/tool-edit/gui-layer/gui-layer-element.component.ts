@@ -18,10 +18,8 @@ export class GuiLayerElementComponent implements OnInit{
     showColorPicker: boolean;
 
     constructor(private mapStylingService: MapStylingService, private cdr: ChangeDetectorRef) { }
-
     ngOnInit() {
         this.showColorPicker = false;
-
         // Read paint attributes from styling
         const colorType = (this.layer.type === 'symbol') ? 'text' : this.layer.type;
         const colorAttribute = colorType + '-color';

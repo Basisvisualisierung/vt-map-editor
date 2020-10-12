@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { FeedbackComponent } from './feedback.component';
+import {HeaderService} from '../header/header.service';
 
 describe('FeedbackComponent', () => {
     let component: FeedbackComponent;
@@ -8,7 +8,10 @@ describe('FeedbackComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [FeedbackComponent]
+            declarations: [FeedbackComponent],
+            providers: [
+                { provide: HeaderService, useClass: HeaderServiceStub }
+                ]
         })
             .compileComponents();
     }));
@@ -23,3 +26,7 @@ describe('FeedbackComponent', () => {
         expect(component).toBeTruthy();
     });
 });
+
+class HeaderServiceStub{
+    changeTitle(title: string) {}
+}

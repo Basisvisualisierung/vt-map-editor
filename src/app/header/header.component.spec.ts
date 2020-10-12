@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HeaderComponent } from './header.component';
+import {HeaderService} from './header.service';
+import {HttpClientModule} from '@angular/common/http';
+import {RouterTestingModule} from '@angular/router/testing';
+import {EventEmitter} from '@angular/core';
 
 describe('HeaderComponent', () => {
     let component: HeaderComponent;
@@ -8,7 +11,14 @@ describe('HeaderComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [HeaderComponent]
+            declarations: [HeaderComponent],
+            imports: [
+                HttpClientModule,
+                RouterTestingModule
+            ],
+            providers: [
+                {provide: HeaderService, useClass: HeaderServiceStub}
+            ]
         })
             .compileComponents();
     }));
@@ -23,3 +33,11 @@ describe('HeaderComponent', () => {
         expect(component).toBeTruthy();
     });
 });
+
+class HeaderServiceStub{
+    titleChanged = new EventEmitter<string>();
+    changeTitle(title: string) {
+        this.titleChanged.emit('');
+    }
+}
+

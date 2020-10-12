@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ToolFunctionsComponent } from './tool-functions.component';
+import {HeaderService} from '../../../header/header.service';
+import {MapFunctionService} from '../../map-function.service';
 
 describe('ToolFunctionsComponent', () => {
     let component: ToolFunctionsComponent;
@@ -8,7 +10,11 @@ describe('ToolFunctionsComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ToolFunctionsComponent]
+            declarations: [ToolFunctionsComponent],
+            providers: [
+                {provide: HeaderService, useClass: HeaderServiceStub},
+                {provide: MapFunctionService, useClass: MapFunctionServiceStub}
+            ]
         })
             .compileComponents();
     }));
@@ -23,3 +29,31 @@ describe('ToolFunctionsComponent', () => {
         expect(component).toBeTruthy();
     });
 });
+
+class HeaderServiceStub{
+    changeTitle(title: string) {}
+}
+
+class MapFunctionServiceStub{
+    mapFunctions = {
+        navigation: {
+            show: true,
+            enabled: true
+        },
+        info: {
+            show: true,
+            enabled: true
+        },
+        search: {
+            show: true,
+            enabled: true
+        },
+        routing: {
+            show: false,
+            enabled: false,
+            configuration: {
+                color: '#FF0000'
+            }
+        }
+    };
+}

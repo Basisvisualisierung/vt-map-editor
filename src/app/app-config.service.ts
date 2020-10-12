@@ -5,10 +5,9 @@ import { SettingsModel } from './shared/settings.model';
 /**
  * Central access to app configuration
  */
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class AppConfigService {
-    static settings: SettingsModel;
-
+    settings: SettingsModel;
     constructor(private http: HttpClient) { }
 
     /**
@@ -19,7 +18,7 @@ export class AppConfigService {
             this.http.get('assets/config/config.json')
                         .toPromise()
                         .then((settings: SettingsModel) => {
-                            AppConfigService.settings = settings as SettingsModel;
+                            this.settings = settings as SettingsModel;
                             resolve();
                         });
         });
