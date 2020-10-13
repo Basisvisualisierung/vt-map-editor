@@ -1,6 +1,6 @@
 = Configuration file
 
-The configuration file is a regular JSON file. To configure the application you must first create a new configuration file `config.json` in the folder `src/assets/config` with the required content. For that copy or rename `config_template.json` to `config.json`.
+The configuration of the application is defined by the JSON file `config.json` in the folder `src/assets/config`.
 
 == Template
 Here is a template for the configuration:

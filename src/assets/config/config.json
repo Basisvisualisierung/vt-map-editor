@@ -1,0 +1,88 @@
+{
+    "titles": {
+        "map": "Basis<span class=\"accent\">visualisierung</span>"
+    },
+    "mapService": {
+        "url": "/map-service"
+    },
+    "mapView": {
+        "url": "/map-view"
+    },
+    "map": {
+        "maxZoom": 18,
+        "startCenter": [9.732934, 52.373292],
+        "startZoom": 12,
+        "showZoomLevel": false,
+        "showScaleBar": true
+    },
+    "mapFunctions": {
+        "navigation": {
+            "show": true,
+            "enabled": true
+        },
+        "info": {
+            "show": true,
+            "enabled": true
+        },
+        "search": {
+            "show": true,
+            "enabled": true
+        }
+    },
+    "basemaps": [
+        {
+            "name": "Farbe",
+            "imgUrl": "assets/images/thumbnails/basemap_color.png",
+            "styling": "/styles/vt-style-color.json"
+        },
+        {
+            "name": "Klassisch",
+            "imgUrl": "assets/images/thumbnails/basemap_classic.png",
+            "styling": "/styles/vt-style-classic.json"
+        },
+        {
+            "name": "Graustufen",
+            "imgUrl": "assets/images/thumbnails/basemap_grayscale.png",
+            "styling": "/styles/vt-style-grayscale.json"
+        },
+        {
+            "name": "Hell",
+            "imgUrl": "assets/images/thumbnails/basemap_light.png",
+            "styling": "/styles/vt-style-light.json"
+        },
+        {
+            "name": "Nacht",
+            "imgUrl": "assets/images/thumbnails/basemap_night.png",
+            "styling": "/styles/vt-style-night.json"
+        },
+        {
+            "name": "Zufall",
+            "imgUrl": "assets/images/thumbnails/basemap_random.png",
+            "styling": "",
+            "randomColors": true
+        }
+    ],
+    "menuItems": [
+        {
+            "label": "Karte",
+            "icon": "map",
+            "link": "map",
+            "externalLink": false
+        },
+        {
+            "label": "Datenschutz",
+            "icon": "lock",
+            "link": "https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/datenschutz/datenschutz-im-lgln-138166.html",
+            "externalLink": true
+        },
+        {
+            "label": "Impressum",
+            "icon": "comment",
+            "link": "https://www.lgln.niedersachsen.de/startseite/wir_uber_uns_amp_organisation/impressum/impressum-92629.html",
+            "externalLink": true
+        }
+    ],
+    "guiLayers": {
+        "sortByName": true
+    }
+}

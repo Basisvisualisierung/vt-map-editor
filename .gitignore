@@ -45,12 +45,5 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# Custom asset files
-/src/assets/config/config.json
-
 # Documentation (temporary ignored)
 /docs/js
-
-# vt-map-view
-# Custom asset files
-/projects/vt-map-view/src/assets/config/config.json
