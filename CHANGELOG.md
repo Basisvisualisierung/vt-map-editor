@@ -1,3 +1,7 @@
+## v1.2.1 (2020-10-13)
+### Bug fixes
+* Unit tests are basically executable without errors.
+
 ## v1.2.0 (2020-09-24)
 ### New Features
 * Menu items can be configured via the configuration file.
