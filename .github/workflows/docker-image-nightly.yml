@@ -21,11 +21,19 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       -
-        name: Build and push
-        id: docker_build
+        name: Build and push VT Map Editor
+        id: docker_build_editor
         uses: docker/build-push-action@v2
         with:
           push: true
           tags: basisvisualisierung/vt-map-editor:nightly
           file: ./Dockerfile-vt-map-editor-prod
+      -
+        name: Build and push VT Map View
+        id: docker_build_view
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: basisvisualisierung/vt-map-view:nightly
+          file: ./Dockerfile-vt-map-view-prod
 
