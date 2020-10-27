@@ -1,0 +1,74 @@
+name: Publish and deploy Docker image RELEASE VT MAP View
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+env:
+  IBM_CLOUD_API_KEY: ${{ secrets.IBM_CLOUD_API_KEY }}
+  IBM_CLOUD_REGION: eu-de
+  IKS_CLUSTER: bpb6t7ff0u016hl0n65g
+  IKS_NAMESPACE: bavi-dev
+  DEPLOYMENT_NAME: vt-map-view-deployment
+
+jobs:
+  build:
+    name: Build and push Docker image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare
+        id: prep
+        run: |
+          TAGS=basisvisualisierung/vt-map-view:${GITHUB_REF#refs/tags/}
+          echo ::set-output name=tags::${TAGS}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ${{ steps.prep.outputs.tags }}
+  deploy:
+    name: Deploy Docker image to IKS cluster
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare
+        id: prep
+        run: |
+          TAGS=basisvisualisierung/vt-map-view:${GITHUB_REF#refs/tags/}
+          echo ::set-output name=tags::${TAGS}
+
+      - name: Install IBM Cloud CLI
+        run: |
+          curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
+          ibmcloud --version
+          ibmcloud config --check-version=false
+          ibmcloud plugin install -f kubernetes-service
+          ibmcloud plugin install -f container-registry
+
+      - name: Authenticate with IBM Cloud CLI
+        run: |
+          ibmcloud login --apikey "${IBM_CLOUD_API_KEY}" -r "${IBM_CLOUD_REGION}" -g LGLN_power
+          ibmcloud cr region-set "${IBM_CLOUD_REGION}"
+          ibmcloud cr login
+
+      - name: Deploy to IKS
+        run: |
+          ibmcloud ks cluster config --cluster $IKS_CLUSTER
+          kubectl config set-context --current --namespace=${IKS_NAMESPACE}
+          kubectl set image deployment/$DEPLOYMENT_NAME vt-map-view=${{ steps.prep.outputs.tags }}
+          kubectl rollout status deployment/$DEPLOYMENT_NAME
