@@ -1,4 +1,4 @@
-name: Publish and deploy Docker image RELEASE VT MAP View
+name: Publish and deploy Docker image RELEASE VT Map View
 
 on:
   push:
@@ -41,6 +41,7 @@ jobs:
         with:
           push: true
           tags: ${{ steps.prep.outputs.tags }}
+          file: ./Dockerfile-vt-map-view-prod
   deploy:
     name: Deploy Docker image to IKS cluster
     needs: build
