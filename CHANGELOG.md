@@ -1,3 +1,7 @@
+## v1.2.2 (not released)
+### New Features
+* A short description can be added for each basemap in the configuration file.
+
 ## v1.2.1 (2020-10-13)
 ### Bug fixes
 * Unit tests are basically executable without errors.

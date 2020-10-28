@@ -1,6 +1,10 @@
 <div class="container-fluid" *ngIf="!showLoadBasemap">
     <div class="row">
-        <mat-card *ngFor="let basemap of basemaps" class="basemap-card col-auto" [ngClass]="{'bg-primary': basemap === activeBasemap}"  (click)="onBasemapSelected(basemap)" >
+        <mat-card *ngFor="let basemap of basemaps"
+                    class="basemap-card col-auto"
+                    [ngClass]="{'bg-primary': basemap === activeBasemap}"
+                    (click)="onBasemapSelected(basemap)"
+                    title="{{basemap.description}}">
             <img mat-card-image class="basemap-img" src="{{basemap.imgUrl}}">
             <mat-card-content>
                 {{basemap.name}}
@@ -11,13 +15,21 @@
         </mat-card>
         <div class="col-auto col-config">
             <div class="config-title">Helligkeit</div>
-            <button mat-raised-button (click)="onLightnessUp()"><mat-icon>expand_less</mat-icon></button><br>
-            <button mat-raised-button (click)="onLightnessDown()"><mat-icon>expand_more</mat-icon></button>
+            <button mat-raised-button (click)="onLightnessUp()">
+                <mat-icon>expand_less</mat-icon>
+            </button><br>
+            <button mat-raised-button (click)="onLightnessDown()">
+                <mat-icon>expand_more</mat-icon>
+            </button>
         </div>
         <div class="col-auto col-config">
             <div class="config-title">Sättigung</div>
-            <button mat-raised-button (click)="onSaturationUp()"><mat-icon>expand_less</mat-icon></button><br>
-            <button mat-raised-button (click)="onSaturationDown()"><mat-icon>expand_more</mat-icon></button>
+            <button mat-raised-button (click)="onSaturationUp()">
+                <mat-icon>expand_less</mat-icon>
+            </button><br>
+            <button mat-raised-button (click)="onSaturationDown()">
+                <mat-icon>expand_more</mat-icon>
+            </button>
         </div>
     </div>
 </div>

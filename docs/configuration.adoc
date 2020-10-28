@@ -48,7 +48,8 @@ Here is a template for the configuration:
         {
             "name": "My Map",
             "imgUrl": "assets/images/thumbnails/basemap_color.png",
-            "styling": "assets/basemaps/style.json"
+            "styling": "assets/basemaps/style.json",
+            "description": "My colored map"
         }
     ],
     "menuItems": [
@@ -160,6 +161,11 @@ URL to a thumbnail of the basemap styling. It can be a URL or a relative file pa
 `styling`: string
 
 URL to the JSON styling file of the basemap. It can be an absolute URL, a relative URL (with leading slash) or a relative file path (without leading slash).
+
+`description`: string
+
+Short description of the basemap displayed at a mouse over event. +
+This attribute ist optional.
 
 `randomColors`: true | false
 
