@@ -47,13 +47,6 @@ class MapFunctionServiceStub{
         search: {
             show: true,
             enabled: true
-        },
-        routing: {
-            show: false,
-            enabled: false,
-            configuration: {
-                color: '#FF0000'
-            }
         }
     };
 }

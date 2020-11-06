@@ -35,13 +35,6 @@ Here is a template for the configuration:
         "search": {
             "show": true,
             "enabled": true
-        },
-        "routing": {
-            "show": true,
-            "enabled": false,
-            "configuration": {
-                "color": "#FF0000"
-            }
         }
     },
     "basemaps": [
@@ -128,15 +121,6 @@ Enable or disable the toggle by default.
 `show`: true | false
 
 Show / hide the toggle for the search function in the functions user interface. Settings `searchApi` and `searchApiKey` must be defined.
-
-`enabled`: true | false
-
-Enable or disable the toggle by default.
-
-==== routing
-`show`: true | false
-
-Show / hide the toggle for the routing function in the functions user interface. The routing function is only embedded in published maps.
 
 `enabled`: true | false
 

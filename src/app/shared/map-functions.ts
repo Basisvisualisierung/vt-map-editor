@@ -7,7 +7,6 @@ export class MapFunctions {
     constructor(
         public navigation: MapFunction,
         public info: MapFunction,
-        public search: MapFunction,
-        public routing: MapFunction
+        public search: MapFunction
     ) {}
 }

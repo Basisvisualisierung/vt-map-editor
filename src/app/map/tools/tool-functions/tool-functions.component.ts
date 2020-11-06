@@ -31,13 +31,4 @@ export class ToolFunctionsComponent implements OnInit {
         this.mapFunctions[functionName].enable = event.checked;
         this.mapFunctionService.toggleMapFunction(functionName, event.checked);
     }
-
-    /**
-     * CHange color of navigation route
-     * @param color Color (hex, rgb, rgba, hsl, hsla)
-     */
-    onRouteColorChanged(color: string) {
-        this.mapFunctions.routing.configuration.color = color;
-        this.mapFunctionService.setFunctionConfiguration('routing', this.mapFunctions.routing.configuration);
-    }
 }

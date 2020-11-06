@@ -1,6 +1,9 @@
-## v1.2.2 (not released)
+## v1.3.0 (not released)
 ### New Features
 * A short description can be added for each basemap in the configuration file.
+
+### Bug fixes
+* Map functions could not be enabled.
 
 ## v1.2.1 (2020-10-13)
 ### Bug fixes
