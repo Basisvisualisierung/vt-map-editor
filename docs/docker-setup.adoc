@@ -66,6 +66,46 @@ services:
 
 Now you can view VT Map Editor in a browser: link:http://localhost/map-editor[http://localhost/map-editor]
 
+=== Change URL paths for Docker images
+
+If you need to change the default URL paths of the Docker Hub images for VT Map Editor and VT Map View, you can use the following Dockerfiles.
+
+.Dockerfile VT Map Editor (change path /map-editor to /map-editor-test)
+```
+FROM basisvisualisierung/vt-map-editor:latest
+
+# Change directory name
+RUN mv /usr/share/nginx/html/map-editor /usr/share/nginx/html/map-editor-test
+
+WORKDIR /usr/share/nginx/html/map-editor-test
+
+# Replace directory name in fiels
+RUN sed -i 's/map-editor/map-editor-test/g' ./index.html
+RUN sed -i 's/map-editor/map-editor-test/g' /etc/nginx/nginx.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+.Dockerfile VT Map View (change path /map-view to /map-view-test)
+```
+FROM basisvisualisierung/vt-map-view:1.1.0
+
+# Change directory name
+RUN mv /usr/share/nginx/html/map-view /usr/share/nginx/html/map-view-test
+
+WORKDIR /usr/share/nginx/html/map-view-test
+
+# Replace directory name in fiels
+RUN sed -i 's/map-view/map-view-test/g' ./index.html
+RUN sed -i 's/map-view/map-view-test/g' /etc/nginx/nginx.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
+```
+
 == Development environment
 
 The instructions in this section assume you have cloned or downloaded the three repositories link:https://github.com/basisvisualisierung/vt-map-editor[VT Map Editor], link:https://github.com/basisvisualisierung/vt-map-service[VT Map Service] and link:https://github.com/basisvisualisierung/vt-styles[VT Styles], put them in the following folder structure and set them up like described in the repositories documentations:
