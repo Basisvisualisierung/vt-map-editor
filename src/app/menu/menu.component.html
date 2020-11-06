@@ -1,4 +1,24 @@
-<div class="menu-header bg-primary">{{title}} {{version}}</div>
+<div class="menu-header bg-primary">
+    <div class="row">
+        <div class="col-8 px-2">
+            <div class="row">
+                <div class="col-12">
+                    {{title}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    {{version}}
+                </div>
+            </div>
+        </div>
+        <div class="col-4 px-2">
+            <a href="https://github.com/basisvisualisierung/vt-map-editor" target="_blank">
+                <img class="repo-logo" src="assets/images/github.png"/>
+            </a>
+        </div>
+    </div>
+</div>
 <mat-nav-list class="menu-item-list">
     <div *ngFor="let item of menuItems">
         <a mat-list-item (click)="onItemSelected(item)">
