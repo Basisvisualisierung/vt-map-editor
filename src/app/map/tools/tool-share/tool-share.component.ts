@@ -51,7 +51,6 @@ export class ToolShareComponent implements OnInit {
             style: activeStyling,
             configuration: this.mapFunctionService.mapFunctions
         };
-        console.log(`here`);
         this.http.post(this.appConfigService.settings.mapService.url + '/map', data, options).subscribe((response: any) => {
             this.stylingUrl = this.completeUrl(this.appConfigService.settings.mapService.url + '/style/' + response.id);
             this.appUrl = this.completeUrl(this.appConfigService.settings.mapView.url + '/' + response.id);

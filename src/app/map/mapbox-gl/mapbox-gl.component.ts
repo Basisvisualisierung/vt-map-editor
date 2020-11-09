@@ -9,6 +9,7 @@ import MapboxGlShowZoomControl from './mapbox-gl.show-zoom.control';
 import { AppConfigService } from 'src/app/app-config.service';
 import { MapFunctionService } from '../map-function.service';
 import { MapView } from 'src/app/shared/mapview';
+import {ActivatedRoute} from '@angular/router';
 
 /**
  * Mapbox GL JS map client
@@ -27,10 +28,12 @@ export class MapboxGlComponent implements OnInit {
     searchControl: any;
     zoomControl: any;
     geolocateControl: any;
+    bbox: number[];
 
     constructor(private mapStylingService: MapStylingService,
                 private mapFunctionService: MapFunctionService,
-                private appConfigService: AppConfigService) {
+                private appConfigService: AppConfigService,
+                private route: ActivatedRoute) {
         // Get active styling from MapStylingService and use it as map content
         this.mapStylingService.activeStylingChanged.subscribe(
             (styling) => {
@@ -38,7 +41,6 @@ export class MapboxGlComponent implements OnInit {
                 this.map.setStyle(this.activeStyling);
             }
         );
-
         // Get active styling from MapStylingService and use it as map content
         this.mapStylingService.activeBasemapChanged.subscribe(
             (mapView: MapView) => {
@@ -65,13 +67,37 @@ export class MapboxGlComponent implements OnInit {
 
     ngOnInit() {
         this.activeStyling = this.mapStylingService.activeStyling;
+        // Set initial map parameter
         this.map = new mapboxgl.Map({
             container: 'map',
             style: this.activeStyling,
             maxZoom: this.appConfigService.settings.map.maxZoom,
             center: this.appConfigService.settings.map.startCenter,
             zoom: this.appConfigService.settings.map.startZoom,
+            pitch: 0,
+            bearing: 0,
         });
+        // overwrite styling depending on url params
+        if (/^(\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('zoom'))){
+            this.map.setZoom(Number(this.route.snapshot.queryParamMap.get('zoom')));
+        }
+        if (/^(\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('pitch'))){
+            this.map.setPitch(Number(this.route.snapshot.queryParamMap.get('pitch')));
+        }
+        if (/^(-?\d+\.?\d*)(,\s*-?\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('center'))){
+            this.map.setCenter(this.route.snapshot.queryParamMap.get('center').split(',', 2 ).map(x => + x));
+        }
+        if (/^(-?(\d+\.?\d*))$/.test(this.route.snapshot.queryParamMap.get('bearing'))){
+            this.map.setBearing( Number(this.route.snapshot.queryParamMap.get('bearing')));
+        }
+        // Add bounding box if bbox exists as url parameter
+        if (/^(-?\d+\.?\d*)(,\s*-?\d+\.?\d*){3}$/.test(this.route.snapshot.queryParamMap.get('bbox'))) {
+            this.bbox = this.route.snapshot.queryParamMap.get('bbox').split(',', 4 ).map(x => + x);
+            this.map.fitBounds([
+                [this.bbox[0], this.bbox[1]],
+                [this.bbox[2], this.bbox[3]]]);
+        }
+
         // Scale bar control
         if (this.appConfigService.settings.map.showScaleBar) {
             this.map.addControl(new mapboxgl.ScaleControl());
