@@ -1,0 +1,27 @@
+# URL parameters
+
+The initial map view of the applications VT Map Editor and VT Map View can be controlled by these URL parameters:
+
+`zoom`: number
+
+Zoom level between 0 and 22.
+
+`center`: number,number
+
+Longitude and latitude for the center of the map, e.g. "9.1,52".
+
+`pitch`: number
+
+Map tilt in degrees (0 - 60).
+
+`bearing`: number
+
+Rotation of the map in degrees (0 - 360).
+
+'''
+
+Additionally VT Map Editor has the following URL parameter:
+
+`bbox`: number,number,number,number
+
+Bounding box of the map (west, south, east, north)  e.g. "9,52.1,9.54,53".+

@@ -1,6 +1,7 @@
-## v1.3.0 (not released)
+## v1.3.0 (2020-11-09)
 ### New Features
 * A short description can be added for each basemap in the configuration file.
+* New URL parameters to control the initial map view of VT Map Editor and VT Map View: _zoom_, _center_, _bearing_, _pitch_, _bbox_ (see [URL parameter documentation](docs/url_parameters.adoc))
 
 ### Bug fixes
 * Map functions could not be enabled.

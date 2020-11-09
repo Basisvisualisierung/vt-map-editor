@@ -9,3 +9,6 @@ link:layer_groups.adoc[Defining layer groups in style files]
 link:docker-setup.adoc[Docker setup]
 
 link:kubernetes.adoc[Kubernetes deployment]
+
+== Use of the application
+link:url_parameters.adoc[URL parameters]

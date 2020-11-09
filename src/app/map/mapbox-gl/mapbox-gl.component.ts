@@ -9,7 +9,7 @@ import MapboxGlShowZoomControl from './mapbox-gl.show-zoom.control';
 import { AppConfigService } from 'src/app/app-config.service';
 import { MapFunctionService } from '../map-function.service';
 import { MapView } from 'src/app/shared/mapview';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 /**
  * Mapbox GL JS map client
@@ -78,21 +78,21 @@ export class MapboxGlComponent implements OnInit {
             bearing: 0,
         });
         // overwrite styling depending on url params
-        if (/^(\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('zoom'))){
+        if (/^(\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('zoom'))) {
             this.map.setZoom(Number(this.route.snapshot.queryParamMap.get('zoom')));
         }
-        if (/^(\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('pitch'))){
+        if (/^(\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('pitch'))) {
             this.map.setPitch(Number(this.route.snapshot.queryParamMap.get('pitch')));
         }
-        if (/^(-?\d+\.?\d*)(,\s*-?\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('center'))){
-            this.map.setCenter(this.route.snapshot.queryParamMap.get('center').split(',', 2 ).map(x => + x));
+        if (/^(-?\d+\.?\d*)(,\s*-?\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('center'))) {
+            this.map.setCenter(this.route.snapshot.queryParamMap.get('center').split(',', 2).map(x => + x));
         }
-        if (/^(-?(\d+\.?\d*))$/.test(this.route.snapshot.queryParamMap.get('bearing'))){
-            this.map.setBearing( Number(this.route.snapshot.queryParamMap.get('bearing')));
+        if (/^(-?(\d+\.?\d*))$/.test(this.route.snapshot.queryParamMap.get('bearing'))) {
+            this.map.setBearing(Number(this.route.snapshot.queryParamMap.get('bearing')));
         }
         // Add bounding box if bbox exists as url parameter
         if (/^(-?\d+\.?\d*)(,\s*-?\d+\.?\d*){3}$/.test(this.route.snapshot.queryParamMap.get('bbox'))) {
-            this.bbox = this.route.snapshot.queryParamMap.get('bbox').split(',', 4 ).map(x => + x);
+            this.bbox = this.route.snapshot.queryParamMap.get('bbox').split(',', 4).map(x => + x);
             this.map.fitBounds([
                 [this.bbox[0], this.bbox[1]],
                 [this.bbox[2], this.bbox[3]]]);
@@ -129,7 +129,7 @@ export class MapboxGlComponent implements OnInit {
 
                     for (const feature of features) {
                         content += '<table class="info-table"><tr><th colspan="2">' +
-                                    feature.layer.id + '</th></tr>';
+                            feature.layer.id + '</th></tr>';
                         for (const key in feature.properties) {
                             if (feature.properties.hasOwnProperty(key)) {
                                 content += '<tr><td>' + key + ':</td><td>' + feature.properties[key] + '</td></tr>';
@@ -142,9 +142,9 @@ export class MapboxGlComponent implements OnInit {
                         className: 'info-popup',
                         maxWidth: '400px'
                     })
-                    .setLngLat(event.lngLat)
-                    .setHTML(content)
-                    .addTo(this.map);
+                        .setLngLat(event.lngLat)
+                        .setHTML(content)
+                        .addTo(this.map);
                 }
             }
         });

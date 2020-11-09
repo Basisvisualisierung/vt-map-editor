@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import mapboxgl from 'mapbox-gl';
@@ -41,16 +41,16 @@ export class MapboxGlComponent implements OnInit {
         });
         this.http.get(AppConfigService.settings.mapService.url + '/style/' + mapId, options).subscribe((response: any) => {
             // overwrite styling-response depending on url params
-            if (/^(\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('zoom'))){
+            if (/^(\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('zoom'))) {
                 response.zoom = Number(this.route.snapshot.queryParamMap.get('zoom'));
             }
-            if (/^(-?\d+\.?\d*)(,\s*-?\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('center'))){
-                response.center = this.route.snapshot.queryParamMap.get('center').split(',', 2 ).map(x => + x);
+            if (/^(-?\d+\.?\d*)(,\s*-?\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('center'))) {
+                response.center = this.route.snapshot.queryParamMap.get('center').split(',', 2).map(x => + x);
             }
-            if (/^(\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('pitch'))){
+            if (/^(\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('pitch'))) {
                 response.pitch = Number(this.route.snapshot.queryParamMap.get('pitch'));
             }
-            if (/^(-?(\d+\.?\d*))$/.test(this.route.snapshot.queryParamMap.get('bearing'))){
+            if (/^(-?(\d+\.?\d*))$/.test(this.route.snapshot.queryParamMap.get('bearing'))) {
                 response.bearing = Number(this.route.snapshot.queryParamMap.get('bearing'));
             }
             // set active styling
@@ -91,7 +91,7 @@ export class MapboxGlComponent implements OnInit {
 
                     for (const feature of features) {
                         content += '<table class="info-table"><tr><th colspan="2">' +
-                                    feature.layer.id + '</th></tr>';
+                            feature.layer.id + '</th></tr>';
                         for (const key in feature.properties) {
                             if (feature.properties.hasOwnProperty(key)) {
                                 content += '<tr><td>' + key + ':</td><td>' + feature.properties[key] + '</td></tr>';
@@ -104,9 +104,9 @@ export class MapboxGlComponent implements OnInit {
                         className: 'info-popup',
                         maxWidth: '400px'
                     })
-                    .setLngLat(event.lngLat)
-                    .setHTML(content)
-                    .addTo(this.map);
+                        .setLngLat(event.lngLat)
+                        .setHTML(content)
+                        .addTo(this.map);
                 }
             }
         });
