@@ -28,10 +28,6 @@ export class MapboxGlComponent implements OnInit {
     searchControl: any;
     zoomControl: any;
     geolocateControl: any;
-    zoom: number;
-    startCenter: number[];
-    pitch: number;
-    bearing: number;
     bbox: number[];
 
     constructor(private mapStylingService: MapStylingService,
@@ -71,25 +67,32 @@ export class MapboxGlComponent implements OnInit {
 
     ngOnInit() {
         this.activeStyling = this.mapStylingService.activeStyling;
-        // Check for initial url parameter
-        this.zoom = /^(\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('zoom')) ? Number(this.route.snapshot.queryParamMap.get('zoom')) : this.appConfigService.settings.map.startZoom;
-        this.startCenter = /^(-?\d+\.?\d*)(,\s*-?\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('center')) ? this.route.snapshot.queryParamMap.get('center').split(',', 2 ).map(x => + x) : this.appConfigService.settings.map.startCenter;
-        this.pitch = /^(\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('pitch')) ? Number(this.route.snapshot.queryParamMap.get('pitch')) : 0;
-        this.bearing = /^(-?(\d+\.?\d*))$/.test(this.route.snapshot.queryParamMap.get('bearing')) ? Number(this.route.snapshot.queryParamMap.get('bearing')) : 0;
-        this.bbox = /^(-?\d+\.?\d*)(,\s*-?\d+\.?\d*){3}$/.test(this.route.snapshot.queryParamMap.get('bbox')) ? this.route.snapshot.queryParamMap.get('bbox').split(',', 4 ).map(x => + x) : null;
         // Set initial map parameter
         this.map = new mapboxgl.Map({
             container: 'map',
             style: this.activeStyling,
             maxZoom: this.appConfigService.settings.map.maxZoom,
-            center: this.startCenter,
-            zoom: this.zoom,
-            pitch: this.pitch,
-            bearing: this.bearing,
+            center: this.appConfigService.settings.map.startCenter,
+            zoom: this.appConfigService.settings.map.startZoom,
+            pitch: 0,
+            bearing: 0,
         });
-
+        // overwrite styling depending on url params
+        if (/^(\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('zoom'))){
+            this.map.setZoom(Number(this.route.snapshot.queryParamMap.get('zoom')));
+        }
+        if (/^(\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('pitch'))){
+            this.map.setPitch(Number(this.route.snapshot.queryParamMap.get('pitch')));
+        }
+        if (/^(-?\d+\.?\d*)(,\s*-?\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('center'))){
+            this.map.setCenter(this.route.snapshot.queryParamMap.get('center').split(',', 2 ).map(x => + x));
+        }
+        if (/^(-?(\d+\.?\d*))$/.test(this.route.snapshot.queryParamMap.get('bearing'))){
+            this.map.setBearing( Number(this.route.snapshot.queryParamMap.get('bearing')));
+        }
         // Add bounding box if bbox exists as url parameter
-        if (this.bbox) {
+        if (/^(-?\d+\.?\d*)(,\s*-?\d+\.?\d*){3}$/.test(this.route.snapshot.queryParamMap.get('bbox'))) {
+            this.bbox = this.route.snapshot.queryParamMap.get('bbox').split(',', 4 ).map(x => + x);
             this.map.fitBounds([
                 [this.bbox[0], this.bbox[1]],
                 [this.bbox[2], this.bbox[3]]]);
