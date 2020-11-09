@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import mapboxgl from 'mapbox-gl';
@@ -20,30 +20,44 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class MapboxGlComponent implements OnInit {
     activeStyling: {};
     map: mapboxgl.Map;
+    bbox: number[];
 
     constructor(private http: HttpClient,
                 private route: ActivatedRoute) { }
 
     ngOnInit() {
+        // Set initial map parameter
         this.map = new mapboxgl.Map({
             container: 'map',
         });
         const mapId = this.route.snapshot.params['id'];
-
-
         const options = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json'
             })
         };
+        this.http.get(AppConfigService.settings.mapService.url + '/config/' + mapId, options).subscribe((response: any) => {
+            this.addControls(response);
+        });
         this.http.get(AppConfigService.settings.mapService.url + '/style/' + mapId, options).subscribe((response: any) => {
+            // overwrite styling-response depending on url params
+            if (/^(\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('zoom'))){
+                response.zoom = Number(this.route.snapshot.queryParamMap.get('zoom'));
+            }
+            if (/^(-?\d+\.?\d*)(,\s*-?\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('center'))){
+                response.center = this.route.snapshot.queryParamMap.get('center').split(',', 2 ).map(x => + x);
+            }
+            if (/^(\d+\.?\d*)$/.test(this.route.snapshot.queryParamMap.get('pitch'))){
+                response.pitch = Number(this.route.snapshot.queryParamMap.get('pitch'));
+            }
+            if (/^(-?(\d+\.?\d*))$/.test(this.route.snapshot.queryParamMap.get('bearing'))){
+                response.bearing = Number(this.route.snapshot.queryParamMap.get('bearing'));
+            }
+            // set active styling
             this.activeStyling = response;
             this.map.setStyle(this.activeStyling);
         });
 
-        this.http.get(AppConfigService.settings.mapService.url + '/config/' + mapId, options).subscribe((response: any) => {
-            this.addControls(response);
-        });
     }
 
     /**
