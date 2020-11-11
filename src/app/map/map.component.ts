@@ -37,6 +37,7 @@ export class MapComponent implements OnInit {
     toolOverlayHeight: number;
     toolOverlayMinHeight: number;
     headerTitle: string;
+    activeChild: number;
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
@@ -59,6 +60,10 @@ export class MapComponent implements OnInit {
         // Header title
         this.headerTitle = this.appConfigService.settings.titles.map;
         this.headerService.changeTitle(this.headerTitle);
+        this.activeChild = this.route.children.length;
+        if (this.activeChild !== 0) {
+           this.showToolOverlay = true;
+        }
     }
 
     /**

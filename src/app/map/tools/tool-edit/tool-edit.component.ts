@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import { HeaderService } from 'src/app/header/header.service';
 import { MapStylingService } from '../../map-styling.service';
 
@@ -20,8 +20,15 @@ export class ToolEditComponent implements OnInit {
 
     ngOnInit() {
         this.headerService.changeTitle('Karte <span class="accent">anpassen</span>');
+        // listen when active styling is loaded if deep link is used
+        this.mapStylingService.activeStylingChanged.subscribe( () => {
+            this.activeStyling = this.mapStylingService.activeStyling;
+            this.parseMetadata();
+        });
         this.activeStyling = this.mapStylingService.activeStyling;
-        this.parseMetadata();
+        if (this.activeStyling) {
+            this.parseMetadata();
+        }
     }
 
     /**
