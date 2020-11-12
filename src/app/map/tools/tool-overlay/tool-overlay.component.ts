@@ -21,7 +21,7 @@ export class ToolOverlayComponent implements OnInit, AfterViewInit {
 
     constructor(private router: Router) { }
 
-    ngOnInit() { }
+    ngOnInit() {}
 
     ngAfterViewInit() {
         // Adjust height of the overlay after component is initialized.

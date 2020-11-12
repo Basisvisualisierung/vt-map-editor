@@ -1,6 +1,8 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnInit} from '@angular/core';
 import { HeaderService } from 'src/app/header/header.service';
 import { MapStylingService } from '../../map-styling.service';
+import {MapFunctionService} from '../../map-function.service';
+import {Router} from '@angular/router';
 
 /**
  * Tool for map editing
@@ -16,7 +18,11 @@ export class ToolEditComponent implements OnInit {
     hasGuiLayers: boolean;
     showGuiLayerConfiguration: boolean;
 
-    constructor(private headerService: HeaderService, private mapStylingService: MapStylingService) { }
+
+    constructor(private headerService: HeaderService,
+                private mapStylingService: MapStylingService,
+                private mapFunctionService: MapFunctionService,
+                private router: Router) { }
 
     ngOnInit() {
         this.headerService.changeTitle('Karte <span class="accent">anpassen</span>');
@@ -43,6 +49,7 @@ export class ToolEditComponent implements OnInit {
         for (const layer of this.activeStyling.layers) {
             if (layer.metadata && layer.metadata['map-editor:layer']) {
                 this.hasGuiLayers = true;
+                this.mapFunctionService.setGuiLayerState(true);
             }
             if (layer.metadata && layer.metadata['map-editor:group'] && layer.metadata['map-editor:detail-level']) {
                 this.showGroupConfiguration = true;
@@ -54,13 +61,5 @@ export class ToolEditComponent implements OnInit {
         }
         // Show GUI layers when only GUI layers and no groups are defined
         this.showGuiLayerConfiguration = !this.showGroupConfiguration && this.hasGuiLayers;
-    }
-
-    /**
-     * Toggle view for group configurations
-     * @param showGroupConfiguration true: show; false: hide
-     */
-    toggleGroupConfiguration(event: any) {
-        this.showGuiLayerConfiguration = event;
     }
 }

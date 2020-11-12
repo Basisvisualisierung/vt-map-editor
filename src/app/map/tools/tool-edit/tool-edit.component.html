@@ -1,10 +1,4 @@
-<ng-container *ngIf="!showGroupConfiguration && !showGuiLayerConfiguration && activeStyling">
-    <app-layer-configuration *ngFor="let layer of activeStyling.layers" [layer]="layer"></app-layer-configuration>
-</ng-container>
-<ng-container *ngIf="showGroupConfiguration && !showGuiLayerConfiguration && activeStyling">
-        <app-group-configuration (toggleGroupConfiguration)="toggleGroupConfiguration($event)" [hasGuiLayers]="hasGuiLayers"></app-group-configuration>
-</ng-container>
-<ng-container *ngIf="showGuiLayerConfiguration && activeStyling">
-        <app-gui-layer-configuration></app-gui-layer-configuration>
+<ng-container *ngIf="activeStyling">
+    <router-outlet></router-outlet>
 </ng-container>
 

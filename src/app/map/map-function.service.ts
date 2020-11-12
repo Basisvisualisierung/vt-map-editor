@@ -10,6 +10,7 @@ import { AppConfigService } from '../app-config.service';
 export class MapFunctionService {
     mapFunctions: MapFunctions;
     mapFunctionsChanged = new EventEmitter<string>();
+    guiLayerState: boolean;
 
     constructor(private appConfigService: AppConfigService) {
         this.mapFunctions = appConfigService.settings.mapFunctions;
@@ -33,5 +34,20 @@ export class MapFunctionService {
     setFunctionConfiguration(functionName: string, config: any) {
         this.mapFunctions[functionName].configuration = config;
         this.mapFunctionsChanged.emit(functionName);
+    }
+
+    /**
+     * set guiLayerState to a given state
+     * @param state a boolean value
+     */
+    setGuiLayerState(state: boolean){
+        this.guiLayerState = state;
+    }
+
+    /**
+     * get current guiLayerState
+     */
+    getGuiLayerState(){
+        return this.guiLayerState;
     }
 }
