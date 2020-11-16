@@ -16,6 +16,8 @@ export class GroupConfigurationComponent implements OnInit {
     @Output() toggleGroupConfiguration = new EventEmitter<boolean>();
     layerGroups: string[];
     groupSettings: any;
+    showGuiLayerConfiguration: boolean;
+    activeStyling: any;
 
     constructor(private mapStylingService: MapStylingService,
                 private mapFunctionService: MapFunctionService,
@@ -43,7 +45,7 @@ export class GroupConfigurationComponent implements OnInit {
     }
 
     /**
-     * Change GUI from group configuration to layer configuration
+     * Change GUI from group configuration to gui-layer configuration
      */
     showLayerConfiguration() {
         this.router.navigate(['/map', 'edit', 'gui-layer']);

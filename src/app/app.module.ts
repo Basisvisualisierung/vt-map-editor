@@ -37,10 +37,9 @@ const appRoutes: Routes = [
     {path: 'map', component: MapComponent, children: [
         {path: 'basemap', component: ToolBasemapComponent},
         {path: 'edit', component: ToolEditComponent, children: [
-            {path: '', redirectTo: 'group-layer', pathMatch: 'full'},
             {path: 'group-layer', component: GroupConfigurationComponent},
             {path: 'gui-layer', component: GuiLayerConfigurationComponent},
-            {path: 'base-layer', component: BaseLayerConfigurationComponent}
+            {path: 'layer', component: BaseLayerConfigurationComponent}
         ]},
         {path: 'functions', component: ToolFunctionsComponent},
         {path: 'share', component: ToolShareComponent}

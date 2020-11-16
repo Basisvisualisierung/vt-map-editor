@@ -1,9 +1,8 @@
-import {AfterViewInit, Component, EventEmitter, OnInit} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { HeaderService } from 'src/app/header/header.service';
 import { MapStylingService } from '../../map-styling.service';
 import {MapFunctionService} from '../../map-function.service';
-import {Router} from '@angular/router';
-
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 /**
  * Tool for map editing
  */
@@ -12,54 +11,37 @@ import {Router} from '@angular/router';
     templateUrl: './tool-edit.component.html',
     styleUrls: ['./tool-edit.component.scss']
 })
-export class ToolEditComponent implements OnInit {
+export class ToolEditComponent implements OnInit{
     activeStyling: any;
-    showGroupConfiguration: boolean;
-    hasGuiLayers: boolean;
-    showGuiLayerConfiguration: boolean;
+    previous: string [] = [];
+    deepLink: boolean;
 
-
-    constructor(private headerService: HeaderService,
+    constructor(private router: Router,
+                private headerService: HeaderService,
                 private mapStylingService: MapStylingService,
                 private mapFunctionService: MapFunctionService,
-                private router: Router) { }
+                private route: ActivatedRoute) { }
 
     ngOnInit() {
         this.headerService.changeTitle('Karte <span class="accent">anpassen</span>');
         // listen when active styling is loaded if deep link is used
         this.mapStylingService.activeStylingChanged.subscribe( () => {
             this.activeStyling = this.mapStylingService.activeStyling;
-            this.parseMetadata();
         });
         this.activeStyling = this.mapStylingService.activeStyling;
-        if (this.activeStyling) {
-            this.parseMetadata();
-        }
-    }
-
-    /**
-     * Read metadata of groups and layers
-     */
-    parseMetadata() {
-        this.hasGuiLayers = false;
-        this.showGroupConfiguration = false;
-        this.showGuiLayerConfiguration = false;
-
-        // Read metadata of groups and GUI layers
-        for (const layer of this.activeStyling.layers) {
-            if (layer.metadata && layer.metadata['map-editor:layer']) {
-                this.hasGuiLayers = true;
-                this.mapFunctionService.setGuiLayerState(true);
-            }
-            if (layer.metadata && layer.metadata['map-editor:group'] && layer.metadata['map-editor:detail-level']) {
-                this.showGroupConfiguration = true;
-            }
-            // Stop iterating when groups and GUI layers found
-            if (this.hasGuiLayers === true && this.showGroupConfiguration === true) {
-                break;
-            }
+        // Check for deep link
+        if (this.route.children.length !== 0) {
+            this. deepLink = true;
         }
         // Show GUI layers when only GUI layers and no groups are defined
-        this.showGuiLayerConfiguration = !this.showGroupConfiguration && this.hasGuiLayers;
+        if (!this.mapFunctionService.getGroupLayerState() && this.mapFunctionService.getGuiLayerState() && !this.deepLink) {
+            this.router.navigate(['/map', 'edit', 'gui-layer'], { replaceUrl: true });
+        }
+        // Show layer when no GUI layers and no groups are defined
+        else if (!this.mapFunctionService.getGroupLayerState() && !this.mapFunctionService.getGuiLayerState() && !this.deepLink) {
+            this.router.navigate(['/map', 'edit', 'layer'], { replaceUrl: true });
+        } else if (!this.deepLink){
+            this.router.navigate(['/map', 'edit', 'group-layer'], { replaceUrl: true });
+        }
     }
 }
