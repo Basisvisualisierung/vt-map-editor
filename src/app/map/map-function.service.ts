@@ -9,8 +9,26 @@ import { AppConfigService } from '../app-config.service';
 export class MapFunctionService {
     mapFunctions: MapFunctions;
     mapFunctionsChanged = new EventEmitter<string>();
-    guiLayerState: boolean;
-    groupLayerState: boolean;
+    metadataChanged = new EventEmitter<any>();
+    // tslint:disable-next-line:variable-name
+    private _guiLayerState: boolean;
+    // tslint:disable-next-line:variable-name
+    private _groupLayerState: boolean;
+
+    set guiLayerState(state: boolean){
+        this._guiLayerState = state;
+    }
+    get guiLayerState(): boolean {
+        return this._guiLayerState;
+    }
+
+    set groupLayerState(state: boolean){
+        this._groupLayerState = state;
+    }
+
+    get groupLayerState(): boolean {
+        return this._groupLayerState;
+    }
 
     constructor(private appConfigService: AppConfigService) {
         this.mapFunctions = appConfigService.settings.mapFunctions;
@@ -35,35 +53,4 @@ export class MapFunctionService {
         this.mapFunctions[functionName].configuration = config;
         this.mapFunctionsChanged.emit(functionName);
     }
-
-    /**
-     * set guiLayerState to a given state
-     * @param state a boolean value
-     */
-    setGuiLayerState(state: boolean) {
-        this.guiLayerState = state;
-    }
-
-    /**
-     * get current guiLayerState
-     */
-    getGuiLayerState() {
-        return this.guiLayerState;
-    }
-
-    /**
-     * set groupLayerState to a given state
-     * @param state a boolean value
-     */
-    setGroupLayerState(state: boolean) {
-        this.groupLayerState = state;
-    }
-
-    /**
-     * get current groupLayerState
-     */
-    getGroupLayerState() {
-        return this.groupLayerState;
-    }
-
 }

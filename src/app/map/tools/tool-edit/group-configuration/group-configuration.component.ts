@@ -32,7 +32,7 @@ export class GroupConfigurationComponent implements OnInit {
             }
         }
         this.groupSettings = this.mapStylingService.groupSettings;
-        this.hasGuiLayers = this.mapFunctionService.getGuiLayerState();
+        this.hasGuiLayers = this.mapFunctionService.guiLayerState;
     }
 
     /**

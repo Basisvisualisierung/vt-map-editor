@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, EventEmitter} from '@angular/core';
 import { MapTool } from './tools/map-tool';
 import {Router, ActivatedRoute, NavigationStart} from '@angular/router';
 import { HeaderService } from '../header/header.service';
@@ -89,23 +89,24 @@ export class MapComponent implements OnInit {
         this.hasGuiLayers = false;
         this.showGroupConfiguration = false;
         this.showGuiLayerConfiguration = false;
-        this.mapFunctionService.setGuiLayerState(false);
-        this.mapFunctionService.setGroupLayerState(false);
+        this.mapFunctionService.guiLayerState = false;
+        this.mapFunctionService.groupLayerState = false;
         // Read metadata of groups and GUI layers
         for (const layer of this.activeStyling.layers) {
             if (layer.metadata && layer.metadata['map-editor:layer']) {
                 this.hasGuiLayers = true;
-                this.mapFunctionService.setGuiLayerState(true);
+                this.mapFunctionService.guiLayerState = true;
             }
             if (layer.metadata && layer.metadata['map-editor:group'] && layer.metadata['map-editor:detail-level']) {
                 this.showGroupConfiguration = true;
-                this.mapFunctionService.setGroupLayerState(true);
+                this.mapFunctionService.groupLayerState = true;
             }
             // Stop iterating when groups and GUI layers found
             if (this.hasGuiLayers === true && this.showGroupConfiguration === true) {
                 break;
             }
         }
+        this.mapFunctionService.metadataChanged.emit();
     }
 
     /**
