@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ElementRef, EventEmitter} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { MapTool } from './tools/map-tool';
 import {Router, ActivatedRoute, NavigationStart} from '@angular/router';
 import { HeaderService } from '../header/header.service';
@@ -62,7 +62,6 @@ export class MapComponent implements OnInit {
         this.toolOverlayHeight = 300;
         this.toolOverlayMinHeight = 300;
         this.showToolOverlay = false;
-
         // Header title
         this.headerTitle = this.appConfigService.settings.titles.map;
         this.headerService.changeTitle(this.headerTitle);

@@ -1,8 +1,8 @@
-import { Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { HeaderService } from 'src/app/header/header.service';
 import { MapStylingService } from '../../map-styling.service';
 import {MapFunctionService} from '../../map-function.service';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 /**
  * Tool for map editing
  */
@@ -11,10 +11,11 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
     templateUrl: './tool-edit.component.html',
     styleUrls: ['./tool-edit.component.scss']
 })
-export class ToolEditComponent implements OnInit{
+export class ToolEditComponent implements OnInit, OnDestroy{
+    metadataChangedSubscription: any;
     activeStyling: any;
-    previous: string [] = [];
     deepLink: boolean;
+
 
     constructor(private router: Router,
                 private headerService: HeaderService,
@@ -31,14 +32,29 @@ export class ToolEditComponent implements OnInit{
         this.activeStyling = this.mapStylingService.activeStyling;
         // Check for deep link
         if (this.route.children.length !== 0) {
-            this. deepLink = true;
+            this.deepLink = true;
         }
+        // listen if metadata are loaded
+        this.metadataChangedSubscription = this.mapFunctionService.metadataChanged.subscribe(() => {
+            this.editSection();
+        });
+        this.editSection();
+    }
+
+    ngOnDestroy() {
+        this.metadataChangedSubscription.unsubscribe();
+    }
+
+    /**
+     * redirect to edit section depending on layer present on active styling
+     */
+    editSection() {
         // Show GUI layers when only GUI layers and no groups are defined
-        if (!this.mapFunctionService.getGroupLayerState() && this.mapFunctionService.getGuiLayerState() && !this.deepLink) {
+        if (!this.mapFunctionService.groupLayerState && this.mapFunctionService.guiLayerState && !this.deepLink) {
             this.router.navigate(['/map', 'edit', 'gui-layer'], { replaceUrl: true });
         }
         // Show layer when no GUI layers and no groups are defined
-        else if (!this.mapFunctionService.getGroupLayerState() && !this.mapFunctionService.getGuiLayerState() && !this.deepLink) {
+        else if (!this.mapFunctionService.groupLayerState && !this.mapFunctionService.guiLayerState && !this.deepLink) {
             this.router.navigate(['/map', 'edit', 'layer'], { replaceUrl: true });
         } else if (!this.deepLink){
             this.router.navigate(['/map', 'edit', 'group-layer'], { replaceUrl: true });
