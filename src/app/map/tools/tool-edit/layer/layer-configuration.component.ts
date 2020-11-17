@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {MapStylingService} from '../../../map-styling.service';
 
 @Component({
-  selector: 'app-base-layer',
-  templateUrl: './base-layer-configuration.component.html',
-  styleUrls: ['./base-layer-configuration.component.scss']
+  selector: 'app-layer-configuration',
+  templateUrl: './layer-configuration.component.html',
+  styleUrls: ['./layer-configuration.component.scss']
 })
-export class BaseLayerConfigurationComponent implements OnInit {
+export class LayerConfigurationComponent implements OnInit {
     activeStyling: any;
     constructor(private mapStylingService: MapStylingService) { }
 

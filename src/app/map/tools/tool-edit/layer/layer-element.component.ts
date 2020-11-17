@@ -5,12 +5,12 @@ import { MapStylingService } from '../../../map-styling.service';
  * Configuration tools for a layer
  */
 @Component({
-    selector: 'app-layer-configuration',
-    templateUrl: './base-layer-element.component.html',
-    styleUrls: ['./base-layer-element.component.scss'],
+    selector: 'app-layer-element',
+    templateUrl: './layer-element.component.html',
+    styleUrls: ['./layer-element.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class BaseLayerElementComponent implements OnInit {
+export class LayerElementComponent implements OnInit {
     @Input() layer;
     layerVisible: boolean;
     color: string;

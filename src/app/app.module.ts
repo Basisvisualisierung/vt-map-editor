@@ -21,7 +21,8 @@ import { ToolFunctionsComponent } from './map/tools/tool-functions/tool-function
 import { ToolShareComponent } from './map/tools/tool-share/tool-share.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { MapboxGlComponent } from './map/mapbox-gl/mapbox-gl.component';
-import { BaseLayerElementComponent } from './map/tools/tool-edit/base-layer/base-layer-element.component';
+import { LayerElementComponent } from './map/tools/tool-edit/layer/layer-element.component';
+import { LayerConfigurationComponent } from './map/tools/tool-edit/layer/layer-configuration.component';
 import { GroupConfigurationComponent } from './map/tools/tool-edit/group-configuration/group-configuration.component';
 import { GuiLayerConfigurationComponent } from './map/tools/tool-edit/gui-layer/gui-layer-configuration.component';
 import { GuiLayerElementComponent } from './map/tools/tool-edit/gui-layer/gui-layer-element.component';
@@ -30,7 +31,6 @@ import { HeaderService } from './header/header.service';
 import { MapStylingService } from './map/map-styling.service';
 import { MapFunctionService } from './map/map-function.service';
 import { AppConfigService } from './app-config.service';
-import { BaseLayerConfigurationComponent } from './map/tools/tool-edit/base-layer/base-layer-configuration.component';
 
 const appRoutes: Routes = [
     {path: '', redirectTo: 'map', pathMatch: 'full'},
@@ -39,7 +39,7 @@ const appRoutes: Routes = [
         {path: 'edit', component: ToolEditComponent, children: [
             {path: 'group-layer', component: GroupConfigurationComponent},
             {path: 'gui-layer', component: GuiLayerConfigurationComponent},
-            {path: 'layer', component: BaseLayerConfigurationComponent}
+            {path: 'layer', component: LayerConfigurationComponent}
         ]},
         {path: 'functions', component: ToolFunctionsComponent},
         {path: 'share', component: ToolShareComponent}
@@ -70,12 +70,12 @@ export function initConfig(appConfigService: AppConfigService) {
         ToolShareComponent,
         FeedbackComponent,
         MapboxGlComponent,
-        BaseLayerElementComponent,
+        LayerElementComponent,
         GroupConfigurationComponent,
         GuiLayerConfigurationComponent,
         GuiLayerElementComponent,
         InfoComponent,
-        BaseLayerConfigurationComponent
+        LayerConfigurationComponent
     ],
     imports: [
         BrowserModule,
