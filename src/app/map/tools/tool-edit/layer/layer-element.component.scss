@@ -1,0 +1,44 @@
+$font-size: 22px;
+
+app-layer-element {
+    .mat-expansion-panel-header {
+        font-size: $font-size;
+    }
+
+    .mat-slider {
+        width: 100%;
+        max-width: 400px;
+        padding: 8px 0;
+
+        &.mat-slider-horizontal {
+            .mat-slider-wrapper {
+                left: 0;
+                right: 0;
+            }
+        }
+    }
+}
+
+.layer-tools {
+    label {
+        font-size: $font-size;
+        display: block;
+        margin: 20px 0 10px;
+    }
+}
+
+.slider-opacity-layer {
+    width: 180px;
+}
+
+.color-picker {
+    left: 10px !important;
+    top: calc(100% - 450px) !important;
+}
+
+.color-btn {
+    height: 50px;
+    width: 100px;
+    display: inline-block;
+    border: 1px solid grey;
+}

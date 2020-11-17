@@ -1,0 +1,38 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header collapsedHeight="70px" expandedHeight="70px">
+        <mat-panel-title>
+            <mat-checkbox [checked]="layerVisible" (change)="onVisibilityChanged();" (click)="$event.stopPropagation();" class="slider-opacity-layer">{{ layer.id }}</mat-checkbox>
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+        <div class="container-fluid layer-tools">
+            <div class="row">
+                <div class="col-sm">
+                    <label>Farbe:</label>
+                    <span #colorbtn class="color-btn" [ngStyle]="{'background-color':color}" (click)="showColorPicker=!showColorPicker"></span>
+                    <span #colorpicker class="color-input"
+                            [(colorPicker)]="color"
+                            [style.background]="color"
+                            [cpFallbackColor]="'#000000'"
+                            [cpAlphaChannel]="'disabled'"
+                            [cpOutputFormat]="'rgb'"
+                            [cpUseRootViewContainer]="true"
+                            [cpPosition]="'right'"
+                            [cpPositionOffset]="100"
+                            [cpOKButton]="true"
+                            [cpCancelButton]="false"
+                            [(cpToggle)]="showColorPicker"
+                            [cpIgnoredElements]="[colorpicker,colorbtn]"
+                            [cpCloseClickOutside]="true"
+                            [cpSaveClickOutside]="false"
+                            (colorPickerChange)="onColorChanged($event)" style="left: 0 !important"></span>
+                    <br/>
+                </div>
+                <div class="col-sm">
+                    <label>Deckkraft:</label>
+                    <mat-slider min="0" max="1" step="0.1" [value]="opacity" (change)="onOpacityChanged($event)" [thumbLabel]="true" ></mat-slider>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</mat-expansion-panel>

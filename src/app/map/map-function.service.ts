@@ -1,5 +1,4 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { MapFunction } from '../shared/map-function';
+import {Injectable, EventEmitter, OnInit} from '@angular/core';
 import { MapFunctions } from '../shared/map-functions';
 import { AppConfigService } from '../app-config.service';
 
@@ -10,6 +9,26 @@ import { AppConfigService } from '../app-config.service';
 export class MapFunctionService {
     mapFunctions: MapFunctions;
     mapFunctionsChanged = new EventEmitter<string>();
+    metadataChanged = new EventEmitter<any>();
+    // tslint:disable-next-line:variable-name
+    private _guiLayerState: boolean;
+    // tslint:disable-next-line:variable-name
+    private _groupLayerState: boolean;
+
+    set guiLayerState(state: boolean){
+        this._guiLayerState = state;
+    }
+    get guiLayerState(): boolean {
+        return this._guiLayerState;
+    }
+
+    set groupLayerState(state: boolean){
+        this._groupLayerState = state;
+    }
+
+    get groupLayerState(): boolean {
+        return this._groupLayerState;
+    }
 
     constructor(private appConfigService: AppConfigService) {
         this.mapFunctions = appConfigService.settings.mapFunctions;

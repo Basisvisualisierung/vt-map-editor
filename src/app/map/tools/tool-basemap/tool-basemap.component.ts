@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Basemap } from 'src/app/shared/basemap';
 import { HeaderService } from 'src/app/header/header.service';
 import { MapStylingService } from 'src/app/map/map-styling.service';
-import { AppConfigService } from 'src/app/app-config.service';
+
 
 /**
  * Component for selecting a basemap

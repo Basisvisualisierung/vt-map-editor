@@ -20,6 +20,7 @@ export class ToolShareComponent implements OnInit {
     appUrl: string;
     appIframe: string;
     editorUrl: string;
+    activeStyling: any;
 
     constructor(private headerService: HeaderService,
                 private mapStylingService: MapStylingService,
@@ -31,24 +32,35 @@ export class ToolShareComponent implements OnInit {
 
     ngOnInit() {
         this.headerService.changeTitle('Karte <span class="accent">veröffentlichen</span>');
+        // listen when active styling is loaded if deep link is used
+        this.mapStylingService.activeStylingChanged.subscribe( () => {
+            this.activeStyling = this.mapStylingService.activeStyling;
+            this.getSharingUrls();
+        });
+        this.activeStyling = this.mapStylingService.activeStyling;
+        if (this.activeStyling){
+            this.getSharingUrls();
+        }
+    }
 
+    /**
+     * Build and display sharing urls
+     */
+    getSharingUrls(){
         const options = {
             headers: new HttpHeaders ({
                 'Content-Type': 'application/json'
             })
         };
-
         // Add map view parameters (zoom, center, ...)
-        const activeStyling = this.mapStylingService.activeStyling;
         const mapView = this.mapStylingService.mapView;
         for (const key in mapView) {
             if (mapView.hasOwnProperty(key)) {
-                activeStyling[key] = mapView[key];
+                this.activeStyling[key] = mapView[key];
             }
         }
-
         const data = {
-            style: activeStyling,
+            style: this.activeStyling,
             configuration: this.mapFunctionService.mapFunctions
         };
         this.http.post(this.appConfigService.settings.mapService.url + '/map', data, options).subscribe((response: any) => {
@@ -56,7 +68,7 @@ export class ToolShareComponent implements OnInit {
             this.appUrl = this.completeUrl(this.appConfigService.settings.mapView.url + '/' + response.id);
             this.appIframe = '<iframe src="' + this.appUrl + '" style="border:none;width:100%;height:500px">';
             const mapPageUrl = window.location.protocol + '//' + window.location.host +
-                           window.location.pathname.substring(0, window.location.pathname.search('/map/') + 4);
+                    window.location.pathname.substring(0, window.location.pathname.search('/map/') + 4);
             this.editorUrl = mapPageUrl + '?id=' + response.id;
         });
     }

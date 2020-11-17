@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MapStylingService } from 'src/app/map/map-styling.service';
+import {MapFunctionService} from '../../../map-function.service';
+import {Router} from '@angular/router';
 
 /**
  * Component for layer group configurations
@@ -14,8 +16,12 @@ export class GroupConfigurationComponent implements OnInit {
     @Output() toggleGroupConfiguration = new EventEmitter<boolean>();
     layerGroups: string[];
     groupSettings: any;
+    showGuiLayerConfiguration: boolean;
+    activeStyling: any;
 
-    constructor(private mapStylingService: MapStylingService) { }
+    constructor(private mapStylingService: MapStylingService,
+                private mapFunctionService: MapFunctionService,
+                private router: Router) { }
 
     ngOnInit() {
         this.layerGroups = [];
@@ -26,6 +32,7 @@ export class GroupConfigurationComponent implements OnInit {
             }
         }
         this.groupSettings = this.mapStylingService.groupSettings;
+        this.hasGuiLayers = this.mapFunctionService.guiLayerState;
     }
 
     /**
@@ -38,9 +45,9 @@ export class GroupConfigurationComponent implements OnInit {
     }
 
     /**
-     * Change GUI from group configuration to layer configuration
+     * Change GUI from group configuration to gui-layer configuration
      */
     showLayerConfiguration() {
-        this.toggleGroupConfiguration.emit(true);
+        this.router.navigate(['/map', 'edit', 'gui-layer']);
     }
 }

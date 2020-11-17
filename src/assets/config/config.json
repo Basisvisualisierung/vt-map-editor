@@ -51,7 +51,7 @@
         {
             "name": "Nacht",
             "imgUrl": "assets/images/thumbnails/basemap_night.png",
-            "styling": "/styles/vt-style-night.json"
+            "styling": "https://adv-smart.de/styles/public/de_style_colour_light.json"
         },
         {
             "name": "Zufall",
