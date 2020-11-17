@@ -1,3 +1,7 @@
+## v1.4.0 (not released)
+### New Features
+* Content of tool overlay can be controlled via URL routes, e.g. _https://domain/map/basemap_ opens the overlay with the basemap selection.
+
 ## v1.3.0 (2020-11-09)
 ### New Features
 * A short description can be added for each basemap in the configuration file.
