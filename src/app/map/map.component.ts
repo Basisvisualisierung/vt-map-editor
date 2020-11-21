@@ -43,6 +43,7 @@ export class MapComponent implements OnInit {
     showGroupConfiguration: boolean;
     showGuiLayerConfiguration: boolean;
     activeStyling: any;
+    activeStylingChangedSubscription: any;
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
@@ -74,11 +75,16 @@ export class MapComponent implements OnInit {
                     this.showToolOverlay = true;
                 }
             });
-        this.mapStylingService.activeStylingChanged
+        this.activeStylingChangedSubscription = this.mapStylingService.activeStylingChanged
             .subscribe(() => {
                 this.activeStyling = this.mapStylingService.activeStyling;
                 this.parseMetadata();
+                this.activeStylingChangedSubscription.unsubscribe();
             });
+        this.mapStylingService.activeBasemapChanged.subscribe(() => {
+            this.activeStyling = this.mapStylingService.activeStyling;
+            this.parseMetadata();
+        });
     }
 
     /**
