@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
 import { HeaderService } from 'src/app/header/header.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MapStylingService } from '../../map-styling.service';
@@ -15,12 +14,13 @@ import { AppConfigService } from 'src/app/app-config.service';
     templateUrl: './tool-share.component.html',
     styleUrls: ['./tool-share.component.scss']
 })
-export class ToolShareComponent implements OnInit {
+export class ToolShareComponent implements OnInit, OnDestroy {
     stylingUrl: string;
     appUrl: string;
     appIframe: string;
     editorUrl: string;
     activeStyling: any;
+    deepLoad: any;
 
     constructor(private headerService: HeaderService,
                 private mapStylingService: MapStylingService,
@@ -32,21 +32,21 @@ export class ToolShareComponent implements OnInit {
 
     ngOnInit() {
         this.headerService.changeTitle('Karte <span class="accent">veröffentlichen</span>');
-        // listen when active styling is loaded if deep link is used
-        this.mapStylingService.activeStylingChanged.subscribe( () => {
-            this.activeStyling = this.mapStylingService.activeStyling;
-            this.getSharingUrls();
-        });
         this.activeStyling = this.mapStylingService.activeStyling;
-        if (this.activeStyling){
-            this.getSharingUrls();
-        }
+        this.activeStyling && this.getSharingUrl();
+        // listen when active styling is loaded if deep link is used
+        this.deepLoad = this.mapStylingService.activeStylingChanged.subscribe( () => {
+            this.activeStyling = this.mapStylingService.activeStyling;
+            this.getSharingUrl();
+        });
     }
-
+    ngOnDestroy() {
+        this.deepLoad.unsubscribe();
+    }
     /**
      * Build and display sharing urls
      */
-    getSharingUrls(){
+    getSharingUrl(){
         const options = {
             headers: new HttpHeaders ({
                 'Content-Type': 'application/json'
