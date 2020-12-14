@@ -1,3 +1,7 @@
+## v1.3.2 (2020-11-23)
+### Bug fixes
+* Color picker no longer triggers redirection on changes
+
 ## v1.3.1 (2020-11-18)
 ### New Features
 * Content of tool overlay can be controlled via URL routes, e.g. _https://domain/map/basemap_ opens the overlay with the basemap selection.
