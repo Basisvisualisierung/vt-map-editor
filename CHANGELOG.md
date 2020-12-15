@@ -1,3 +1,8 @@
+## v1.3.3 (2020-12-15)
+### Bug fixes
+* Styles could be posted multiple times when style changes where made
+
+
 ## v1.3.2 (2020-11-23)
 ### Bug fixes
 * Color picker no longer triggers redirection on changes
