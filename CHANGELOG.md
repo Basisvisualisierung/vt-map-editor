@@ -1,7 +1,10 @@
+## not released
+### Bug fixes
+* Missing basemap thumbnail for loaded maps.
+
 ## v1.3.3 (2020-12-15)
 ### Bug fixes
 * Styles could be posted multiple times when style changes where made
-
 
 ## v1.3.2 (2020-11-23)
 ### Bug fixes

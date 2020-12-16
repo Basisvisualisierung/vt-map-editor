@@ -213,7 +213,7 @@ export class MapStylingService {
     addBasemap(basemapId: string, activateBasemap: boolean, changeMapView: boolean) {
         const newBasemap = new Basemap(
             basemapId,
-            'assets/basemaps/thumbnails/basemap_standard.png',
+            'assets/images/thumbnails/basemap_load.png',
             this.appConfigService.settings.mapService.url + '/style/' + basemapId
         );
         this.basemaps.push(newBasemap);
