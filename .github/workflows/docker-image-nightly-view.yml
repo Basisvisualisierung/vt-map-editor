@@ -1,15 +1,14 @@
-name: Publish and deploy Docker image RELEASE VT Map View
+name: Publish and deploy Docker image NIGHTLY VT Map View
 
 on:
   push:
-    tags:
-      - 'v*.*.*'
+    branches: develop
 
 env:
   IBM_CLOUD_API_KEY: ${{ secrets.IBM_CLOUD_API_KEY }}
   IBM_CLOUD_REGION: eu-de
   IKS_CLUSTER: bpb6t7ff0u016hl0n65g
-  IKS_NAMESPACE: bavi-staging
+  IKS_NAMESPACE: bavi-dev
   DEPLOYMENT_NAME: vt-map-view-deployment
 
 jobs:
@@ -17,12 +16,6 @@ jobs:
     name: Build and push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
-      - name: Prepare
-        id: prep
-        run: |
-          TAGS=basisvisualisierung/vt-map-view:${GITHUB_REF#refs/tags/}
-          echo ::set-output name=tags::${TAGS}
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
@@ -40,19 +33,13 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ${{ steps.prep.outputs.tags }}
+          tags: basisvisualisierung/vt-map-view:nightly
           file: ./Dockerfile-vt-map-view-prod
   deploy:
     name: Deploy Docker image to IKS cluster
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Prepare
-        id: prep
-        run: |
-          TAGS=basisvisualisierung/vt-map-view:${GITHUB_REF#refs/tags/}
-          echo ::set-output name=tags::${TAGS}
-
       - name: Install IBM Cloud CLI
         run: |
           curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
@@ -71,5 +58,5 @@ jobs:
         run: |
           ibmcloud ks cluster config --cluster $IKS_CLUSTER
           kubectl config set-context --current --namespace=${IKS_NAMESPACE}
-          kubectl set image deployment/$DEPLOYMENT_NAME vt-map-view=${{ steps.prep.outputs.tags }}
+          kubectl rollout restart deployment/$DEPLOYMENT_NAME
           kubectl rollout status deployment/$DEPLOYMENT_NAME

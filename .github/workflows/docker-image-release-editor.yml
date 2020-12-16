@@ -9,7 +9,7 @@ env:
   IBM_CLOUD_API_KEY: ${{ secrets.IBM_CLOUD_API_KEY }}
   IBM_CLOUD_REGION: eu-de
   IKS_CLUSTER: bpb6t7ff0u016hl0n65g
-  IKS_NAMESPACE: bavi-dev
+  IKS_NAMESPACE: bavi-staging
   DEPLOYMENT_NAME: vt-map-editor-deployment
 
 jobs:
