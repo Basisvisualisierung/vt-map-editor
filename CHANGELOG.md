@@ -1,4 +1,4 @@
-## not released
+## v1.3.4 (2020-12-22)
 ### Bug fixes
 * Missing basemap thumbnail for loaded maps.
 
