@@ -3,6 +3,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ToolFunctionsComponent } from './tool-functions.component';
 import {HeaderService} from '../../../header/header.service';
 import {MapFunctionService} from '../../map-function.service';
+import {RouterTestingModule} from '@angular/router/testing';
+import {MaterialDesignModule} from '../../../material-design/material-design.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('ToolFunctionsComponent', () => {
     let component: ToolFunctionsComponent;
@@ -10,6 +14,12 @@ describe('ToolFunctionsComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            imports: [
+                RouterTestingModule,
+                MaterialDesignModule,
+                BrowserAnimationsModule,
+                HttpClientTestingModule
+            ],
             declarations: [ToolFunctionsComponent],
             providers: [
                 {provide: HeaderService, useClass: HeaderServiceStub},

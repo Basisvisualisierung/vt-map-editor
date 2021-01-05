@@ -20,7 +20,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class MapboxGlComponent implements OnInit {
     activeStyling: {};
     map: mapboxgl.Map;
-    bbox: number[];
 
     constructor(private http: HttpClient,
                 private route: ActivatedRoute) { }

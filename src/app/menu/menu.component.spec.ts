@@ -3,6 +3,9 @@ import { MenuItem } from './menu-item';
 import { MenuComponent } from './menu.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {AppConfigService} from '../app-config.service';
+import {RouterTestingModule} from '@angular/router/testing';
+import {MaterialDesignModule} from '../material-design/material-design.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('MenuComponent', () => {
     let component: MenuComponent;
@@ -11,7 +14,12 @@ describe('MenuComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [MenuComponent],
-            imports: [HttpClientTestingModule],
+            imports: [
+                RouterTestingModule,
+                MaterialDesignModule,
+                BrowserAnimationsModule,
+                HttpClientTestingModule
+            ],
             providers: [
                 {provide: AppConfigService, useClass: AppConfigServiceStub}
             ]

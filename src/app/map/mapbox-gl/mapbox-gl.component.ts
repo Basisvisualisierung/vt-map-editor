@@ -24,46 +24,19 @@ export class MapboxGlComponent implements OnInit {
     activeStyling: {};
     map: mapboxgl.Map;
     navigationControl: any;
+    navigationControlStatus = false;
     pitchControl: any;
     searchControl: any;
+    searchControlStatus = false;
     zoomControl: any;
     geolocateControl: any;
     bbox: number[];
 
+
     constructor(private mapStylingService: MapStylingService,
                 private mapFunctionService: MapFunctionService,
                 private appConfigService: AppConfigService,
-                private route: ActivatedRoute) {
-        // Get active styling from MapStylingService and use it as map content
-        this.mapStylingService.activeStylingChanged.subscribe(
-            (styling) => {
-                this.activeStyling = styling;
-                this.map.setStyle(this.activeStyling);
-            }
-        );
-        // Get active styling from MapStylingService and use it as map content
-        this.mapStylingService.activeBasemapChanged.subscribe(
-            (mapView: MapView) => {
-                if (mapView !== null) {
-                    this.map.setZoom(mapView.zoom);
-                    this.map.setCenter(mapView.center);
-                    this.map.setPitch(mapView.pitch);
-                    this.map.setBearing(mapView.bearing);
-                }
-            }
-        );
-
-        // Apply changes from MapFunctions to the map
-        this.mapFunctionService.mapFunctionsChanged.subscribe(
-            (functionName: string) => {
-                if (functionName === 'navigation') {
-                    this.toggleNavigationControls(this.mapFunctionService.mapFunctions.navigation.enabled);
-                } else if (functionName === 'search') {
-                    this.toggleSearchControl(this.mapFunctionService.mapFunctions.search.enabled);
-                }
-            }
-        );
-    }
+                private route: ActivatedRoute) { }
 
     ngOnInit() {
         this.activeStyling = this.mapStylingService.activeStyling;
@@ -156,6 +129,36 @@ export class MapboxGlComponent implements OnInit {
                 this.zoomControl.changeText(Math.round(this.map.getZoom() * 100) / 100);
             }
         });
+
+        // Get active styling from MapStylingService and use it as map content
+        this.mapStylingService.activeStylingChanged.subscribe(
+            (styling) => {
+                this.activeStyling = styling;
+                this.map.setStyle(this.activeStyling);
+            }
+        );
+        // Get active styling from MapStylingService and use it as map content
+        this.mapStylingService.activeBasemapChanged.subscribe(
+            (mapView: MapView) => {
+                if (mapView !== null) {
+                    this.map.setZoom(mapView.zoom);
+                    this.map.setCenter(mapView.center);
+                    this.map.setPitch(mapView.pitch);
+                    this.map.setBearing(mapView.bearing);
+                }
+            }
+        );
+
+        // Apply changes from MapFunctions to the map
+        this.mapFunctionService.mapFunctionsChanged.subscribe(
+            (functionName: string) => {
+                if (functionName === 'navigation') {
+                    this.toggleNavigationControls(this.mapFunctionService.mapFunctions.navigation.enabled);
+                } else if (functionName === 'search') {
+                    this.toggleSearchControl(this.mapFunctionService.mapFunctions.search.enabled);
+                }
+            }
+        );
     }
 
     /**
@@ -173,7 +176,7 @@ export class MapboxGlComponent implements OnInit {
      * @param enable true: show; false: hide
      */
     toggleNavigationControls(enable: boolean) {
-        if (enable) {
+        if (enable && !this.navigationControlStatus) {
             this.navigationControl = new mapboxgl.NavigationControl();
             this.pitchControl = new MapboxGlPitchControl();
             this.geolocateControl = new mapboxgl.GeolocateControl({
@@ -185,10 +188,12 @@ export class MapboxGlComponent implements OnInit {
             this.map.addControl(this.navigationControl, 'top-left');
             this.map.addControl(this.pitchControl, 'top-left');
             this.map.addControl(this.geolocateControl, 'top-left');
-        } else {
+            this.navigationControlStatus = true;
+        } else if (!enable && this.navigationControlStatus){
             this.map.removeControl(this.navigationControl);
             this.map.removeControl(this.pitchControl);
             this.map.removeControl(this.geolocateControl);
+            this.navigationControlStatus = false;
         }
     }
 
@@ -197,11 +202,14 @@ export class MapboxGlComponent implements OnInit {
      * @param enable true: show; false: hide
      */
     toggleSearchControl(enable: boolean) {
-        if (enable) {
+        if (enable && !this.searchControlStatus) {
             this.searchControl = new MapboxGlSearchControl(this.appConfigService.settings.mapService.url);
             this.map.addControl(this.searchControl, 'top-right');
-        } else {
+            this.searchControlStatus = true;
+        } else if (!enable && this.searchControlStatus) {
             this.map.removeControl(this.searchControl);
+            this.searchControlStatus = false;
         }
     }
 }
+

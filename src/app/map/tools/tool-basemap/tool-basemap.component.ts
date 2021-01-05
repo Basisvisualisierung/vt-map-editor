@@ -38,15 +38,8 @@ export class ToolBasemapComponent implements OnInit {
     /**
      * Show user interface for loading a stored styling as basemap
      */
-    onShowLoadBasemap() {
-        this.showLoadBasemap = true;
-    }
-
-    /**
-     * Cancel loading a style
-     */
-    onLoadBasemapCancel() {
-        this.showLoadBasemap = false;
+    toggleShowLoadBasemap() {
+        this.showLoadBasemap = !this.showLoadBasemap;
     }
 
     /**

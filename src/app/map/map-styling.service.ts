@@ -10,7 +10,9 @@ import { ActivatedRoute } from '@angular/router';
 /**
  * Service to manage the map styling
  */
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class MapStylingService {
     basemaps: Basemap[];
 
@@ -113,6 +115,7 @@ export class MapStylingService {
                             convertColor[1] += changeValueS;
                             convertColor[2] += changeValueL;
 
+                            // tslint:disable-next-line:max-line-length
                             layer.paint[colorType] = 'hsla(' + convertColor[0] + ',' + convertColor[1] + '%,' + convertColor[2] + '%,' + alpha + ')';
 
                         } else if (color.search(/^#/) === 0) {

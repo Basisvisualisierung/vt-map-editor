@@ -3,7 +3,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { MapStylingService } from './map-styling.service';
 import {ActivatedRoute} from '@angular/router';
 import {AppConfigService} from '../app-config.service';
-import {ActivatedRouteStub} from '../testing/activated-route-stub';
 
 describe('MapStylingService', () => {
     let mapStylingService: MapStylingService;
