@@ -11,24 +11,9 @@ export class MapFunctionService {
     mapFunctionsChanged = new EventEmitter<string>();
     metadataChanged = new EventEmitter<any>();
     // tslint:disable-next-line:variable-name
-    private _guiLayerState: boolean;
+    guiLayerState: boolean;
     // tslint:disable-next-line:variable-name
-    private _groupLayerState: boolean;
-
-    set guiLayerState(state: boolean){
-        this._guiLayerState = state;
-    }
-    get guiLayerState(): boolean {
-        return this._guiLayerState;
-    }
-
-    set groupLayerState(state: boolean){
-        this._groupLayerState = state;
-    }
-
-    get groupLayerState(): boolean {
-        return this._groupLayerState;
-    }
+    groupLayerState: boolean;
 
     constructor(private appConfigService: AppConfigService) {
         this.mapFunctions = appConfigService.settings.mapFunctions;

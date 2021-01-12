@@ -28,14 +28,15 @@ export class MapStylingService {
     groupSettings: any;
     // Save the configuartion of input elements for GUI layer visibility
     guiLayerSettings: any;
+    mapUuid: string;
 
     constructor(private http: HttpClient, private route: ActivatedRoute, private appConfigService: AppConfigService) {
         this.basemaps = this.appConfigService.settings.basemaps;
         this.activeBasemap = this.basemaps[0];
 
         // Load standard style if no query parameter exists
-        const mapUuid = route.snapshot.queryParamMap.get('id');
-        if (mapUuid === null || mapUuid.length === 0) {
+        this.mapUuid = route.snapshot.queryParamMap.get('id');
+        if (this.mapUuid === null || this.mapUuid.length === 0) {
             this.setActiveStylingJson();
         }
 

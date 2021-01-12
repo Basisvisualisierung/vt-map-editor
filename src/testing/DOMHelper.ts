@@ -42,9 +42,15 @@ export class DOMHelper<T> {
         for (const element of this.getCollection(tagName)){
             const nativeElement: HTMLElement = element.nativeElement;
             if (nativeElement.textContent.trim() === textContent){
-                console.log(nativeElement);
                 nativeElement.click();
             }
+        }
+    }
+
+    clickAll(tagName: string) {
+        for (const element of this.getCollection(tagName)) {
+            const nativeElement: HTMLElement = element.nativeElement;
+            nativeElement.click();
         }
     }
 }

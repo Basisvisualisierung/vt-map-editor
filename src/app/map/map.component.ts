@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { MapTool } from './tools/map-tool';
 import {Router, ActivatedRoute, NavigationStart} from '@angular/router';
 import { HeaderService } from '../header/header.service';
@@ -14,7 +14,7 @@ import {MapFunctionService} from './map-function.service';
     templateUrl: './map.component.html',
     styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, OnDestroy {
     tools: MapTool[] = [
         new MapTool(
             'map',
@@ -44,20 +44,14 @@ export class MapComponent implements OnInit {
     showGuiLayerConfiguration: boolean;
     activeStyling: any;
     activeStylingChangedSubscription: any;
+    activeBasemapChangedSubscription: any;
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
                 private headerService: HeaderService,
                 private mapStylingService: MapStylingService,
                 private appConfigService: AppConfigService,
-                private mapFunctionService: MapFunctionService) {
-
-        // Load map by uuid from query parameters
-        const mapUuid = route.snapshot.queryParamMap.get('id');
-        if (mapUuid !== null && mapUuid.length > 0) {
-            mapStylingService.addBasemap(mapUuid, true, true);
-        }
-    }
+                private mapFunctionService: MapFunctionService) { }
 
     ngOnInit() {
         this.toolOverlayHeight = 300;
@@ -81,12 +75,22 @@ export class MapComponent implements OnInit {
                 this.parseMetadata();
                 this.activeStylingChangedSubscription.unsubscribe();
             });
-        this.mapStylingService.activeBasemapChanged.subscribe(() => {
+        this.activeBasemapChangedSubscription = this.mapStylingService.activeBasemapChanged.subscribe(() => {
             this.activeStyling = this.mapStylingService.activeStyling;
             this.parseMetadata();
         });
+
+        // Load map by uuid from query parameters
+        const mapUuid = this.route.snapshot.queryParamMap.get('id');
+        if (mapUuid !== null && mapUuid.length > 0) {
+            this.mapStylingService.addBasemap(mapUuid, true, true);
+        }
     }
 
+    ngOnDestroy() {
+        this.activeBasemapChangedSubscription && this.activeBasemapChangedSubscription.unsubscribe();
+        this.activeStylingChangedSubscription && this.activeStylingChangedSubscription.unsubscribe();
+    }
     /**
      * Read metadata of groups and layers
      */

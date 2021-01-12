@@ -11,12 +11,14 @@ import {AppConfigService} from '../../app-config.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ActivatedRoute} from '@angular/router';
 import {By} from '@angular/platform-browser';
+import {DOMHelper} from '../../../testing/DOMHelper';
 
 describe('MapboxGlComponent', () => {
     let component: MapboxGlComponent;
     let fixture: ComponentFixture<MapboxGlComponent>;
     let mapFunctionService: MapFunctionServiceStub;
     let mapStylingService: MapStylingServiceStub;
+    let dh: DOMHelper<MapboxGlComponent>;
 
     beforeEach(async(() => {
         return TestBed.configureTestingModule({
@@ -62,6 +64,7 @@ describe('MapboxGlComponent', () => {
         fixture = TestBed.createComponent(MapboxGlComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
+        dh = new DOMHelper<MapboxGlComponent>(fixture);
     });
 
     it('should create', () => {
@@ -154,37 +157,43 @@ describe('MapboxGlComponent', () => {
         mapFunctionService.mapFunctionsChanged.emit('navigation');
         mapFunctionService.mapFunctionsChanged.emit('navigation');
         fixture.detectChanges();
-        expect(fixture.debugElement.queryAll(By.css('.mapboxgl-ctrl-compass')).length).toBe(1);
+        expect(dh.getLength('.mapboxgl-ctrl-compass')).toBe(1);
         expect(fixture.debugElement.queryAll(By.css('.mapboxgl-ctrl-zoom-out')).length).toBe(1);
         expect(fixture.debugElement.queryAll(By.css('.mapboxgl-ctrl-zoom-in')).length).toBe(1);
         expect(fixture.debugElement.queryAll(By.css('.pitch-control')).length).toBe(1);
     });
 
 
-    it('should add Search if toggleSearchControl is called with true', () => {
+    it('should add Search if toggleSearchControl is called with true', (done) =>  {
         component.searchControlStatus = false;
         component.toggleSearchControl(true);
         fixture.detectChanges();
-        expect(fixture.debugElement.query(By.css('.search-control'))).toBeTruthy();
+        fixture.whenStable().then(() => {
+            expect(fixture.debugElement.query(By.css('.search-control'))).toBeTruthy();
+            done();
+        });
     });
 
-    it('should only have one search if toggleSearchControl is called with true', () => {
+    it('should only have one search if toggleSearchControl is called with true', (done) => {
         component.toggleSearchControl(true);
         fixture.detectChanges();
-        expect(fixture.debugElement.queryAll(By.css('.search-control')).length).toBe(1);
+        fixture.whenStable().then(() => {
+            expect(dh.getLength('.search-control')).toBe(1);
+            done();
+        });
     });
 
     it('should have no search if toggleSearchControl is called with false', () => {
         component.toggleSearchControl(false);
         fixture.detectChanges();
-        expect(fixture.debugElement.queryAll(By.css('.search-control')).length).toBe(0);
+        expect(dh.getLength('.search-control')).toBe(0);
     });
 
     it('should not try to remove search if there is no search', () => {
         component.toggleSearchControl(false);
         component.toggleSearchControl(false);
         fixture.detectChanges();
-        expect(fixture.debugElement.queryAll(By.css('.search-control')).length).toBe(0);
+        expect(dh.getLength('.search-control')).toBe(0);
     });
 });
 
