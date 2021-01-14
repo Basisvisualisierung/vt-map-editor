@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import { ToolEditComponent } from './tool-edit.component';
 import {HeaderService} from '../../../header/header.service';
@@ -169,12 +169,13 @@ describe('ToolEditComponent', () => {
             expect(component.editSection).toHaveBeenCalledTimes(2);
         });
 
-        // TODO:: inject a deep link!
-        it('should set deepLink if a deepLink is present', () => {
+        it('should set deepLink if a deepLink is present', fakeAsync(() => {
             fixture.ngZone.run(() => {
+                router.navigate(['/map/edit/group-layer']);
+                tick();
                 component.ngOnInit();
-
+                expect(component.deepLink).toBeTruthy();
             });
-        });
+        }));
     });
 });

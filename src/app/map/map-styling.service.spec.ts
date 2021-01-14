@@ -538,19 +538,27 @@ describe('MapStylingService', () => {
         });
     });
 
-    describe('Tests related to  changeLayerVisibility()', () => {
+    describe('Tests related to changeLayerVisibility()', () => {
 
         beforeEach(() => {
-            mapStylingService.activeStyling =
-                {layers: [{ id: 'makeVisible', type: 'background', paint: {'background-color': 'rgb(222,173,202)'} },
-                        { id: 'test', type: 'fill', paint: {'fill-color': 'rgb(140,255,52)'} },
-                    ], };
+            mapStylingService.activeStyling = {
+                layers: [
+                    { id: 'makeVisible', type: 'background', paint: {'background-color': 'rgb(222,173,202)'} },
+                    { id: 'test', type: 'fill', paint: {'fill-color': 'rgb(140,255,52)'} },
+                ],
+            };
         });
 
         it('should call changeActiveStyling with activeStyling if layer id do not exist', () => {
+            const styleCheck = {
+                layers: [
+                    { id: 'makeVisible', type: 'background', paint: {'background-color': 'rgb(222,173,202)'} },
+                    { id: 'test', type: 'fill', paint: {'fill-color': 'rgb(140,255,52)'} },
+                ],
+            };
             spyOn(mapStylingService, 'changeActiveStyling');
             mapStylingService.changeLayerVisibility('notAId', true);
-            expect(mapStylingService.changeActiveStyling).toHaveBeenCalledWith(mapStylingService.activeStyling);
+            expect(mapStylingService.changeActiveStyling).toHaveBeenCalledWith(styleCheck);
         });
 
         describe('visible true', () => {
@@ -620,7 +628,7 @@ describe('MapStylingService', () => {
         });
     });
 
-    describe('Tests related to  changeLayerAttribute()', () => {
+    describe('Tests related to changeLayerAttribute()', () => {
 
         beforeEach(() => {
             mapStylingService.activeStyling = {
@@ -692,7 +700,7 @@ describe('MapStylingService', () => {
         });
     });
 
-    describe('Tests related to  changeGroupDetailLevel()', () => {
+    describe('Tests related to changeGroupDetailLevel()', () => {
 
         beforeEach(() => {
             mapStylingService.activeStyling = {
@@ -739,6 +747,7 @@ describe('MapStylingService', () => {
             };
             spyOn(mapStylingService, 'changeActiveStyling');
             mapStylingService.changeGroupDetailLevel('testGroup3', 2);
+
             expect(mapStylingService.changeActiveStyling).toHaveBeenCalledWith(styleCheck);
         });
 
@@ -749,17 +758,35 @@ describe('MapStylingService', () => {
                         type: 'background', paint: {'background-color': 'rgb(222,173,202)'}, layout: {visibility: 'visible'} },
                 ],
             };
+            const styleCheck = {
+                layers: [
+                    { id: 'groupLayer', metadata: {'map-editor:group': 'testGroup1'},
+                        type: 'background', paint: {'background-color': 'rgb(222,173,202)'}, layout: {visibility: 'visible'} },
+                ],
+            };
             spyOn(mapStylingService, 'changeActiveStyling');
             mapStylingService.changeGroupDetailLevel('testGroup1', 0);
-            expect(mapStylingService.changeActiveStyling).toHaveBeenCalledWith(mapStylingService.activeStyling);
+            expect(mapStylingService.changeActiveStyling).toHaveBeenCalledWith(styleCheck);
         });
 
         describe('group name not present', () => {
 
             it('should call changeActiveStyling with unchanged styling', () => {
+                mapStylingService.activeStyling = {
+                    layers: [
+                        { id: 'groupLayer', metadata: {'map-editor:group': 'testGroup1'},
+                            type: 'background', paint: {'background-color': 'rgb(222,173,202)'}, layout: {visibility: 'visible'} },
+                    ],
+                };
+                const styleCheck = {
+                    layers: [
+                        { id: 'groupLayer', metadata: {'map-editor:group': 'testGroup1'},
+                            type: 'background', paint: {'background-color': 'rgb(222,173,202)'}, layout: {visibility: 'visible'} },
+                    ],
+                };
                 spyOn(mapStylingService, 'changeActiveStyling');
                 mapStylingService.changeGroupDetailLevel('notExistingGroup', 2);
-                expect(mapStylingService.changeActiveStyling).toHaveBeenCalledWith(mapStylingService.activeStyling);
+                expect(mapStylingService.changeActiveStyling).toHaveBeenCalledWith(styleCheck);
             });
         });
 
@@ -801,6 +828,320 @@ describe('MapStylingService', () => {
                 spyOn(mapStylingService, 'changeActiveStyling');
                 mapStylingService.changeGroupDetailLevel('testGroup1', 0);
                 expect(mapStylingService.changeActiveStyling).toHaveBeenCalledWith(styleCheck);
+            });
+        });
+    });
+
+    describe('Tests related to changeGuiLayerVisibility()', () => {
+
+        beforeEach(() => {
+            mapStylingService.activeStyling = {
+                layers: [
+                    { id: 'groupLayer', metadata: {'map-editor:layer': 'testGroup1', 'map-editor:detail-level': 1},
+                        type: 'background', paint: {'background-color': 'rgb(222,173,202)'}, layout: {visibility: 'visible'} },
+                    { id: 'groupLayer2', metadata: {'map-editor:layer': 'testGroup2', 'map-editor:detail-level': 2},
+                        type: 'background', paint: {'background-color': 'rgb(222,173,202)'}, layout: {visibility: 'none'} },
+                    { id: 'groupLayer3', metadata: {'map-editor:layer': 'testGroup3', 'map-editor:detail-level': 3},
+                        type: 'background', paint: {'background-color': 'rgb(222,173,202)'} },
+                    { id: 'test', type: 'fill', paint: {'fill-color': 'rgb(140,255,52)'} },
+                ],
+            };
+        });
+
+        it('should call changeActiveStyling() once', () => {
+            spyOn(mapStylingService, 'changeActiveStyling');
+            mapStylingService.changeGuiLayerVisibility('testLayerName', true);
+            expect(mapStylingService.changeActiveStyling).toHaveBeenCalledTimes(1);
+        });
+
+        it('should call changeActiveStyling() with a styling', () => {
+            spyOn(mapStylingService, 'changeActiveStyling');
+            mapStylingService.changeGuiLayerVisibility('testLayerName', true);
+            expect(mapStylingService.changeActiveStyling).toHaveBeenCalledWith(mapStylingService.activeStyling);
+        });
+
+        describe('guiLayer is not present in guiLayerSettings', () => {
+
+            it('should add guiLayer to guiLayerSettings if it is not present', () => {
+                mapStylingService.changeGuiLayerVisibility('testLayerName', true);
+                expect(mapStylingService.guiLayerSettings.testLayerName).toBeTruthy();
+            });
+
+            it('should set visible of this guiLayerName to visible on gui layer settings', () => {
+                mapStylingService.changeGuiLayerVisibility('testLayerName', true);
+                expect(mapStylingService.guiLayerSettings.testLayerName.visible).toEqual(true);
+            });
+        });
+
+        describe('guiLayer is present in guiLayerSettings', () => {
+
+            it('should set visible of this guiLayerName to visible on gui layer settings', () => {
+                mapStylingService.guiLayerSettings = { testLayerName: { visible: false} };
+                mapStylingService.changeGuiLayerVisibility('testLayerName', true);
+                expect(mapStylingService.guiLayerSettings.testLayerName.visible).toEqual(true);
+            });
+
+        });
+
+        describe('guiLayerName is present in metadata of active Styling as "map-editor:layer"', () => {
+
+
+            it('should set layout key if it is undefined', () => {
+                spyOn(mapStylingService, 'changeActiveStyling');
+                mapStylingService.activeStyling = {
+                    layers: [
+                        { id: 'groupLayer', metadata: {'map-editor:layer': 'testLayerName', 'map-editor:detail-level': 1},
+                            type: 'background', paint: {'background-color': 'rgb(222,173,202)'}
+                        },
+                    ],
+                };
+                const styleCheck = {
+                    layers: [
+                        { id: 'groupLayer', metadata: {'map-editor:layer': 'testLayerName', 'map-editor:detail-level': 1},
+                            type: 'background', paint: {'background-color': 'rgb(222,173,202)'}, layout: {visibility: 'visible'}
+                        },
+                    ],
+                };
+                mapStylingService.changeGuiLayerVisibility('testLayerName', true);
+                expect(mapStylingService.changeActiveStyling).toHaveBeenCalledWith(styleCheck);
+            });
+
+            it('should change visibility value if it is still present ', () => {
+                spyOn(mapStylingService, 'changeActiveStyling');
+                mapStylingService.activeStyling = {
+                    layers: [
+                        { id: 'groupLayer', metadata: {'map-editor:layer': 'testLayerName', 'map-editor:detail-level': 1},
+                            type: 'background', paint: {'background-color': 'rgb(222,173,202)'}, layout: {visibility: 'visible'}
+                        },
+                    ],
+                };
+                const styleCheck = {
+                    layers: [
+                        { id: 'groupLayer', metadata: {'map-editor:layer': 'testLayerName', 'map-editor:detail-level': 1},
+                            type: 'background', paint: {'background-color': 'rgb(222,173,202)'}, layout: {visibility: 'none'}
+                        },
+                    ],
+                };
+                mapStylingService.changeGuiLayerVisibility('testLayerName', false);
+                expect(mapStylingService.changeActiveStyling).toHaveBeenCalledWith(styleCheck);
+            });
+        });
+
+    });
+
+    describe('Tests related to changeGuiLayerColor()', () => {
+
+        beforeEach(() => {
+            mapStylingService.activeStyling = {
+                layers: [
+                    { id: 'groupLayer', metadata: {'map-editor:layer': 'testGroup1', 'map-editor:layer-element': 'testElement1', 'map-editor:detail-level': 1},
+                        type: 'background', paint: {'background-color': 'rgb(222,173,202)'}, layout: {visibility: 'visible'} },
+                    { id: 'groupLayer2', metadata: {'map-editor:layer': 'testGroup2', 'map-editor:layer-element': 'testElement2', 'map-editor:detail-level': 2},
+                        type: 'background', paint: {'background-color': 'rgb(222,173,202)'}, layout: {visibility: 'none'} },
+                    { id: 'groupLayer3', metadata: {'map-editor:layer': 'testGroup3', 'map-editor:layer-element': 'testElement3', 'map-editor:detail-level': 3},
+                        type: 'background'},
+                    { id: 'test', type: 'fill', paint: {'fill-color': 'rgb(140,255,52)'} },
+                ],
+            };
+        });
+
+        it('should call changeActiveStyling once', () => {
+            spyOn(mapStylingService, 'changeActiveStyling');
+            mapStylingService.changeGuiLayerColor('noGuiLayerName', 'noElementName', 'noColorString');
+            expect(mapStylingService.changeActiveStyling).toHaveBeenCalledTimes(1);
+        });
+
+        describe('no paint Property present', () => {
+
+            it('should set paint property of layer', () => {
+                const styleCheck = {
+                    layers: [
+                        { id: 'groupLayer', metadata: {'map-editor:layer': 'testGroup1', 'map-editor:layer-element': 'testElement1', 'map-editor:detail-level': 1},
+                            type: 'background', paint: {'background-color': 'rgb(222,173,202)'}, layout: {visibility: 'visible'} },
+                        { id: 'groupLayer2', metadata: {'map-editor:layer': 'testGroup2', 'map-editor:layer-element': 'testElement2', 'map-editor:detail-level': 2},
+                            type: 'background', paint: {'background-color': 'rgb(222,173,202)'}, layout: {visibility: 'none'} },
+                        { id: 'groupLayer3', metadata: {'map-editor:layer': 'testGroup3', 'map-editor:layer-element': 'testElement3', 'map-editor:detail-level': 3},
+                            type: 'background', paint: {'background-color': 'yellow'} },
+                        { id: 'test', type: 'fill', paint: {'fill-color': 'rgb(140,255,52)'} },
+                    ],
+                };
+                spyOn(mapStylingService, 'changeActiveStyling');
+                mapStylingService.changeGuiLayerColor('testGroup3', 'testElement3', 'yellow');
+                expect(mapStylingService.changeActiveStyling).toHaveBeenCalledWith(styleCheck);
+            });
+        });
+
+        describe('paint property present', () => {
+
+            it('should change paint property', () => {
+                const styleCheck = {
+                    layers: [
+                        { id: 'groupLayer', metadata: {'map-editor:layer': 'testGroup1', 'map-editor:layer-element': 'testElement1', 'map-editor:detail-level': 1},
+                            type: 'background', paint: {'background-color': 'rgb(222,173,202)'}, layout: {visibility: 'visible'} },
+                        { id: 'groupLayer2', metadata: {'map-editor:layer': 'testGroup2', 'map-editor:layer-element': 'testElement2', 'map-editor:detail-level': 2},
+                            type: 'background', paint: {'background-color': 'yellow'}, layout: {visibility: 'none'} },
+                        { id: 'groupLayer3', metadata: {'map-editor:layer': 'testGroup3', 'map-editor:layer-element': 'testElement3', 'map-editor:detail-level': 3},
+                            type: 'background'},
+                        { id: 'test', type: 'fill', paint: {'fill-color': 'rgb(140,255,52)'} },
+                    ],
+                };
+                spyOn(mapStylingService, 'changeActiveStyling');
+                mapStylingService.changeGuiLayerColor('testGroup2', 'testElement2', 'yellow');
+                expect(mapStylingService.changeActiveStyling).toHaveBeenCalledWith(styleCheck);
+            });
+        });
+
+        describe('layerType = symbol', () => {
+
+            it('should set paint property text-color', () => {
+                mapStylingService.activeStyling = {
+                    layers: [
+                        { id: 'groupLayer', metadata: {'map-editor:layer': 'testGroup1', 'map-editor:layer-element': 'testElement1', 'map-editor:detail-level': 1},
+                            type: 'symbol'},
+                    ],
+                };
+
+                const styleCheck = {
+                    layers: [
+                        { id: 'groupLayer', metadata: {'map-editor:layer': 'testGroup1', 'map-editor:layer-element': 'testElement1', 'map-editor:detail-level': 1},
+                            type: 'symbol', paint: {'text-color': 'yellow'} },
+                    ],
+                };
+
+                spyOn(mapStylingService, 'changeActiveStyling');
+                mapStylingService.changeGuiLayerColor('testGroup1', 'testElement1', 'yellow');
+                expect(mapStylingService.changeActiveStyling).toHaveBeenCalledWith(styleCheck);
+            });
+
+        });
+
+        describe('color is rgba', () => {
+
+            it('should set paint property opacity to alpha value', () => {
+                mapStylingService.activeStyling = {
+                    layers: [
+                        { id: 'groupLayer', metadata: {'map-editor:layer': 'testGroup1', 'map-editor:layer-element': 'testElement1', 'map-editor:detail-level': 1},
+                            type: 'symbol'},
+                    ],
+                };
+
+                const styleCheck = {
+                    layers: [
+                        { id: 'groupLayer', metadata: {'map-editor:layer': 'testGroup1', 'map-editor:layer-element': 'testElement1', 'map-editor:detail-level': 1},
+                            type: 'symbol', paint: {'text-color': 'rgba(122,33,12, 1)', 'text-opacity': 1} },
+                    ],
+                };
+
+                spyOn(mapStylingService, 'changeActiveStyling');
+                mapStylingService.changeGuiLayerColor('testGroup1', 'testElement1', 'rgba(122,33,12,1)');
+                expect(mapStylingService.changeActiveStyling).toHaveBeenCalledWith(styleCheck);
+            });
+        });
+    });
+
+    describe('Tests related to cchangeColorToSupported(color()', () => {
+
+        describe('opacity not set', () => {
+
+            describe('color is rgba', () => {
+                it('should return color input', () => {
+                    const color = mapStylingService.changeColorToSupported('rgba(122,33,44,0.3)');
+                    expect(color).toEqual('rgba(122,33,44,0.3)');
+                });
+            });
+
+            describe('color is rgb', () => {
+                it('should return a rgba color with alpha = 1', () => {
+                    const color = mapStylingService.changeColorToSupported('rgb(122,33,44)');
+                    expect(color).toEqual('rgba(122,33,44, 1)');
+                });
+            });
+
+            describe('color is hex', () => {
+                it('should return a rgba color with alpha = 1', () => {
+                    const color = mapStylingService.changeColorToSupported('#773342');
+                    expect(color).toEqual('rgba(119,51,66,1)');
+                });
+            });
+
+            describe('color is short hex', () => {
+                it('should return a rgba color with alpha = 1', () => {
+                    const color = mapStylingService.changeColorToSupported('#732');
+                    expect(color).toEqual('rgba(119,51,34,1)');
+                });
+            });
+
+            describe('color is hsla', () => {
+                it('should return color input', () => {
+                    const color = mapStylingService.changeColorToSupported('hsla(340,10%,9%,0.1)');
+                    expect(color).toEqual('hsla(340,10%,9%,0.1)');
+                });
+            });
+
+            describe('color is hsl', () => {
+                it('should return a hsla color with alpha = 1', () => {
+                    const color = mapStylingService.changeColorToSupported('hsl(340,10%,9%)');
+                    expect(color).toEqual('hsla(340,10%,9%, 1)');
+                });
+            });
+
+            describe('color is HTML color', () => {
+                it('should return a hsla color with alpha = 1', () => {
+                    const color = mapStylingService.changeColorToSupported('yellow');
+                    expect(color).toEqual('yellow');
+                });
+            });
+        });
+
+        describe('opacity set', () => {
+
+            describe('color is rgba', () => {
+                it('should return color input', () => {
+                    const color = mapStylingService.changeColorToSupported('rgba(122,33,44,0.3)', 0.7);
+                    expect(color).toEqual('rgba(122,33,44,0.3)');
+                });
+            });
+
+            describe('color is rgb', () => {
+                it('should return a rgba color with alpha = opacity', () => {
+                    const color = mapStylingService.changeColorToSupported('rgb(122,33,44)', 0.7);
+                    expect(color).toEqual('rgba(122,33,44, 0.7)');
+                });
+            });
+
+            describe('color is hex', () => {
+                it('should return a rgba color with alpha = opacity', () => {
+                    const color = mapStylingService.changeColorToSupported('#773342', 0.7);
+                    expect(color).toEqual('rgba(119,51,66,0.7)');
+                });
+            });
+
+            describe('color is short hex', () => {
+                it('should return a rgba color with alpha = opacity', () => {
+                    const color = mapStylingService.changeColorToSupported('#732', 0.7);
+                    expect(color).toEqual('rgba(119,51,34,0.7)');
+                });
+            });
+
+            describe('color is hsla', () => {
+                it('should return color input', () => {
+                    const color = mapStylingService.changeColorToSupported('hsla(340,10%,9%,0.1)', 0.7);
+                    expect(color).toEqual('hsla(340,10%,9%,0.1)');
+                });
+            });
+
+            describe('color is hsl', () => {
+                it('should return a hsla color with alpha = opacity', () => {
+                    const color = mapStylingService.changeColorToSupported('hsl(340,10%,9%)', 0.7);
+                    expect(color).toEqual('hsla(340,10%,9%, 0.7)');
+                });
+            });
+
+            describe('color is HTML color', () => {
+                it('should return color input', () => {
+                    const color = mapStylingService.changeColorToSupported('yellow', 0.7);
+                    expect(color).toEqual('yellow');
+                });
             });
         });
     });

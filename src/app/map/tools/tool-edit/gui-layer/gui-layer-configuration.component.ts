@@ -87,8 +87,8 @@ export class GuiLayerConfigurationComponent implements OnInit {
                     if (groupIdx === -1) {
                         groupIdx = this.groups.findIndex(group => group.name === layer.metadata['map-editor:group']);
                     }
-                    if (layerIdx === -1) {
-                        layerIdx = this.groups[groupIdx].guiLayers.findIndex(guiLayer => guiLayer.name === layer.metadata['map-editor:layer']);
+                    if (layerIdx === -1) {layerIdx = this.groups[groupIdx].guiLayers.findIndex(guiLayer =>
+                        guiLayer.name === layer.metadata['map-editor:layer']);
                     }
 
                     // Add layer element with selection of layer properties
