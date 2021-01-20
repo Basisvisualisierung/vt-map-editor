@@ -5,7 +5,6 @@ import {ActivatedRoute} from '@angular/router';
 import {AppConfigService} from '../app-config.service';
 import createSpyObj = jasmine.createSpyObj;
 import {Basemap} from '../shared/basemap';
-import {bufferWhen} from 'rxjs/operators';
 import {MapView} from '../shared/mapview';
 
 describe('MapStylingService', () => {
@@ -1039,7 +1038,7 @@ describe('MapStylingService', () => {
         });
     });
 
-    describe('Tests related to cchangeColorToSupported(color()', () => {
+    describe('Tests related to changeColorToSupportedColor()', () => {
 
         describe('opacity not set', () => {
 
@@ -1086,7 +1085,7 @@ describe('MapStylingService', () => {
             });
 
             describe('color is HTML color', () => {
-                it('should return a hsla color with alpha = 1', () => {
+                it('should return color input', () => {
                     const color = mapStylingService.changeColorToSupported('yellow');
                     expect(color).toEqual('yellow');
                 });
