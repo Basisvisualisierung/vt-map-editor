@@ -103,7 +103,7 @@ export default class MapboxGlSearchControl {
         this.resultArea.className = 'resultArea';
 
         this.btn = document.createElement('button');
-        this.btn.className = 'mapboxgl-ctrl-icon icons';
+        this.btn.className = 'mapboxgl-ctrl-icon icons search-control';
         this.btn.type = 'button';
         this.btn.title = 'Adresssuche';
         this.btn.style.display = 'inline';

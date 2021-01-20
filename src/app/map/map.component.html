@@ -9,7 +9,7 @@
 
 <div class="toolbar" *ngIf="!showToolOverlay">
     <div class="toolbar-btn" *ngFor="let tool of tools">
-        <button mat-fab (click)="onToolbarButtonClick(tool)">
+        <button class="tool-button" mat-fab (click)="onToolbarButtonClick(tool)">
             <mat-icon class="accent">{{tool.icon}}</mat-icon>
         </button>
     </div>

@@ -1,25 +1,42 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { LayerConfigurationComponent } from './layer-configuration.component';
+import {MapStylingService} from '../../../map-styling.service';
+import {MaterialDesignModule} from '../../../../material-design/material-design.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {LayerElementComponent} from './layer-element.component';
 
 describe('LayerConfigurationComponent', () => {
-  let component: LayerConfigurationComponent;
-  let fixture: ComponentFixture<LayerConfigurationComponent>;
+    let component: LayerConfigurationComponent;
+    let fixture: ComponentFixture<LayerConfigurationComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ LayerConfigurationComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                MaterialDesignModule,
+                BrowserAnimationsModule,
+            ],
+            declarations: [
+                LayerConfigurationComponent,
+                LayerElementComponent
+            ],
+            providers: [
+                {provide: MapStylingService, useClass: MapStylingServiceStub}
+            ]
+        })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(LayerConfigurationComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(LayerConfigurationComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });
+
+class MapStylingServiceStub{
+    activeStyling = {layers: [{}]};
+}

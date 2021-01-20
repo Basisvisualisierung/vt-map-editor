@@ -2,6 +2,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GroupConfigurationComponent } from './group-configuration.component';
 import {MapStylingService} from '../../../map-styling.service';
+import {MapFunctionService} from '../../../map-function.service';
+import {RouterTestingModule} from '@angular/router/testing';
+import {MaterialDesignModule} from '../../../../material-design/material-design.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('GroupConfigurationComponent', () => {
     let component: GroupConfigurationComponent;
@@ -10,8 +15,16 @@ describe('GroupConfigurationComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [GroupConfigurationComponent],
+            imports: [
+                RouterTestingModule,
+                MaterialDesignModule,
+                BrowserAnimationsModule,
+                HttpClientTestingModule,
+            ],
             providers: [
-                {provide: MapStylingService, useClass: MapStylingServiceStub}
+                {provide: MapStylingService, useClass: MapStylingServiceStub},
+                {provide: MapFunctionService, useClass: MapFunctionServiceStub},
+
             ]
         })
             .compileComponents();
@@ -30,3 +43,4 @@ describe('GroupConfigurationComponent', () => {
 class MapStylingServiceStub{
     activeStyling = {layers: [{}]};
 }
+class MapFunctionServiceStub {}

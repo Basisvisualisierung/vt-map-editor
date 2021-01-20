@@ -6,11 +6,11 @@
                     (click)="onBasemapSelected(basemap)"
                     title="{{basemap.description}}">
             <img mat-card-image class="basemap-img" src="{{basemap.imgUrl}}">
-            <mat-card-content>
+            <mat-card-content class="basemap-name">
                 {{basemap.name}}
             </mat-card-content>
         </mat-card>
-        <mat-card class="basemap-card basemap-load col-auto accent" (click)="onShowLoadBasemap()">
+        <mat-card class="basemap-card basemap-load col-auto accent" (click)="toggleShowLoadBasemap()">
             <mat-icon>cloud_download</mat-icon>
         </mat-card>
         <div class="col-auto col-config">
@@ -45,7 +45,7 @@
     </div>
     <div class="row">
         <div class="col-auto">
-            <button mat-raised-button (click)="onLoadBasemapCancel()">Abbrechen</button>
+            <button class="basemap-cancel" mat-raised-button (click)="toggleShowLoadBasemap()">Abbrechen</button>
             <button mat-raised-button (click)="onLoadBasemapStart(basemapId.value)">Laden</button>
         </div>
     </div>

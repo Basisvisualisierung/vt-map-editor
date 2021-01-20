@@ -12,7 +12,7 @@ export default class MapboxGlPitchControl {
     onAdd(map) {
         this.map = map;
         this.btn = document.createElement('button');
-        this.btn.className = 'mapboxgl-ctrl-icon icons';
+        this.btn.className = 'mapboxgl-ctrl-icon icons pitch-control';
         this.btn.type = 'button';
         this.btn.title = 'Neigung einstellen';
         this.btn.onclick = () => {

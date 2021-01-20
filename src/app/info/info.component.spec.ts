@@ -6,7 +6,9 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {HeaderService} from '../header/header.service';
 import {MenuComponent} from '../menu/menu.component';
 import {ActivatedRoute} from '@angular/router';
-import {ActivatedRouteStub} from '../testing/activated-route-stub';
+import {ActivatedRouteStub} from '../../testing/activated-route-stub';
+import {MaterialDesignModule} from '../material-design/material-design.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 
@@ -20,7 +22,9 @@ describe('InfoComponent', () => {
         TestBed.configureTestingModule({
             declarations: [InfoComponent, MenuComponent],
             imports: [
-                RouterTestingModule.withRoutes([]),
+                RouterTestingModule,
+                MaterialDesignModule,
+                BrowserAnimationsModule,
                 HttpClientTestingModule
             ],
             providers: [
@@ -37,8 +41,6 @@ describe('InfoComponent', () => {
     });
 
     it('should create', () => {
-        console.log(activatedRoute);
-        activatedRoute.paramMap.subscribe(paramMap => console.log(paramMap));
         expect(component).toBeTruthy();
     });
 });

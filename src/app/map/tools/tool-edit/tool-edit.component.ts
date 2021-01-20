@@ -21,7 +21,7 @@ export class ToolEditComponent implements OnInit, OnDestroy{
                 private headerService: HeaderService,
                 private mapStylingService: MapStylingService,
                 private mapFunctionService: MapFunctionService,
-                private route: ActivatedRoute) { }
+                public route: ActivatedRoute) { }
 
     ngOnInit() {
         this.headerService.changeTitle('Karte <span class="accent">anpassen</span>');
@@ -56,7 +56,9 @@ export class ToolEditComponent implements OnInit, OnDestroy{
         // Show layer when no GUI layers and no groups are defined
         else if (!this.mapFunctionService.groupLayerState && !this.mapFunctionService.guiLayerState && !this.deepLink) {
             this.router.navigate(['/map', 'edit', 'layer'], { replaceUrl: true });
-        } else if (!this.deepLink){
+        }
+        // Show group layer if this is not a deep link
+        else if (!this.deepLink){
             this.router.navigate(['/map', 'edit', 'group-layer'], { replaceUrl: true });
         }
     }

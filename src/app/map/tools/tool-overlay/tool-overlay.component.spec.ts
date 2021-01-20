@@ -1,7 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ResizableModule } from 'angular-resizable-element';
 import { ToolOverlayComponent } from './tool-overlay.component';
 import {RouterTestingModule} from '@angular/router/testing';
+import {MaterialDesignModule} from '../../../material-design/material-design.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 
 describe('ToolOverlayComponent', () => {
@@ -11,7 +14,13 @@ describe('ToolOverlayComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [ToolOverlayComponent],
-            imports: [RouterTestingModule]
+            imports: [
+                RouterTestingModule,
+                MaterialDesignModule,
+                BrowserAnimationsModule,
+                HttpClientTestingModule,
+                ResizableModule
+            ]
         })
             .compileComponents();
     }));

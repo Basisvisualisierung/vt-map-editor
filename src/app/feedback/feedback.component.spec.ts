@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FeedbackComponent } from './feedback.component';
 import {HeaderService} from '../header/header.service';
+import {RouterTestingModule} from '@angular/router/testing';
+import {MaterialDesignModule} from '../material-design/material-design.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('FeedbackComponent', () => {
     let component: FeedbackComponent;
@@ -8,7 +12,15 @@ describe('FeedbackComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [FeedbackComponent],
+            imports: [
+                RouterTestingModule,
+                MaterialDesignModule,
+                BrowserAnimationsModule,
+                HttpClientTestingModule
+            ],
+            declarations: [
+                FeedbackComponent
+            ],
             providers: [
                 { provide: HeaderService, useClass: HeaderServiceStub }
                 ]

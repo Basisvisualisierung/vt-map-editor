@@ -13,15 +13,14 @@ export class HeaderComponent implements OnInit {
     @Output() toggleMenu = new EventEmitter<void>();
     title: string;
 
-    constructor(private headerService: HeaderService) {
+    constructor(private headerService: HeaderService) {}
+
+    ngOnInit() {
         this.headerService.titleChanged.subscribe(
             (title) => {
                 this.title = title;
             }
         );
-    }
-
-    ngOnInit() {
     }
 
     /**

@@ -1,12 +1,32 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import {MapboxGlComponent} from './map/mapbox-gl/mapbox-gl.component';
+import {MaterialDesignModule} from './material-design/material-design.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HeaderComponent} from './header/header.component';
+import {MenuComponent} from './menu/menu.component';
+import {AppConfigService} from './app-config.service';
+import {HeaderService} from './header/header.service';
+import {EventEmitter} from '@angular/core';
+
 describe('AppComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [RouterTestingModule],
+            imports: [
+                RouterTestingModule,
+                MaterialDesignModule,
+                BrowserAnimationsModule,
+            ],
             declarations: [
-                AppComponent
+                AppComponent,
+                MapboxGlComponent,
+                HeaderComponent,
+                MenuComponent
+            ],
+            providers: [
+                {provide: AppConfigService, useClass: AppConfigServiceStub},
+                {provide: HeaderService, useClass: HeaderServiceStub}
             ],
         }).compileComponents();
     }));
@@ -24,10 +44,36 @@ describe('AppComponent', () => {
         expect(app.appTitle).toEqual('VT Map Editor');
     });
 
-    /*it('should render title in a h1 tag', () => {
-        const fixture = TestBed.createComponent(AppComponent);
-        fixture.detectChanges();
-        const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelector('h1')).toBeTruthy();
-    });*/
 });
+
+class AppConfigServiceStub{
+    settings = {menuItems: [
+            {
+                label: 'Map',
+                icon: 'map',
+                link: 'map',
+                externalLink: false
+            },
+            {
+                label: 'Privacy',
+                icon: 'lock',
+                link: 'privacy',
+                externalLink: false
+            },
+            {
+                label: 'Legals',
+                icon: 'comment',
+                link: 'https://...',
+                externalLink: true
+            }
+        ],
+
+    };
+}
+
+class HeaderServiceStub{
+    titleChanged = new EventEmitter<string>();
+    changeTitle(title: string) {
+        this.titleChanged.emit('');
+    }
+}

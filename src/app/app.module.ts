@@ -99,6 +99,15 @@ export function initConfig(appConfigService: AppConfigService) {
         MapStylingService,
         MapFunctionService
     ],
+    exports: [
+        HeaderComponent,
+        AppComponent,
+        MapboxGlComponent,
+        HeaderComponent,
+        MenuComponent,
+        MaterialDesignModule,
+        ColorPickerModule,
+    ],
     bootstrap: [AppComponent]
 })
 

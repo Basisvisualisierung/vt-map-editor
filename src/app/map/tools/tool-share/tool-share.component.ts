@@ -29,7 +29,6 @@ export class ToolShareComponent implements OnInit, OnDestroy {
                 private snackBar: MatSnackBar,
                 private appConfigService: AppConfigService) { }
 
-
     ngOnInit() {
         this.headerService.changeTitle('Karte <span class="accent">veröffentlichen</span>');
         this.activeStyling = this.mapStylingService.activeStyling;

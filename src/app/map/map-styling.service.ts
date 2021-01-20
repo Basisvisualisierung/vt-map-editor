@@ -10,7 +10,9 @@ import { ActivatedRoute } from '@angular/router';
 /**
  * Service to manage the map styling
  */
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class MapStylingService {
     basemaps: Basemap[];
 
@@ -26,14 +28,15 @@ export class MapStylingService {
     groupSettings: any;
     // Save the configuartion of input elements for GUI layer visibility
     guiLayerSettings: any;
+    mapUuid: string;
 
     constructor(private http: HttpClient, private route: ActivatedRoute, private appConfigService: AppConfigService) {
         this.basemaps = this.appConfigService.settings.basemaps;
         this.activeBasemap = this.basemaps[0];
 
         // Load standard style if no query parameter exists
-        const mapUuid = route.snapshot.queryParamMap.get('id');
-        if (mapUuid === null || mapUuid.length === 0) {
+        this.mapUuid = route.snapshot.queryParamMap.get('id');
+        if (this.mapUuid === null || this.mapUuid.length === 0) {
             this.setActiveStylingJson();
         }
 
@@ -113,6 +116,7 @@ export class MapStylingService {
                             convertColor[1] += changeValueS;
                             convertColor[2] += changeValueL;
 
+                            // tslint:disable-next-line:max-line-length
                             layer.paint[colorType] = 'hsla(' + convertColor[0] + ',' + convertColor[1] + '%,' + convertColor[2] + '%,' + alpha + ')';
 
                         } else if (color.search(/^#/) === 0) {
