@@ -1,3 +1,8 @@
+## v1.3.5 (2021-02-24)
+### New Features
+* The map automatically zooms in/out when performing an address search
+* Initial unit and e2e tests
+
 ## v1.3.4 (2020-12-22)
 ### Bug fixes
 * Missing basemap thumbnail for loaded maps.
