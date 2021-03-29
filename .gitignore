@@ -45,5 +45,8 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# Individual config files
+/src/assets/config/gui-layers-standard.json
+
 # Documentation (temporary ignored)
 /docs/js
