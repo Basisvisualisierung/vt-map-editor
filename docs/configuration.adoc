@@ -156,6 +156,11 @@ This attribute ist optional.
 If set to _true_ the current map styling will be rendered with random colors when the button for this basemap is clicked. +
 This attribute is optional. The default value is _false_ when the attribute is not specified.
 
+`metadataFile`: string
+
+The filename of an additional json file for style metadata created in the folder `src/assets/config`. For more information see link:layer_groups.adoc#configuration-file-for-the-metadata[configuration file]. +
+This attribute is optional. When using this attribute all layer metadata from the style file will be ignored by VT Map Editor.
+
 === menuItems
 This array defines the items of the sidebar menu. Each item has the following attributes:
 

@@ -2,7 +2,7 @@
 
 == Purpose
 
-The look & feel of the tools for layer editing can be changed by metadata attributes in the style files. This approach intends to present the user a user friendly and uncluttered user interface for layer editing without to many single layers. Especially for large style files this can be useful.
+The look & feel of the tools for layer editing can be changed by metadata attributes in the style files. This approach intends to present the user a user friendly and uncluttered user interface for layer editing without to many single layers. Especially for large style files this can be useful. If you cannot define the metadata directly in the style file, you can alternatively create a separate <<_configuration_file_for_the_metadata>>.
 
 If a style file contains no metadata intended for VT Map Editor then the user interface of the editing tool will show all layers from the style file.
 
@@ -268,3 +268,71 @@ The style layers have metadata for groups and detail levels, but none of the sty
 *User interface*
 
 image::images/group_gui_layer_slider_no_detail.jpg[]
+
+== Configuration file for the metadata
+
+If you cannot or do not want to define the metadata for groups and gui layers directly in the style file, you can alternatively create a seperate configuration file for it. First create a json file in the folder `src/assets/config`. The file can have any name and contains the `id` (style layer id) and `metadata` of one or many styles. Please note that when using the attribute `metadataFile` all layer metadata from the style file will be ignored by VT Map Editor.
+
+*JSON (metadata-example.json)*
+```
+[
+    {
+        "id":"Highway Stroke",
+        "metadata": {
+            "map-editor:group":"Traffic",
+            "map-editor:detail-level":1,
+            "map-editor:layer":"Streets",
+            "map-editor:layer-element":"Stroke"
+        }
+    },
+    {
+        "id": "Street Fill",
+        "metadata": {
+            "map-editor:group":"Traffic",
+            "map-editor:detail-level":2,
+            "map-editor:layer":"Streets",
+            "map-editor:layer-element":"Fill"
+        }
+    },
+    {
+        "id":"Highway Fill",
+        "metadata": {
+            "map-editor:group":"Traffic",
+            "map-editor:detail-level":1,
+            "map-editor:layer":"Streets",
+            "map-editor:layer-element":"Fill"
+        }
+    },
+    {
+        "id":"Railway Line",
+        "metadata": {
+            "map-editor:group":"Traffic",
+            "map-editor:detail-level":3,
+            "map-editor:layer":"Railways",
+            "map-editor:layer-element":"Line"
+        }
+    }
+]
+```
+
+In the link:configuration.adoc[configuration file] `config.json` you have to define which basemaps should use the new metadata configuration, using the optional attribute `metadataFile`. If you want to create different metadata for different basemaps, you can create multiple json files. Only the filename must be entered, not the file path.
+
+*config.json*
+```
+...
+"basemaps": [
+    {
+        "name": "My Color Map",
+        "imgUrl": "assets/images/thumbnails/basemap_color.png",
+        "styling": "assets/basemaps/style-color.json",
+        "metadataFile": "metadata-example.json"
+    },
+    {
+        "name": "My Grayscale Map",
+        "imgUrl": "assets/images/thumbnails/basemap_grayscale.png",
+        "styling": "assets/basemaps/style-grayscale.json",
+    },
+    ...
+]
+...
+```

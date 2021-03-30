@@ -180,30 +180,47 @@ export class MapStylingService {
      * Read styling JSON for activeBasemap
      * @param basemapChanged true: function was called by changing the basemap -> emit event activeBasemapChanged
      * @param changeMapView true: load view parameters (zoom, center, pitch, bearing) from style; false: keep current map view
-     * @emits MapStylingService#activeStylingChanged
      */
     setActiveStylingJson(basemapChanged?: boolean, changeMapView?: boolean) {
         if (basemapChanged === true && this.activeBasemap.randomColors === true) {
             this.changeActiveStyling(this.randomColors(this.activeStyling));
             this.activeBasemapChanged.emit(null);
         } else {
-            this.http.get(this.activeBasemap.styling).subscribe((data) => {
-                this.changeActiveStyling(data);
-                if (basemapChanged === true) {
-                    // Reset group and GUI layer settings
-                    this.groupSettings = {};
-                    this.guiLayerSettings = {};
-
-                    const basemapView = (changeMapView) ? new MapView(
-                        data['zoom'],
-                        data['center'],
-                        data['pitch'],
-                        data['bearing']
-                    ) : null;
-
-                    this.activeBasemapChanged.emit(basemapView);
+            this.http.get(this.activeBasemap.styling).subscribe((style) => {
+                if (this.activeBasemap.metadataFile !== undefined && this.activeBasemap.metadataFile.length > 0) {
+                    this.http.get('assets/config/' + this.activeBasemap.metadataFile).subscribe((metadata) => {
+                        style = this.addMetadata(style, metadata);
+                        this.initBasemap(style, basemapChanged, changeMapView);
+                    });
+                } else {
+                    this.initBasemap(style, basemapChanged, changeMapView);
                 }
             });
+        }
+    }
+
+    /**
+     * Initialize Basemap
+     * @param style Style JSON
+     * @param basemapChanged true: function was called by changing the basemap -> emit event activeBasemapChanged
+     * @param changeMapView true: load view parameters (zoom, center, pitch, bearing) from style; false: keep current map view
+     * @emits MapStylingService#activeStylingChanged
+     */
+    initBasemap(style: any, basemapChanged?: boolean, changeMapView?: boolean) {
+        this.changeActiveStyling(style);
+        if (basemapChanged === true) {
+            // Reset group and GUI layer settings
+            this.groupSettings = {};
+            this.guiLayerSettings = {};
+
+            const basemapView = (changeMapView) ? new MapView(
+                style['zoom'],
+                style['center'],
+                style['pitch'],
+                style['bearing']
+            ) : null;
+
+            this.activeBasemapChanged.emit(basemapView);
         }
     }
 
@@ -374,30 +391,56 @@ export class MapStylingService {
      * @param color (hex, rgb, rgba, hsl, hsla, predefined HTML color name)
      * @param opacity opacity (0-1)
      */
-    changeColorToSupported(color: string, opacity: number = 1){
-        if (color.includes('rgba')){
+    changeColorToSupported(color: string, opacity: number = 1) {
+        if (color.includes('rgba')) {
             return color;
-        }else if (color.includes('rgb(')){
+        } else if (color.includes('rgb(')) {
             return `rgba(${color.slice(4, color.length - 1)}, ${opacity})`;
-        }else if (color.includes('#') && color.length === 7) {
+        } else if (color.includes('#') && color.length === 7) {
             const tempHex = color.replace('#', '');
             const r = parseInt(tempHex.substring(0, 2), 16);
             const g = parseInt(tempHex.substring(2, 4), 16);
             const b = parseInt(tempHex.substring(4, 6), 16);
             return `rgba(${r},${g},${b},${opacity})`;
-        }else if (color.includes('#') && color.length < 7){
+        } else if (color.includes('#') && color.length < 7) {
             let tempHex = color.replace('#', '');
             tempHex = tempHex[0] + tempHex[0] + tempHex[1] + tempHex[1] + tempHex[2] + tempHex[2];
             const r = parseInt(tempHex.substring(0, 2), 16);
             const g = parseInt(tempHex.substring(2, 4), 16);
             const b = parseInt(tempHex.substring(4, 6), 16);
             return `rgba(${r},${g},${b},${opacity})`;
-        }else if (color.includes('hsla')){
+        } else if (color.includes('hsla')) {
             return color;
-        }else if (color.includes('hsl(')){
+        } else if (color.includes('hsl(')) {
             return `hsla(${color.slice(4, color.length - 1)}, ${opacity})`;
-        }else{
+        } else {
             return color;
         }
+    }
+
+    /**
+     * Add metadata for guiLayers and groups from configuration file
+     * @param styling Style JSON
+     * @param metadata Metadata JSON
+     * @returns style
+     */
+    addMetadata(styling: any, metadata: any) {
+        const metaMap = new Map();
+        for (const layerMetadata of metadata) {
+            metaMap.set(layerMetadata.id, layerMetadata.metadata);
+        }
+
+        for (const layer of styling.layers) {
+            // Remove metadata from style
+            if (layer.metadata !== undefined) {
+                layer.metadata = {};
+            }
+
+            // Add Metadata from configuration file
+            if (metaMap.has(layer.id)) {
+                layer.metadata = metaMap.get(layer.id);
+            }
+        }
+        return styling;
     }
 }

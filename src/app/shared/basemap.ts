@@ -7,6 +7,7 @@ export class Basemap {
         public imgUrl: string,
         public styling: string,
         public description?: string,
-        public randomColors?: boolean
+        public randomColors?: boolean,
+        public metadataFile?: string
     ) { }
 }

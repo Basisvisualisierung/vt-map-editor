@@ -33,7 +33,8 @@
         {
             "name": "Farbe",
             "imgUrl": "assets/images/thumbnails/basemap_color.png",
-            "styling": "/styles/vt-style-color.json"        },
+            "styling": "/styles/vt-style-color.json"
+        },
         {
             "name": "Klassisch",
             "imgUrl": "assets/images/thumbnails/basemap_classic.png",
@@ -42,7 +43,8 @@
         {
             "name": "Graustufen",
             "imgUrl": "assets/images/thumbnails/basemap_grayscale.png",
-            "styling": "/styles/vt-style-grayscale.json"        },
+            "styling": "/styles/vt-style-grayscale.json"
+        },
         {
             "name": "Hell",
             "imgUrl": "assets/images/thumbnails/basemap_light.png",
