@@ -271,13 +271,13 @@ image::images/group_gui_layer_slider_no_detail.jpg[]
 
 == Configuration file for the metadata
 
-If you cannot or do not want to define the metadata for groups and gui layers directly in the style file, you can alternatively create a seperate configuration file for it. First create a json file in the folder `src/assets/config`. The file can have any name and contains the `id` (style layer id) and `metadata` of one or many styles. Please note that when using the attribute `metadataFile` all layer metadata from the style file will be ignored by VT Map Editor.
+If you cannot or do not want to define the metadata for groups and gui layers directly in the style file, you can alternatively create a seperate configuration file for it. First create a json file in the folder `src/assets/config`. The file can have any name and contains an array `id` (style layer ids) and `metadata` of one or many styles. Please note that when using the attribute `metadataFile` all layer metadata from the style file will be ignored by VT Map Editor.
 
 *JSON (metadata-example.json)*
 ```
 [
     {
-        "id":"Highway Stroke",
+        "id": ["Highway Stroke", "Primary Stroke"],
         "metadata": {
             "map-editor:group":"Traffic",
             "map-editor:detail-level":1,
@@ -286,7 +286,7 @@ If you cannot or do not want to define the metadata for groups and gui layers di
         }
     },
     {
-        "id": "Street Fill",
+        "id": ["Street Fill"],
         "metadata": {
             "map-editor:group":"Traffic",
             "map-editor:detail-level":2,
@@ -295,7 +295,7 @@ If you cannot or do not want to define the metadata for groups and gui layers di
         }
     },
     {
-        "id":"Highway Fill",
+        "id": ["Highway Fill", "Primary Fill"],
         "metadata": {
             "map-editor:group":"Traffic",
             "map-editor:detail-level":1,
@@ -304,7 +304,7 @@ If you cannot or do not want to define the metadata for groups and gui layers di
         }
     },
     {
-        "id":"Railway Line",
+        "id": ["Railway Line"],
         "metadata": {
             "map-editor:group":"Traffic",
             "map-editor:detail-level":3,
