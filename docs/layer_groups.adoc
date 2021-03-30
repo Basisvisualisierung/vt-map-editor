@@ -315,7 +315,7 @@ If you cannot or do not want to define the metadata for groups and gui layers di
 ]
 ```
 
-In the link:configuration.adoc[configuration file] `config.json` you have to define which basemaps should use the new metadata configuration, using the optional attribute `metadataFile`. If you want to create different metadata for different basemaps, you can create multiple json files.
+In the link:configuration.adoc[configuration file] `config.json` you have to define which basemaps should use the new metadata configuration, using the optional attribute `metadataFile`. If you want to create different metadata for different basemaps, you can create multiple json files. Only the filename must be entered, not the file path.
 
 *config.json*
 ```
