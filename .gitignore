@@ -46,7 +46,7 @@ testem.log
 Thumbs.db
 
 # Individual config files
-/src/assets/config/gui-layers-standard.json
+/src/assets/config/gui-layers-*.json
 
 # Documentation (temporary ignored)
 /docs/js

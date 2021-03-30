@@ -427,7 +427,9 @@ export class MapStylingService {
     addMetadata(styling: any, metadata: any) {
         const metaMap = new Map();
         for (const layerMetadata of metadata) {
-            metaMap.set(layerMetadata.id, layerMetadata.metadata);
+            for (const id of layerMetadata.id) {
+                metaMap.set(id, layerMetadata.metadata);
+            }
         }
 
         for (const layer of styling.layers) {
