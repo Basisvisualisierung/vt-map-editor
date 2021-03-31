@@ -1,5 +1,12 @@
+## v2.0.0 (not released)
+### New features
+* Metadata for groups and gui layers can be defined outside the style files, in additional configuration files.
+* Framework / library updates:
+  * Angular version 11
+  * And more... (see [package.json](package.json))
+
 ## v1.3.5 (2021-02-24)
-### New Features
+### New features
 * The map automatically zooms in/out when performing an address search
 * Initial unit and e2e tests
 
@@ -16,11 +23,11 @@
 * Color picker no longer triggers redirection on changes
 
 ## v1.3.1 (2020-11-18)
-### New Features
+### New features
 * Content of tool overlay can be controlled via URL routes, e.g. _https://domain/map/basemap_ opens the overlay with the basemap selection.
 
 ## v1.3.0 (2020-11-09)
-### New Features
+### New features
 * A short description can be added for each basemap in the configuration file.
 * New URL parameters to control the initial map view of VT Map Editor and VT Map View: _zoom_, _center_, _bearing_, _pitch_, _bbox_ (see [URL parameter documentation](docs/url_parameters.adoc))
 
@@ -32,7 +39,7 @@
 * Unit tests are basically executable without errors.
 
 ## v1.2.0 (2020-09-24)
-### New Features
+### New features
 * Menu items can be configured via the configuration file.
 * Menu items can be external links.
 * Change opacity of GUI layers.
@@ -53,7 +60,7 @@ __VT Map Editor _v1.1_ requieres VT Map Service _v1.1_ as back-end service.__
 * URLs for custom styles and applications are no longer created by the back-end VT Map Service, but by VT Map Editor.
 * Parameter _searchService_ was removed from configuration files of VT Map Editor and VT Map View. By now the geolocation search API parameters are requested from VT Map Service.
 
-### New Features
+### New features
 * New configuration parameter _mapView_ in config.json, for URL of VT Map View.
 * Parameter _url_ of configuration parameters _mapService_ and _mapView_ can contain relative URLs.
 * Framework / library updates:
@@ -62,11 +69,11 @@ __VT Map Editor _v1.1_ requieres VT Map Service _v1.1_ as back-end service.__
   * And more... (see [package.json](package.json))
 
 ## v0.6.1 (2020-04-21)
-### New Features
+### New features
 * Update Mapbox GL JS to version 1.9.1
 
 ## v0.6.0 (2020-04-06)
-### New Features
+### New features
 * Load custom basemap at application start by uuid in query parameters
 * Enabled location tracking of GeolocationControl in map client
 
