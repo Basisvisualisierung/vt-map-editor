@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ResizableModule } from 'angular-resizable-element';
 import { ToolOverlayComponent } from './tool-overlay.component';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -11,7 +11,7 @@ describe('ToolOverlayComponent', () => {
     let component: ToolOverlayComponent;
     let fixture: ComponentFixture<ToolOverlayComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [ToolOverlayComponent],
             imports: [

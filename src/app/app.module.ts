@@ -83,7 +83,7 @@ export function initConfig(appConfigService: AppConfigService) {
         HttpClientModule,
         MaterialDesignModule,
         ResizableModule,
-        RouterModule.forRoot(appRoutes),
+        RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
         ColorPickerModule,
         ClipboardModule
     ],

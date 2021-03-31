@@ -27,7 +27,7 @@ export function initConfig(appConfigService: AppConfigService) {
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' })
   ],
   providers: [
       AppConfigService,

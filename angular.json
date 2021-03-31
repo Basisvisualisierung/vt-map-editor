@@ -32,7 +32,8 @@
                             "node_modules/material-design-icons/iconfont/material-icons.css",
                             "node_modules/bootstrap/dist/css/bootstrap-grid.css",
                             {
-                                "input": "src/app/material-design/vt-map-editor-material-theme.scss"
+                                "input": "src/app/material-design/vt-map-editor-material-theme.scss",
+                                "inject": true
                             },
                             "src/styles.scss"
                         ],
@@ -49,7 +50,6 @@
                             "optimization": true,
                             "outputHashing": "all",
                             "sourceMap": false,
-                            "extractCss": true,
                             "namedChunks": false,
                             "aot": true,
                             "extractLicenses": true,
@@ -174,7 +174,8 @@
                             "node_modules/material-design-icons/iconfont/material-icons.css",
                             "node_modules/bootstrap/dist/css/bootstrap-grid.css",
                             {
-                                "input": "src/app/material-design/vt-map-editor-material-theme.scss"
+                                "input": "src/app/material-design/vt-map-editor-material-theme.scss",
+                                "inject": true
                             },
                             "src/styles.scss"
                         ],
@@ -191,7 +192,6 @@
                             "optimization": true,
                             "outputHashing": "all",
                             "sourceMap": false,
-                            "extractCss": true,
                             "namedChunks": false,
                             "extractLicenses": true,
                             "vendorChunk": false,

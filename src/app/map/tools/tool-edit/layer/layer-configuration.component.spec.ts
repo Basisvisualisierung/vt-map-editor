@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { LayerConfigurationComponent } from './layer-configuration.component';
 import {MapStylingService} from '../../../map-styling.service';
 import {MaterialDesignModule} from '../../../../material-design/material-design.module';
@@ -9,7 +9,7 @@ describe('LayerConfigurationComponent', () => {
     let component: LayerConfigurationComponent;
     let fixture: ComponentFixture<LayerConfigurationComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 MaterialDesignModule,

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { MapboxGlComponent } from './mapbox-gl.component';
 
@@ -6,7 +6,7 @@ describe('MapboxGlComponent', () => {
     let component: MapboxGlComponent;
     let fixture: ComponentFixture<MapboxGlComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [MapboxGlComponent]
         })

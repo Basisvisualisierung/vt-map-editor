@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { GroupConfigurationComponent } from './group-configuration.component';
 import {MapStylingService} from '../../../map-styling.service';
@@ -12,7 +12,7 @@ describe('GroupConfigurationComponent', () => {
     let component: GroupConfigurationComponent;
     let fixture: ComponentFixture<GroupConfigurationComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [GroupConfigurationComponent],
             imports: [

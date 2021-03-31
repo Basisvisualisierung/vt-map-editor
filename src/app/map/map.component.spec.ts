@@ -1,4 +1,4 @@
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { MapComponent } from './map.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HeaderService} from '../header/header.service';
@@ -32,7 +32,7 @@ describe('MapComponent', () => {
     let mapView: MapView;
     let headerServiceMock: any;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         mapStylingServiceMock = jasmine.createSpyObj('MapStylingService', ['addBasemap', 'changeMapView']);
         mapStylingServiceMock.activeStylingChanged = new EventEmitter<string>();
         mapStylingServiceMock.activeBasemapChanged = new EventEmitter<MapView>();

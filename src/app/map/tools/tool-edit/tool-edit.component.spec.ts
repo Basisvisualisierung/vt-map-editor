@@ -1,4 +1,4 @@
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 
 import { ToolEditComponent } from './tool-edit.component';
 import {HeaderService} from '../../../header/header.service';
@@ -28,7 +28,7 @@ describe('ToolEditComponent', () => {
     let headerServiceMock: any;
     let mapStylingServiceMock: any;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         mapFunctionServiceMock = jasmine.createSpyObj('MapFunctionService', ['guiLayerState', 'groupLayerState']);
         mapFunctionServiceMock.metadataChanged = new EventEmitter<any>();
         headerServiceMock = jasmine.createSpyObj('HeaderService', ['changeTitle']);

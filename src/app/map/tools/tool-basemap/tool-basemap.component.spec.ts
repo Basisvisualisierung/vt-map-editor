@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ToolBasemapComponent } from './tool-basemap.component';
 import { HeaderService } from 'src/app/header/header.service';
 import { MapStylingService } from 'src/app/map/map-styling.service';
@@ -56,7 +56,7 @@ describe('ToolBasemapComponent', () => {
         randomColors: true
         } as Basemap;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         headerServiceMock = jasmine.createSpyObj('HeaderService', ['changeTitle']);
         mapStylingServiceMock = jasmine.createSpyObj('MapService', ['changeActiveBasemap', 'addBasemap', 'changeHSL']);
 

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { InfoComponent } from './info.component';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -17,7 +17,7 @@ describe('InfoComponent', () => {
     let fixture: ComponentFixture<InfoComponent>;
     let activatedRoute: ActivatedRouteStub;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         activatedRoute = new ActivatedRouteStub({snapshot: {params: {myId: '123'}}});
         TestBed.configureTestingModule({
             declarations: [InfoComponent, MenuComponent],

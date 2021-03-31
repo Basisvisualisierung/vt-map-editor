@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { GuiLayerConfigurationComponent } from './gui-layer-configuration.component';
 import {MapStylingService} from '../../../map-styling.service';
@@ -10,7 +10,7 @@ describe('GuiLayerConfigurationComponent', () => {
     let fixture: ComponentFixture<GuiLayerConfigurationComponent>;
     let mapStylingServiceMock: any;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         mapStylingServiceMock = jasmine.createSpyObj('MapStylingService', ['changeGuiLayerVisibility']);
         mapStylingServiceMock.guiLayerSettings = [];
 

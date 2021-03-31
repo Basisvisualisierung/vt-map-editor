@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ToolShareComponent } from './tool-share.component';
 import {HeaderService} from '../../../header/header.service';
 import {MapStylingService} from '../../map-styling.service';
@@ -16,7 +16,7 @@ describe('ToolShareComponent', () => {
     let component: ToolShareComponent;
     let fixture: ComponentFixture<ToolShareComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [ToolShareComponent],
             imports: [

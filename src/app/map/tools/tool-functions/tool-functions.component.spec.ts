@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ToolFunctionsComponent } from './tool-functions.component';
 import {HeaderService} from '../../../header/header.service';
@@ -12,7 +12,7 @@ describe('ToolFunctionsComponent', () => {
     let component: ToolFunctionsComponent;
     let fixture: ComponentFixture<ToolFunctionsComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [
                 RouterTestingModule,

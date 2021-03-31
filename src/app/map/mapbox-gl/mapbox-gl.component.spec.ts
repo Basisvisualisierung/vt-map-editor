@@ -1,4 +1,4 @@
-import {async, ComponentFixture, getTestBed, TestBed} from '@angular/core/testing';
+import { ComponentFixture, getTestBed, TestBed, waitForAsync } from '@angular/core/testing';
 import { HeaderService } from 'src/app/header/header.service';
 import { MapStylingService } from 'src/app/map/map-styling.service';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -20,7 +20,7 @@ describe('MapboxGlComponent', () => {
     let mapStylingService: MapStylingServiceStub;
     let dh: DOMHelper<MapboxGlComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         return TestBed.configureTestingModule({
             declarations: [
                 ToolBasemapComponent
