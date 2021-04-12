@@ -28,7 +28,7 @@
                             "src/assets"
                         ],
                         "styles": [
-                            "node_modules/mapbox-gl/dist/mapbox-gl.css",
+                            "node_modules/maplibre-gl/dist/maplibre-gl.css",
                             "node_modules/material-design-icons/iconfont/material-icons.css",
                             "node_modules/bootstrap/dist/css/bootstrap-grid.css",
                             {
@@ -170,7 +170,7 @@
                             "projects/vt-map-view/src/assets"
                         ],
                         "styles": [
-                            "node_modules/mapbox-gl/dist/mapbox-gl.css",
+                            "node_modules/maplibre-gl/dist/maplibre-gl.css",
                             "node_modules/material-design-icons/iconfont/material-icons.css",
                             "node_modules/bootstrap/dist/css/bootstrap-grid.css",
                             {

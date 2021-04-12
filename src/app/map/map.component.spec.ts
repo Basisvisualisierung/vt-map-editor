@@ -10,7 +10,7 @@ import {MapView} from '../shared/mapview';
 import {MaterialDesignModule} from '../material-design/material-design.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {MapboxGlComponent} from './mapbox-gl/mapbox-gl.component';
+import {MaplibreGlComponent} from './maplibre-gl/maplibre-gl.component';
 import {SettingsModel} from '../shared/settings.model';
 import {Location} from '@angular/common';
 import {By} from '@angular/platform-browser';
@@ -41,7 +41,7 @@ describe('MapComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 MapComponent,
-                MapboxGlComponent,
+                MaplibreGlComponent,
                 ToolOverlayComponent
             ],
             imports: [

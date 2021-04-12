@@ -20,7 +20,7 @@ import { ToolEditComponent } from './map/tools/tool-edit/tool-edit.component';
 import { ToolFunctionsComponent } from './map/tools/tool-functions/tool-functions.component';
 import { ToolShareComponent } from './map/tools/tool-share/tool-share.component';
 import { FeedbackComponent } from './feedback/feedback.component';
-import { MapboxGlComponent } from './map/mapbox-gl/mapbox-gl.component';
+import { MaplibreGlComponent } from './map/maplibre-gl/maplibre-gl.component';
 import { LayerElementComponent } from './map/tools/tool-edit/layer/layer-element.component';
 import { LayerConfigurationComponent } from './map/tools/tool-edit/layer/layer-configuration.component';
 import { GroupConfigurationComponent } from './map/tools/tool-edit/group-configuration/group-configuration.component';
@@ -69,7 +69,7 @@ export function initConfig(appConfigService: AppConfigService) {
         ToolFunctionsComponent,
         ToolShareComponent,
         FeedbackComponent,
-        MapboxGlComponent,
+        MaplibreGlComponent,
         LayerElementComponent,
         GroupConfigurationComponent,
         GuiLayerConfigurationComponent,
@@ -102,7 +102,7 @@ export function initConfig(appConfigService: AppConfigService) {
     exports: [
         HeaderComponent,
         AppComponent,
-        MapboxGlComponent,
+        MaplibreGlComponent,
         HeaderComponent,
         MenuComponent,
         MaterialDesignModule,

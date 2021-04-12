@@ -1,7 +1,7 @@
 /**
- * Search control for Mapbox GL
+ * Search control for MapLibre GL
  */
-export default class MapboxGlSearchControl {
+export default class MaplibreGlSearchControl {
     private map;
     private btn;
     private input;

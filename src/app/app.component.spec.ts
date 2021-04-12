@@ -1,7 +1,7 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import {MapboxGlComponent} from './map/mapbox-gl/mapbox-gl.component';
+import {MaplibreGlComponent} from './map/maplibre-gl/maplibre-gl.component';
 import {MaterialDesignModule} from './material-design/material-design.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HeaderComponent} from './header/header.component';
@@ -20,7 +20,7 @@ describe('AppComponent', () => {
             ],
             declarations: [
                 AppComponent,
-                MapboxGlComponent,
+                MaplibreGlComponent,
                 HeaderComponent,
                 MenuComponent
             ],

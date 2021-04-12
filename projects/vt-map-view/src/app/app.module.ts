@@ -5,10 +5,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { AppConfigService } from './app-config.service';
-import { MapboxGlComponent } from './mapbox-gl/mapbox-gl.component';
+import { MaplibreGlComponent } from './maplibre-gl/maplibre-gl.component';
 
 const appRoutes: Routes = [
-    {path: ':id', component: MapboxGlComponent}
+    {path: ':id', component: MaplibreGlComponent}
 ];
 
 /**
@@ -22,7 +22,7 @@ export function initConfig(appConfigService: AppConfigService) {
 @NgModule({
   declarations: [
     AppComponent,
-    MapboxGlComponent
+    MaplibreGlComponent
   ],
   imports: [
     BrowserModule,

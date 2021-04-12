@@ -1,8 +1,8 @@
 /**
- * Pitch control for Mapbox GL
+ * Pitch control for MapLibre GL
  * The button toggles the map view between tilted and normal map view
  */
-export default class MapboxGlPitchControl {
+export default class MaplibreGlPitchControl {
     private map;
     private btn;
     private container;

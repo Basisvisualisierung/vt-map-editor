@@ -1,7 +1,7 @@
 /**
- * Control for showing the zoom level in Mapbox GL
+ * Control for showing the zoom level in MapLibre GL
  */
-export default class MapboxGlShowZoomControl {
+export default class MaplibreGlShowZoomControl {
     private map;
     private container;
     private zoomControl;

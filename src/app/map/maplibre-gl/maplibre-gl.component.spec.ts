@@ -2,7 +2,7 @@ import { ComponentFixture, getTestBed, TestBed, waitForAsync } from '@angular/co
 import { HeaderService } from 'src/app/header/header.service';
 import { MapStylingService } from 'src/app/map/map-styling.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MapboxGlComponent } from './mapbox-gl.component';
+import { MaplibreGlComponent as MaplibreGlComponent } from './maplibre-gl.component';
 import {ToolBasemapComponent} from '../tools/tool-basemap/tool-basemap.component';
 import {MapFunctionService} from '../map-function.service';
 import {EventEmitter} from '@angular/core';
@@ -13,12 +13,12 @@ import {ActivatedRoute} from '@angular/router';
 import {By} from '@angular/platform-browser';
 import {DOMHelper} from '../../../testing/DOMHelper';
 
-describe('MapboxGlComponent', () => {
-    let component: MapboxGlComponent;
-    let fixture: ComponentFixture<MapboxGlComponent>;
+describe('MaplibreGlComponent', () => {
+    let component: MaplibreGlComponent;
+    let fixture: ComponentFixture<MaplibreGlComponent>;
     let mapFunctionService: MapFunctionServiceStub;
     let mapStylingService: MapStylingServiceStub;
-    let dh: DOMHelper<MapboxGlComponent>;
+    let dh: DOMHelper<MaplibreGlComponent>;
 
     beforeEach(waitForAsync(() => {
         return TestBed.configureTestingModule({
@@ -61,10 +61,10 @@ describe('MapboxGlComponent', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(MapboxGlComponent);
+        fixture = TestBed.createComponent(MaplibreGlComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-        dh = new DOMHelper<MapboxGlComponent>(fixture);
+        dh = new DOMHelper<MaplibreGlComponent>(fixture);
     });
 
     it('should create', () => {

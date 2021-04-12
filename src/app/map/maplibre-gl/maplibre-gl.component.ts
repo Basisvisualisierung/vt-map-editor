@@ -1,28 +1,28 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
-import mapboxgl from 'maplibre-gl';
+import maplibregl from 'maplibre-gl';
 
 import { MapStylingService } from '../map-styling.service';
-import MapboxGlPitchControl from './mapbox-gl.pitch.control';
-import MapboxGlSearchControl from './mapbox-gl.search.control';
-import MapboxGlShowZoomControl from './mapbox-gl.show-zoom.control';
+import MaplibreGlPitchControl from './maplibre-gl.pitch.control';
+import MaplibreGlSearchControl from './maplibre-gl.search.control';
+import MaplibreGlShowZoomControl from './maplibre-gl.show-zoom.control';
 import { AppConfigService } from 'src/app/app-config.service';
 import { MapFunctionService } from '../map-function.service';
 import { MapView } from 'src/app/shared/mapview';
 import { ActivatedRoute } from '@angular/router';
 
 /**
- * Mapbox GL JS map client
+ * MapLibre GL JS map client
  */
 @Component({
-    selector: 'app-mapbox-gl',
+    selector: 'app-maplibre-gl',
     template: '<div id="map" class="map"></div>',
-    styleUrls: ['./mapbox-gl.component.scss'],
+    styleUrls: ['./maplibre-gl.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class MapboxGlComponent implements OnInit {
+export class MaplibreGlComponent implements OnInit {
     activeStyling: {};
-    map: mapboxgl.Map;
+    map: maplibregl.Map;
     navigationControl: any;
     navigationControlStatus = false;
     pitchControl: any;
@@ -41,7 +41,7 @@ export class MapboxGlComponent implements OnInit {
     ngOnInit() {
         this.activeStyling = this.mapStylingService.activeStyling;
         // Set initial map parameter
-        this.map = new mapboxgl.Map({
+        this.map = new maplibregl.Map({
             container: 'map',
             style: this.activeStyling,
             maxZoom: this.appConfigService.settings.map.maxZoom,
@@ -73,7 +73,7 @@ export class MapboxGlComponent implements OnInit {
 
         // Scale bar control
         if (this.appConfigService.settings.map.showScaleBar) {
-            this.map.addControl(new mapboxgl.ScaleControl());
+            this.map.addControl(new maplibregl.ScaleControl());
         }
 
         // Navigation controls
@@ -89,7 +89,7 @@ export class MapboxGlComponent implements OnInit {
 
         // Custom zoom control
         if (this.appConfigService.settings.map.showZoomLevel === true) {
-            this.zoomControl = new MapboxGlShowZoomControl();
+            this.zoomControl = new MaplibreGlShowZoomControl();
             this.map.addControl(this.zoomControl, 'bottom-right');
         }
 
@@ -111,7 +111,7 @@ export class MapboxGlComponent implements OnInit {
                         content += '</table>';
                     }
 
-                    new mapboxgl.Popup({
+                    new maplibregl.Popup({
                         className: 'info-popup',
                         maxWidth: '400px'
                     })
@@ -177,9 +177,9 @@ export class MapboxGlComponent implements OnInit {
      */
     toggleNavigationControls(enable: boolean) {
         if (enable && !this.navigationControlStatus) {
-            this.navigationControl = new mapboxgl.NavigationControl();
-            this.pitchControl = new MapboxGlPitchControl();
-            this.geolocateControl = new mapboxgl.GeolocateControl({
+            this.navigationControl = new maplibregl.NavigationControl();
+            this.pitchControl = new MaplibreGlPitchControl();
+            this.geolocateControl = new maplibregl.GeolocateControl({
                 positionOptions: {
                     enableHighAccuracy: true
                 },
@@ -203,7 +203,7 @@ export class MapboxGlComponent implements OnInit {
      */
     toggleSearchControl(enable: boolean) {
         if (enable && !this.searchControlStatus) {
-            this.searchControl = new MapboxGlSearchControl(this.appConfigService.settings.mapService.url);
+            this.searchControl = new MaplibreGlSearchControl(this.appConfigService.settings.mapService.url);
             this.map.addControl(this.searchControl, 'top-right');
             this.searchControlStatus = true;
         } else if (!enable && this.searchControlStatus) {

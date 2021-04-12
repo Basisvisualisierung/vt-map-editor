@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { MapboxGlComponent } from './mapbox-gl.component';
+import { MaplibreGlComponent } from './maplibre-gl.component';
 
-describe('MapboxGlComponent', () => {
-    let component: MapboxGlComponent;
-    let fixture: ComponentFixture<MapboxGlComponent>;
+describe('MaplibreGlComponent', () => {
+    let component: MaplibreGlComponent;
+    let fixture: ComponentFixture<MaplibreGlComponent>;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [MapboxGlComponent]
+            declarations: [MaplibreGlComponent]
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(MapboxGlComponent);
+        fixture = TestBed.createComponent(MaplibreGlComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

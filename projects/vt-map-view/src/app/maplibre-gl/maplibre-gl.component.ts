@@ -1,32 +1,32 @@
 import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import mapboxgl from 'maplibre-gl';
+import maplibregl from 'maplibre-gl';
 
-import MapboxGlPitchControl from 'src/app/map/mapbox-gl/mapbox-gl.pitch.control';
-import MapboxGlSearchControl from 'src/app/map/mapbox-gl/mapbox-gl.search.control';
+import MaplibreGlPitchControl from 'src/app/map/maplibre-gl/maplibre-gl.component';
+import MaplibreGlSearchControl from 'src/app/map/maplibre-gl/maplibre-gl.component';
 import { AppConfigService } from '../app-config.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 /**
- * Mapbox GL JS map client
+ * MapLibre GL JS map client
  */
 @Component({
-    selector: 'app-mapbox-gl',
+    selector: 'app-maplibre-gl',
     template: '<div id="map" class="map"></div>',
-    styleUrls: ['./mapbox-gl.component.scss'],
+    styleUrls: ['./maplibre-gl.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class MapboxGlComponent implements OnInit {
+export class MaplibreGlComponent implements OnInit {
     activeStyling: {};
-    map: mapboxgl.Map;
+    map: maplibregl.Map;
 
     constructor(private http: HttpClient,
                 private route: ActivatedRoute) { }
 
     ngOnInit() {
         // Set initial map parameter
-        this.map = new mapboxgl.Map({
+        this.map = new maplibregl.Map({
             container: 'map',
         });
         const mapId = this.route.snapshot.params['id'];
@@ -64,12 +64,12 @@ export class MapboxGlComponent implements OnInit {
      * @param config map configuration
      */
     addControls(config: any) {
-        this.map.addControl(new mapboxgl.ScaleControl());
+        this.map.addControl(new maplibregl.ScaleControl());
 
         if (config.navigation.show && config.navigation.enabled) {
-            this.map.addControl(new mapboxgl.NavigationControl(), 'top-left');
-            this.map.addControl(new MapboxGlPitchControl(), 'top-left');
-            this.map.addControl(new mapboxgl.GeolocateControl({
+            this.map.addControl(new maplibregl.NavigationControl(), 'top-left');
+            this.map.addControl(new MaplibreGlPitchControl(), 'top-left');
+            this.map.addControl(new maplibregl.GeolocateControl({
                 positionOptions: {
                     enableHighAccuracy: true
                 }
@@ -78,7 +78,7 @@ export class MapboxGlComponent implements OnInit {
 
         // Custom search control
         if (config.search.show && config.search.enabled) {
-            this.map.addControl(new MapboxGlSearchControl(AppConfigService.settings.mapService.url), 'top-right');
+            this.map.addControl(new MaplibreGlSearchControl(AppConfigService.settings.mapService.url), 'top-right');
         }
 
         // Popup
@@ -99,7 +99,7 @@ export class MapboxGlComponent implements OnInit {
                         content += '</table>';
                     }
 
-                    new mapboxgl.Popup({
+                    new maplibregl.Popup({
                         className: 'info-popup',
                         maxWidth: '400px'
                     })
