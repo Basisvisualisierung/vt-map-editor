@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 
 import maplibregl from 'maplibre-gl';
 
-import MaplibreGlPitchControl from 'src/app/map/maplibre-gl/maplibre-gl.component';
-import MaplibreGlSearchControl from 'src/app/map/maplibre-gl/maplibre-gl.component';
+import MaplibreGlPitchControl from 'src/app/map/maplibre-gl/maplibre-gl.pitch.control';
+import MaplibreGlSearchControl from 'src/app/map/maplibre-gl/maplibre-gl.search.control';
 import { AppConfigService } from '../app-config.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
