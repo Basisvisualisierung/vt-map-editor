@@ -1,4 +1,7 @@
 ## v2.0.0 (not released)
+### Breaking changes
+* Map library changed from Mapbox GL JS to [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js).
+
 ### New features
 * Metadata for groups and gui layers can be defined outside the style files, in additional configuration files.
 * Framework / library updates:

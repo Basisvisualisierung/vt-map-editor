@@ -1,6 +1,6 @@
 # VT Map Editor
 
-Web editor for custom vector tile styles and map applications, based on Angular and Mapbox GL JS.
+Web editor for custom vector tile styles and map applications, based on Angular and MapLibre GL JS.
 
 ![VT Map Editor App](docs/images/vt_map_editor_app.jpg)
 
