@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
-import mapboxgl from 'mapbox-gl';
+import mapboxgl from 'maplibre-gl';
 
 import { MapStylingService } from '../map-styling.service';
 import MapboxGlPitchControl from './mapbox-gl.pitch.control';

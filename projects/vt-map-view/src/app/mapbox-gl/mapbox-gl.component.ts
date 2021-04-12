@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import mapboxgl from 'mapbox-gl';
+import mapboxgl from 'maplibre-gl';
 
 import MapboxGlPitchControl from 'src/app/map/mapbox-gl/mapbox-gl.pitch.control';
 import MapboxGlSearchControl from 'src/app/map/mapbox-gl/mapbox-gl.search.control';
