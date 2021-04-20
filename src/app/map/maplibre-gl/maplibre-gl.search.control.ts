@@ -68,12 +68,10 @@ export default class MaplibreGlSearchControl {
                                     if (this.readyState === 4 && this.status === 200) {
                                         {
                                             const responseResult = JSON.parse(this.responseText);
-                                            const zoom = map.getZoom() !== 13 ? 13 : map.getZoom();
-                                            map.flyTo({
-                                                center: [responseResult.features[0].geometry.coordinates[0],
-                                                         responseResult.features[0].geometry.coordinates[1]],
-                                                zoom: zoom
-                                            });
+                                            map.fitBounds([
+                                                [responseResult.features[0].bbox[0], responseResult.features[0].bbox[1]],
+                                                [responseResult.features[0].bbox[2], responseResult.features[0].bbox[3]]]
+                                            );
                                         }
                                     }
                                 };

@@ -4,6 +4,7 @@
 
 ### New features
 * Metadata for groups and gui layers can be defined outside the style files, in additional configuration files.
+* Zoom on bounding box of result geometry at address search
 * Framework / library updates:
   * Angular version 11
   * And more... (see [package.json](package.json))
