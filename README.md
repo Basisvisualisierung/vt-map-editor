@@ -75,4 +75,4 @@ You can find more details about the configuration and setup of the application i
 ## License
 Licensed under the European Union Public License (EUPL). For more information see [LICENSE.txt](LICENSE.txt).
 
-Copyright 2020 Landesamt für Geoinformation und Landesvermessung Niedersachsen
+Copyright 2020-2021 Landesamt für Geoinformation und Landesvermessung Niedersachsen

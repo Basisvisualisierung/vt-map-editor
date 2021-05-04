@@ -1,10 +1,12 @@
-## v2.0.0 (not released)
+## v2.0.0
 ### Breaking changes
 * Map library changed from Mapbox GL JS to [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js).
 
 ### New features
 * Metadata for groups and gui layers can be defined outside the style files, in additional configuration files.
 * Zoom on bounding box of result geometry at address search
+
+### Updates 
 * Framework / library updates:
   * Angular version 11
   * And more... (see [package.json](package.json))
